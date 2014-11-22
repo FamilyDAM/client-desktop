@@ -19,7 +19,7 @@
 <div>
 
 
-    <div id="content" style="background-color: #fff; position: absolute; width: 256px;">
+    <div id="content" style="background-color: #fff; position: absolute;">
         <div id="users" style="margin: 20px;">
             <core-icon class="avatar" icon="avatars:avatar-1" aria-label="avatar-2" role="img">
                 <svg viewBox="0 0 128 128" height="100%" width="100%"
@@ -104,39 +104,8 @@
         </div>
 
 
-        <div id="fileTree" class="sidebar">
+        <div dir-tree></div>
 
-            <ul style="margin-left: -20px;list-style: none;">
-                <li ng-repeat="dir in directories">
-                    <core-icon icon="folder"></core-icon>{{dir.name}}
-                </li>
-            </ul>
-
-            <core-menu id="leftDrawerMenu" selected="0">
-
-                <core-submenu icon="settings" label="Topics">
-
-                    <core-item icon="folder" label="Topic 1"></core-item>
-                    <core-item icon="folder" label="Topic 2"></core-item>
-
-                </core-submenu>
-
-                <core-submenu icon="settings" label="Favorites">
-
-                    <core-item label="Favorite 1"></core-item>
-                    <core-item label="Favorite 2"></core-item>
-                    <core-item label="Favorite 3"></core-item>
-
-                </core-submenu>
-
-            </core-menu>
-
-            <style>
-                core-item.core-selected {
-                    color: red;
-                }
-            </style>
-        </div>
 
 
         <div class="tagCloud">

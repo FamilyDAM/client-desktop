@@ -1,12 +1,48 @@
-<link rel="import" href="modules/login/components/login-users/login-users.html"/>
-<div class="loginTemplate">
-<div class="header">
+
+<div class="header loginTemplate" layout="vertical" layout-align="center" layout-fill>
+<div class="">
     <div class="timestamp">{{nowTimestamp|date:'h:mm:ss a'}}</div>
 </div>
 
+<div flex>&nbsp;</div>
+
+<div id="loginUsers" layout="horizontal" layout-align="center center" md-theme="indigo">
+    <md-card ng-click="selectLoginUser($event, 'mike');"  ng-repeat="user in users">
+        <div layout="horizontal">
+            <div>
+                <div class="box">&nbsp;</div>
+                <h2>{{user.username}}</h2>
+                <div class="md-ripple-container"></div>
+            </div>
+            <div id="loginForm" layout="vertical" style="width:300px;" >
+
+                <h3>{{loginForm.username}}</h3>
+                <div>
+                    <div class="row">
+                        <md-text-float type="password" label="Password" ng-model="loginForm.password" style="width:100%"> </md-text-float>
+                    </div>
+                </div>
+                <div>
+                    <div layout="horizontal">
+                        <md-button ng-click="handleLogin($event, user.username)" class="md-raised md-primary">Login</md-button>
+                        <md-button ng-click="cancelLogin($event)" target="_blank">cancel</md-button>
+                    </div>
+                    <br/>
+                </div>
+
+            </div>
+        </div>
+    </md-card>
+
+</div>
+
+<div flex>&nbsp;</div>
+
+<!--
 <login-users
         id="loginUsersList"
         users="{{users}}"
         validationMessage="{{validationErrorMessage}}"
         login-event-bridge></login-users>
+        -->
 </div>

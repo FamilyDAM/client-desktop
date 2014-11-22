@@ -1,4 +1,25 @@
-angular.module('dashboard.templates', ['apps/dashboard/modules/files/files.tpl.html', 'apps/dashboard/modules/home/home.tpl.html', 'apps/dashboard/modules/login/login.tpl.html', 'apps/dashboard/modules/photos/left-drawer.tpl.html', 'apps/dashboard/modules/photos/photos.tpl.html', 'apps/dashboard/modules/photos/right-drawer.tpl.html', 'apps/dashboard/modules/uploader/left-drawer.tpl.html', 'apps/dashboard/modules/uploader/right-drawer.tpl.html', 'apps/dashboard/modules/uploader/uploader.tpl.html']);
+angular.module('dashboard.templates', ['apps/dashboard/directives/dirTree/dirtree.tpl.html', 'apps/dashboard/modules/files/files.tpl.html', 'apps/dashboard/modules/home/home.tpl.html', 'apps/dashboard/modules/login/login.tpl.html', 'apps/dashboard/modules/photos/left-drawer.tpl.html', 'apps/dashboard/modules/photos/photos.tpl.html', 'apps/dashboard/modules/photos/right-drawer.tpl.html', 'apps/dashboard/modules/uploader/left-drawer.tpl.html', 'apps/dashboard/modules/uploader/right-drawer.tpl.html', 'apps/dashboard/modules/uploader/uploader.tpl.html']);
+
+angular.module("apps/dashboard/directives/dirTree/dirtree.tpl.html", []).run(["$templateCache", function($templateCache) {
+  $templateCache.put("apps/dashboard/directives/dirTree/dirtree.tpl.html",
+    "<div class=\"dirTree\">\n" +
+    "    [tree]\n" +
+    "\n" +
+    "    <md-list>\n" +
+    "        <md-item ng-repeat=\"dir in directories\">\n" +
+    "            <md-item-content>\n" +
+    "                <div class=\"md-tile-left\">\n" +
+    "                    <img ng-src=\"\" class=\"face\" alt=\"{{dir.name}}\">\n" +
+    "                </div>\n" +
+    "                <div class=\"md-tile-content\">\n" +
+    "                    <h3>{{dir.name}}</h3>\n" +
+    "                </div>\n" +
+    "            </md-item-content>\n" +
+    "        </md-item>\n" +
+    "\n" +
+    "    </md-list>\n" +
+    "</div>");
+}]);
 
 angular.module("apps/dashboard/modules/files/files.tpl.html", []).run(["$templateCache", function($templateCache) {
   $templateCache.put("apps/dashboard/modules/files/files.tpl.html",
@@ -400,8 +421,60 @@ angular.module("apps/dashboard/modules/files/files.tpl.html", []).run(["$templat
 
 angular.module("apps/dashboard/modules/home/home.tpl.html", []).run(["$templateCache", function($templateCache) {
   $templateCache.put("apps/dashboard/modules/home/home.tpl.html",
-    "<div id=\"homeTemplate\" layout horizontal>\n" +
     "\n" +
+    "    <md-content  md-theme=\"indigo\" flex>\n" +
+    "\n" +
+    "        <md-toolbar class=\"md-tall\" style=\"z-index:99;\">\n" +
+    "            <div class=\"md-toolbar-tools md-toolbar-tools-top\">\n" +
+    "                <span>FamilyDAM (logo)</span>\n" +
+    "                <span flex></span>\n" +
+    "                <md-button ui-sref=\"files\" md-no-ink class=\"md-primary\" style=\"color:#fff;\">Files</md-button>\n" +
+    "                <md-button ui-sref=\"home.photos\" md-no-ink class=\"md-primary\" style=\"color:#fff;\">Photos</md-button>\n" +
+    "                <md-button icon=\"search\"></md-button>\n" +
+    "                <md-button icon=\"more-vert\"></md-button>\n" +
+    "            </div>\n" +
+    "            <span flex></span>\n" +
+    "            <h2 class=\"md-toolbar-tools\" layout-arrange=\"center center\">\n" +
+    "                <md-icon\n" +
+    "                        icon=\"/components/material-design-icons/action/svg/design/ic_home_24px.svg\"\n" +
+    "                        style=\"width: 24px; height: 24px;\">\n" +
+    "                </md-icon>\n" +
+    "                <span>{{pageTitle}}</span>\n" +
+    "            </h2>\n" +
+    "            <h2 class=\"md-toolbar-tools\" style=\"height:36px;background-color: #eeeeee; color:#000;\">\n" +
+    "                <md-button md-no-ink>LEFT</md-button>\n" +
+    "                <span flex></span>\n" +
+    "                <md-button class=\"md-fab md-primary\" md-theme=\"green\" aria-label=\"Profile\">\n" +
+    "                    <md-icon icon=\"/img/icons/ic_people_24px.svg\" style=\"width: 24px; height: 24px;\"></md-icon>\n" +
+    "                </md-button>\n" +
+    "                <md-button md-no-ink>RIGHT</md-button>\n" +
+    "            </h2>\n" +
+    "        </md-toolbar>\n" +
+    "\n" +
+    "\n" +
+    "\n" +
+    "            <section layout=\"horizontal\" flex  >\n" +
+    "\n" +
+    "                <md-sidenav class=\"md-sidenav-left md-whiteframe-z1\" component-id=\"leftDrawer\" is-locked-open=\"$media('md')\" layout=\"vertical\">\n" +
+    "                    <div ui-view=\".leftDrawer\"></div>\n" +
+    "                </md-sidenav>\n" +
+    "\n" +
+    "                <div layout=\"vertical\" layout-fill layout-align=\"center center\">\n" +
+    "                    <md-content flex class=\"md-padding\" flex>\n" +
+    "                    <div  ui-view=\".body\"></div>\n" +
+    "                    </md-content>\n" +
+    "                </div>\n" +
+    "\n" +
+    "                <md-sidenav class=\"md-sidenav-right md-whiteframe-z1\" component-id=\"rightDrawer\" is-locked-open=\"$media('md')\" style=\"height: 100%\" >\n" +
+    "                    <md-content class=\"md-padding\">\n" +
+    "                        <div ui-view=\".rightDrawer\"></div>\n" +
+    "                    </md-content>\n" +
+    "                </md-sidenav>\n" +
+    "\n" +
+    "            </section>\n" +
+    "\n" +
+    "    </md-content>\n" +
+    "    <!--\n" +
     "    <core-scroll-header-panel style=\"background-color: #fff;\" flex>\n" +
     "\n" +
     "        <core-toolbar class=\"medium-tall\" style=\"background-color: #5c6bc0;\">\n" +
@@ -482,41 +555,77 @@ angular.module("apps/dashboard/modules/home/home.tpl.html", []).run(["$templateC
     "\n" +
     "</div>\n" +
     "\n" +
+    "    <file-uploader id=\"uploaderOverlay\" openfilebrowser></file-uploader>\n" +
     "\n" +
-    "<file-uploader id=\"uploaderOverlay\" openfilebrowser></file-uploader>\n" +
+    "    <script>\n" +
     "\n" +
-    "<script>\n" +
-    "\n" +
-    "    // custom transformation: scale header's title\n" +
-    "    /**  todo fix the selector since it is now in a template tag\n" +
-    "     var titleStyle = document.querySelector('.title').style;\n" +
-    "     addEventListener('core-header-transform', function (e) {\n" +
+    "        // custom transformation: scale header's title\n" +
+    "        /**  todo fix the selector since it is now in a template tag\n" +
+    "         var titleStyle = document.querySelector('.title').style;\n" +
+    "         addEventListener('core-header-transform', function (e) {\n" +
     "        var d = e.detail;\n" +
     "        var m = d.height - d.condensedHeight;\n" +
     "        var scale = Math.max(0.75, (m - d.y) / (m / 0.25) + 0.75);\n" +
     "        titleStyle.webkitTransform = titleStyle.transform =\n" +
     "            'scale(' + scale + ') translateZ(0)';\n" +
     "    });\n" +
-    "     **/\n" +
+    "         **/\n" +
     "\n" +
-    "</script>\n" +
+    "    </script>\n" +
+    "-->\n" +
     "\n" +
     "");
 }]);
 
 angular.module("apps/dashboard/modules/login/login.tpl.html", []).run(["$templateCache", function($templateCache) {
   $templateCache.put("apps/dashboard/modules/login/login.tpl.html",
-    "<link rel=\"import\" href=\"modules/login/components/login-users/login-users.html\"/>\n" +
-    "<div class=\"loginTemplate\">\n" +
-    "<div class=\"header\">\n" +
+    "\n" +
+    "<div class=\"header loginTemplate\" layout=\"vertical\" layout-align=\"center\" layout-fill>\n" +
+    "<div class=\"\">\n" +
     "    <div class=\"timestamp\">{{nowTimestamp|date:'h:mm:ss a'}}</div>\n" +
     "</div>\n" +
     "\n" +
+    "<div flex>&nbsp;</div>\n" +
+    "\n" +
+    "<div id=\"loginUsers\" layout=\"horizontal\" layout-align=\"center center\" md-theme=\"indigo\">\n" +
+    "    <md-card ng-click=\"selectLoginUser($event, 'mike');\"  ng-repeat=\"user in users\">\n" +
+    "        <div layout=\"horizontal\">\n" +
+    "            <div>\n" +
+    "                <div class=\"box\">&nbsp;</div>\n" +
+    "                <h2>{{user.username}}</h2>\n" +
+    "                <div class=\"md-ripple-container\"></div>\n" +
+    "            </div>\n" +
+    "            <div id=\"loginForm\" layout=\"vertical\" style=\"width:300px;\" >\n" +
+    "\n" +
+    "                <h3>{{loginForm.username}}</h3>\n" +
+    "                <div>\n" +
+    "                    <div class=\"row\">\n" +
+    "                        <md-text-float type=\"password\" label=\"Password\" ng-model=\"loginForm.password\" style=\"width:100%\"> </md-text-float>\n" +
+    "                    </div>\n" +
+    "                </div>\n" +
+    "                <div>\n" +
+    "                    <div layout=\"horizontal\">\n" +
+    "                        <md-button ng-click=\"handleLogin($event, user.username)\" class=\"md-raised md-primary\">Login</md-button>\n" +
+    "                        <md-button ng-click=\"cancelLogin($event)\" target=\"_blank\">cancel</md-button>\n" +
+    "                    </div>\n" +
+    "                    <br/>\n" +
+    "                </div>\n" +
+    "\n" +
+    "            </div>\n" +
+    "        </div>\n" +
+    "    </md-card>\n" +
+    "\n" +
+    "</div>\n" +
+    "\n" +
+    "<div flex>&nbsp;</div>\n" +
+    "\n" +
+    "<!--\n" +
     "<login-users\n" +
     "        id=\"loginUsersList\"\n" +
     "        users=\"{{users}}\"\n" +
     "        validationMessage=\"{{validationErrorMessage}}\"\n" +
     "        login-event-bridge></login-users>\n" +
+    "        -->\n" +
     "</div>");
 }]);
 
@@ -543,7 +652,7 @@ angular.module("apps/dashboard/modules/photos/left-drawer.tpl.html", []).run(["$
     "<div>\n" +
     "\n" +
     "\n" +
-    "    <div id=\"content\" style=\"background-color: #fff; position: absolute; width: 256px;\">\n" +
+    "    <div id=\"content\" style=\"background-color: #fff; position: absolute;\">\n" +
     "        <div id=\"users\" style=\"margin: 20px;\">\n" +
     "            <core-icon class=\"avatar\" icon=\"avatars:avatar-1\" aria-label=\"avatar-2\" role=\"img\">\n" +
     "                <svg viewBox=\"0 0 128 128\" height=\"100%\" width=\"100%\"\n" +
@@ -628,39 +737,8 @@ angular.module("apps/dashboard/modules/photos/left-drawer.tpl.html", []).run(["$
     "        </div>\n" +
     "\n" +
     "\n" +
-    "        <div id=\"fileTree\" class=\"sidebar\">\n" +
+    "        <div dir-tree></div>\n" +
     "\n" +
-    "            <ul style=\"margin-left: -20px;list-style: none;\">\n" +
-    "                <li ng-repeat=\"dir in directories\">\n" +
-    "                    <core-icon icon=\"folder\"></core-icon>{{dir.name}}\n" +
-    "                </li>\n" +
-    "            </ul>\n" +
-    "\n" +
-    "            <core-menu id=\"leftDrawerMenu\" selected=\"0\">\n" +
-    "\n" +
-    "                <core-submenu icon=\"settings\" label=\"Topics\">\n" +
-    "\n" +
-    "                    <core-item icon=\"folder\" label=\"Topic 1\"></core-item>\n" +
-    "                    <core-item icon=\"folder\" label=\"Topic 2\"></core-item>\n" +
-    "\n" +
-    "                </core-submenu>\n" +
-    "\n" +
-    "                <core-submenu icon=\"settings\" label=\"Favorites\">\n" +
-    "\n" +
-    "                    <core-item label=\"Favorite 1\"></core-item>\n" +
-    "                    <core-item label=\"Favorite 2\"></core-item>\n" +
-    "                    <core-item label=\"Favorite 3\"></core-item>\n" +
-    "\n" +
-    "                </core-submenu>\n" +
-    "\n" +
-    "            </core-menu>\n" +
-    "\n" +
-    "            <style>\n" +
-    "                core-item.core-selected {\n" +
-    "                    color: red;\n" +
-    "                }\n" +
-    "            </style>\n" +
-    "        </div>\n" +
     "\n" +
     "\n" +
     "        <div class=\"tagCloud\">\n" +
@@ -703,8 +781,8 @@ angular.module("apps/dashboard/modules/photos/left-drawer.tpl.html", []).run(["$
 angular.module("apps/dashboard/modules/photos/photos.tpl.html", []).run(["$templateCache", function($templateCache) {
   $templateCache.put("apps/dashboard/modules/photos/photos.tpl.html",
     "\n" +
-    "<div class=\".photoTemplate\">\n" +
-    "\n" +
+    "<div class=\"photoTemplate\" style=\"background-color: GREEN;\">\n" +
+    "[BODY]\n" +
     "<!-- MAIN -->\n" +
     "<div flex style=\"float:left; width: 100%\">\n" +
     "\n" +
@@ -720,9 +798,7 @@ angular.module("apps/dashboard/modules/photos/photos.tpl.html", []).run(["$templ
     "\n" +
     "    </div>\n" +
     "</div>\n" +
-    "\n" +
-    "\n" +
-    "\n" +
+    "    \n" +
     "</div>\n" +
     "</div>\n" +
     "\n" +
@@ -854,6 +930,7 @@ angular.module("apps/dashboard/modules/photos/right-drawer.tpl.html", []).run(["
     "\n" +
     "\n" +
     "    <div id=\"content\" style=\"background-color: #fff; position: absolute; width: 256px;\">\n" +
+    "        PREVIEW\n" +
     "        <dam-photo-lightbox id=\"photoLightbox\" style=\"display: none\"></dam-photo-lightbox>\n" +
     "        <preview-photo id=\"photoPreview\" style=\"display: none\"></preview-photo>\n" +
     "    </div>\n" +

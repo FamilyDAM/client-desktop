@@ -15,24 +15,27 @@
  *     along with the FamilyDAM Project.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-var PhotosController = function($window, $document, $scope, $rootScope, $location, directoryService)
-{
-    $rootScope.pageTitle = "HOME > Photos";
-    $scope.directories = [];
 
+module.exports = angular.module('familydam.directives', ['familydam.services'])
+    .directive("dirTree", ['directoryService',  function(directoryService) {
+        var _scope;
 
-    var init = function(){
-        var method = directoryService.listDirectories();
-        method.then(function(result){
-            $scope.directories = result;
-        });
-    };
+        return {
+            scope: {
+                filter:"@",
+                users:"@"
+            },
+            replace: true,
+            transclude: false,
 
-    $scope.$on('$stateChangeSuccess', function(){
-        init();
-    });
+            link:function(scope, element, attrs, controller) {
+                var _filter;
+                scope.$watch('filter', function(value) {
+                    _filter = value;
+                });
+            },
 
-};
-
-PhotosController.$inject = ['$window', '$document', '$scope', '$rootScope', '$location', 'directoryService'];
-module.exports = PhotosController;
+            template: "<div>Hello World TREE</div>"
+            //templateUrl: "directives/dirTree/dirtree.tpl.html"
+        };
+    }]);

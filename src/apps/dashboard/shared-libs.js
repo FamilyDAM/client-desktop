@@ -21,6 +21,8 @@
 require('jquery');
 require('angular');
 require('angular-resource');
+require('angular-animate');
+require('angular-material');
 require('angular-ui-router');
 
 require('ui.bootstrap');
@@ -28,4 +30,6 @@ require('ui.bootstrap.tpls');
 
 require('moment');
 require('angular-moment');
+require('angular-aria');
+
 

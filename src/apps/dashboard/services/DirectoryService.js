@@ -15,17 +15,21 @@
  *     along with the FamilyDAM Project.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-var DirectoryService = function($http)
+var DirectoryService = function($http, AuthService)
 {
 
     this.listDirectories = function(dir, path)
     {
+        $http.defaults.headers.common['Authorization'] = AuthService.getToken();
+
         //todo: make url/port dynamic
         var method = $http.get('http://localhost:8080/api/directory/');
-        return method;
+        return method.then(function(result){
+            return result.data;
+        });
     };
 
 };
 
-DirectoryService.$inject = ['$http'];
+DirectoryService.$inject = ['$http', 'authService'];
 module.exports = DirectoryService;

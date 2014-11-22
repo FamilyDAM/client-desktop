@@ -27,6 +27,7 @@
  */
 var HomeController = function ($scope, $rootScope, $window, $location, $state, $stateParams) {
 
+    $rootScope.pageTitle = "HOME";
 
 };
 

@@ -34,17 +34,6 @@ document.querySelector("#leftDrawerMenu").addEventListener("on-core-select", fun
 module.exports = angular.module('dashboard.photos', ['ui.bootstrap'])
     .controller('PhotosController', require('./controllers/PhotosController'))
 
-    .directive('filesEventBridge', function() {
-        return function(scope, element, attrs) {
-            /**
-            element.bind('login', function(e){
-                // Do something
-                console.log("directive captured event");
-                scope.handleLogin(e);
-            }); **/
-        };
-    })
-
     .config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, $urlRouterProvider) {
         $stateProvider.state('home.photos', {
             url: '^/photos',

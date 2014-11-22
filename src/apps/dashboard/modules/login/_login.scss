@@ -4,17 +4,12 @@
   background-color: #000;
   margin: 0;
   padding: 0;
-}
 
-.header {
   position: absolute;
   top: 0;
   right: 0;
   left: 0;
   bottom: 0;
-  opacity: 0.7;
-  filter: alpha(opacity=70);
-  background: #5c6bc0;
   background: url('http://lorempixel.com/1900/1000/nature/');
 }
 
@@ -24,4 +19,43 @@
   left: 20px;
   font-size: 48px;
   color: #fff;
+  opacity: .7;
+}
+
+
+
+md-card{
+  background-color: white;
+  width: 200px;
+  min-height: 250px;
+  z-index:1;
+  padding: 0px;
+}
+
+md-card.selected {
+  width: 500px;
+  background-color: white;
+}
+md-card.selected h2{
+  opacity: .3
+}
+
+md-card #loginForm{
+  display:none;
+  padding: 30px;
+}
+
+md-card.selected #loginForm{
+  display:block;
+}
+
+md-card .box {
+  background-color: #3F51B5;
+  width: 200px;
+  height:200px;
+}
+
+md-card h2{
+  padding: 5px;
+  text-align: center;
 }

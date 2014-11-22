@@ -41,14 +41,14 @@ module.exports = function (grunt) {
 
 	// default task
 	grunt.registerTask('default', ['clean','copy','build-shared-libs','build']);
-	grunt.registerTask('default-quick', ['copy','build-quick']);
+	grunt.registerTask('default-quick', ['build-shared-libs','build-quick', 'copy:html', 'copy:js']);
 
 	// build tasks
 	grunt.registerTask('build', ['build-css', 'build-js', 'build-atom-shell-app']);
 	grunt.registerTask('build-css', ['compass:develop']);
 	grunt.registerTask('build-js', ['jshint','html2js','browserify2:dashboard']);
 	grunt.registerTask('build-shared-libs', ['browserify2:shared-libs']);
-	grunt.registerTask('build-quick', ['build-css', 'build-js']);
+	grunt.registerTask('build-quick', ['build-css', 'build-js']); //, 'copy:binary'
 	//grunt.registerTask('deploy', ['slingPost']);
 
 	// server task
@@ -90,6 +90,18 @@ module.exports = function (grunt) {
 
         // copy
         copy: {
+            /**
+            'binary': {
+                files: [
+                    {
+                        cwd: './dist/',
+                        src: '**',
+                        dest: './binary-dist/darwin/atom-shell/Atom.app/Contents/Resources/apps/',
+                        expand: true
+                    }
+                ]
+            },
+             **/
             'dashboard-assets': {
                 files: [
                     {
@@ -102,30 +114,6 @@ module.exports = function (grunt) {
             },
             'configAssets': {
                 files: [
-                     {
-                          cwd: './src/config',
-                          src: '*',
-                          dest: './dist/config',
-                          expand: true
-                      },
-                      {
-                          cwd: './src/config',
-                          src: '*',
-                          dest: './binary-dist/darwin/atom-shell/Atom.app/Contents/Resources/app/config',
-                          expand: true
-                      },
-                      {
-                          cwd: './src/',
-                          src: '*.js',
-                          dest: './dist/config',
-                          expand: true
-                      },
-                      {
-                          cwd: './src/',
-                          src: '*.js',
-                          dest: './binary-dist/darwin/atom-shell/Atom.app/Contents/Resources/app',
-                          expand: true
-                      },
                       {
                          cwd: './bower_components/',
                          src: '**',
@@ -254,12 +242,16 @@ module.exports = function (grunt) {
                         angular: './bower_components/angular/angular.js',
                         'angular-ui-router': './bower_components/angular-ui-router/release/angular-ui-router.js',
                         'angular-resource': './bower_components/angular-resource/angular-resource.js',
+                        'angular-animate': './bower_components/angular-animate/angular-animate.js',
+                        'angular-material': './bower_components/angular-material/angular-material.js',
                         'ui.bootstrap': './bower_components/angular-bootstrap/ui-bootstrap.js',
                         'ui.bootstrap.tpls': './bower_components/angular-bootstrap/ui-bootstrap-tpls.js',
                         'moment': './bower_components/moment/moment.js',
                         'angular-momentjs': './bower_components/angular-moment/angular-moment.js',
-                        'angular-moment': './bower_components/angular-moment/angular-moment.js'
-                        }
+                        'angular-moment': './bower_components/angular-moment/angular-moment.js',
+                        'angular-aria': './bower_components/angular-aria/angular-aria.js',
+                        'hammerJS': './bower_components/hammerjs/hammer.js'
+                    }
 				}
 			},
 			'dashboard': {
@@ -284,7 +276,6 @@ module.exports = function (grunt) {
                         'id-weak-map': './binaries/Atom.app/Contents/Resources/atom/common/api/lib/id-weak-map.js'
                         //'screen': './binaries/Atom.app/Contents/Resources/atom/common/api/lib/screen.js',
                         //'shell': './binaries/Atom.app/Contents/Resources/atom/common/api/lib/shell.js'
-
                     }
                 }
 			}
@@ -335,25 +326,17 @@ module.exports = function (grunt) {
 				files: 'src/config/*.*',
 				tasks: ['copy:configAssets']
 			},
-			'configAssets2': {
-				files: 'src/*.js',
-				tasks: ['copy:configAssets']
-			},
 			css: {
 				files: ['src/**/*.scss'],
 				tasks: ['compass:develop'] /*, 'deploy'*/
 			},
 			js: {
 				files: 'src/apps/**/*.js',
-				tasks: ['build-js', 'browserify2', 'copy:configAssets'] /*, 'deploy'*/
+				tasks: ['build-js'] /*, 'deploy'*/
 			},
 			html: {
 				files: ['src/apps/**/*.tpl.html', 'src/**/*.html'],
-				tasks: ['copy:statichtml', 'build-js']  /*, 'deploy'*/
-			},
-			grunt: {
-				files: ['GruntFile.js'],
-				tasks: ['default']
+				tasks: ['copy:statichtml', 'html2js', 'browserify2:dashboard']  /*, 'deploy'*/
 			}
 		},
 

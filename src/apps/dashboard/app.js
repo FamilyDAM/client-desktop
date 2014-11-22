@@ -23,19 +23,16 @@ require('dashboard-templates');
 
 // Define the required modules
 var App = angular.module('dashboard', [
-    'ui.router',
+    'ui.router','ngMaterial','ngAnimate','ngAria',
+    require('./services/index').name,
     require('./modules/login/index').name,
     require('./modules/home/index').name,
     require('./modules/files/index').name,
     require('./modules/photos/index').name,
-    require('./modules/uploader/index').name
+    require('./modules/uploader/index').name,
+    require('./directives/dirTree').name
 ])
 
-    .service('appService', require('./services/AppService'))
-    .service('authService', require('./services/AuthService'))
-    .service('loginService', require('./services/LoginService'))
-    .service('importService', require('./services/ImportService'))
-    .service('directoryService', require('./services/DirectoryService'))
 
     .constant('USER_ROLES', {
         all: '*',

@@ -15,7 +15,7 @@
  *     along with the FamilyDAM Project.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-var LoginService = function($http, AuthService)
+var LoginService = function($http, AuthService, $location)
 {
 
     this.login = function(username_, password_)
@@ -42,8 +42,6 @@ var LoginService = function($http, AuthService)
                 $http.defaults.headers.common['Authorization'] = AuthService.getToken();
 
                 return result;
-            },function(responseError){
-                return responseError;
             }
         );
     };
@@ -75,5 +73,5 @@ var LoginService = function($http, AuthService)
 
 };
 
-LoginService.$inject = ['$http', 'authService'];
+LoginService.$inject = ['$http', 'authService', '$location'];
 module.exports = LoginService;

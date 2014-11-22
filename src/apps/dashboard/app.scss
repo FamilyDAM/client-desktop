@@ -50,6 +50,16 @@ body
 }
 
 
+/** Material Design  overrides **/
+.md-button {
+  display: block;
+  margin: 1em;
+  line-height: 25px;
+}
+.md-button:not(.md-fab) {
+  width: 10em;
+}
+
 
 preview-photo::shadow .metadata
 {
@@ -197,6 +207,7 @@ core-list
 
 
 // features
+@import "directives/dirTree/dirTree";
 @import "modules/login/login";
 @import "modules/home/home";
 @import "modules/files/files";

@@ -30,6 +30,41 @@ var LoginController = function($window, $scope, $rootScope, $location, loginServ
         $scope.nowTimestamp = new Date();
     }, 1000);
 
+    $scope.selectLoginUser = function(event, user){
+
+        var cards = event.currentTarget.parentElement.childNodes;
+        for (var i = 0; i < cards.length; i++)
+        {
+            var card = cards[i];
+            card.className = "";
+            if( card.style !== undefined )
+            {
+                card.style.display = "none";
+            }
+
+        }
+
+        event.currentTarget.className = "selected md-whiteframe-z2";
+        event.currentTarget.style.display = "block";
+    };
+
+
+    $scope.cancelLogin = function(event){
+
+        event.cancelBubble = true;
+        event.preventDefault();
+        var cards = document.querySelectorAll('#loginUsers > md-card');
+        for (var i = 0; i < cards.length; i++)
+        {
+            var card = cards[i];
+            card.className = "";
+            if( card.style !== undefined )
+            {
+                card.style.display = "block";
+            }
+
+        }
+    };
 
     $scope.loadUserList = function()
     {
@@ -46,12 +81,12 @@ var LoginController = function($window, $scope, $rootScope, $location, loginServ
         );
     };
 
-    $scope.handleLogin = function(event){
+    $scope.handleLogin = function(event, username){
         //$scope.validationErrorMessage = "Event Caught, Service not implemented yet";
         //console.log("username=" +event.detail.username);
         //console.log("password=" +event.detail.password);
 
-        var loginQ = loginService.login(event.detail.username, event.detail.password);
+        var loginQ = loginService.login(username, this.loginForm.password);
         loginQ.then(
             function(response, status, headers, config)
             {

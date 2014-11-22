@@ -15,24 +15,12 @@
  *     along with the FamilyDAM Project.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-var PhotosController = function($window, $document, $scope, $rootScope, $location, directoryService)
-{
-    $rootScope.pageTitle = "HOME > Photos";
-    $scope.directories = [];
-
-
-    var init = function(){
-        var method = directoryService.listDirectories();
-        method.then(function(result){
-            $scope.directories = result;
-        });
-    };
-
-    $scope.$on('$stateChangeSuccess', function(){
-        init();
-    });
-
-};
-
-PhotosController.$inject = ['$window', '$document', '$scope', '$rootScope', '$location', 'directoryService'];
-module.exports = PhotosController;
+/**
+ * Define the different Angular services for this module.
+ */
+module.exports = angular.module('familydam.services', [])
+    .service('appService', require('./AppService'))
+    .service('authService', require('./AuthService'))
+    .service('loginService', require('./LoginService'))
+    .service('importService', require('./ImportService'))
+    .service('directoryService', require('./DirectoryService'));
