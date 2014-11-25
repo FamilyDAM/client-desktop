@@ -23,10 +23,56 @@ module.exports = angular.module('familydam.directives', ['familydam.services'])
         return {
             scope: {
                 filter:"@",
-                users:"@"
+                users:"@",
+                selectedNode:"@"
             },
             replace: true,
             transclude: false,
+
+            controller: function($scope) {
+                $scope.selectedNode = undefined;
+                $scope.expandedNodes = undefined;
+                $scope.treeOptions = {
+                    nodeChildren: "children",
+                    dirSelectable: true,
+                    injectClasses: {
+                        ul: "treeList",
+                        li: "treeItem",
+                        liSelected: "treeSelected",
+                        iExpanded: "treeExpanded",
+                        iCollapsed: "treeCollapsed",
+                        iLeaf: "treeLeaf",
+                        label: "treeLabel",
+                        labelSelected: "treeLabelSelected"
+                    }
+                };
+
+                $scope.selectNode = function(node){
+                    //console.log(node);
+                    selectedNode = node;
+                    //$scope.$root.$emit('selection', node);
+                    $scope.$root.$broadcast('selection', node);
+                };
+
+                directoryService.listDirectories().then(function(data){
+
+                    if( data !== undefined )
+                    {
+                        $scope.directories = data;
+                        for (var i = 0; i < data.length; i++)
+                        {
+                            var obj = data[i];
+                            /**
+                            if (obj.name.toLowerCase() == selectedNode)
+                            {
+                                $scope.selectedNode = obj;
+                                break;
+                            }**/
+                        }
+                    }
+                });
+
+            },
 
             link:function(scope, element, attrs, controller) {
                 var _filter;
@@ -35,7 +81,6 @@ module.exports = angular.module('familydam.directives', ['familydam.services'])
                 });
             },
 
-            template: "<div>Hello World TREE</div>"
-            //templateUrl: "directives/dirTree/dirtree.tpl.html"
+            templateUrl: "directives/dirTree/dirtree.tpl.html"
         };
     }]);

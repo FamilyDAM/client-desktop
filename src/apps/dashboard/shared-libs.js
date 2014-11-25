@@ -31,5 +31,6 @@ require('ui.bootstrap.tpls');
 require('moment');
 require('angular-moment');
 require('angular-aria');
+require('treeControl');
 
 

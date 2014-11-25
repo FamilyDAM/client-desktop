@@ -3,21 +3,12 @@ angular.module('dashboard.templates', ['apps/dashboard/directives/dirTree/dirtre
 angular.module("apps/dashboard/directives/dirTree/dirtree.tpl.html", []).run(["$templateCache", function($templateCache) {
   $templateCache.put("apps/dashboard/directives/dirTree/dirtree.tpl.html",
     "<div class=\"dirTree\">\n" +
-    "    [tree]\n" +
     "\n" +
-    "    <md-list>\n" +
-    "        <md-item ng-repeat=\"dir in directories\">\n" +
-    "            <md-item-content>\n" +
-    "                <div class=\"md-tile-left\">\n" +
-    "                    <img ng-src=\"\" class=\"face\" alt=\"{{dir.name}}\">\n" +
-    "                </div>\n" +
-    "                <div class=\"md-tile-content\">\n" +
-    "                    <h3>{{dir.name}}</h3>\n" +
-    "                </div>\n" +
-    "            </md-item-content>\n" +
-    "        </md-item>\n" +
+    "    <treecontrol id=\"treeControl\" class=\"tree-classic\"\n" +
+    "                 tree-model=\"directories\"\n" +
+    "                 options=\"treeOptions\"\n" +
+    "                 on-selection=\"selectNode(node)\">{{node.name}}</treecontrol>\n" +
     "\n" +
-    "    </md-list>\n" +
     "</div>");
 }]);
 
@@ -456,18 +447,18 @@ angular.module("apps/dashboard/modules/home/home.tpl.html", []).run(["$templateC
     "            <section layout=\"horizontal\" flex  >\n" +
     "\n" +
     "                <md-sidenav class=\"md-sidenav-left md-whiteframe-z1\" component-id=\"leftDrawer\" is-locked-open=\"$media('md')\" layout=\"vertical\">\n" +
-    "                    <div ui-view=\".leftDrawer\"></div>\n" +
+    "                    <div ui-view=\".leftDrawer\" flex></div>\n" +
     "                </md-sidenav>\n" +
     "\n" +
-    "                <div layout=\"vertical\" layout-fill layout-align=\"center center\">\n" +
+    "                <div layout=\"column\" flex layout-fill layout-align=\"start\">\n" +
     "                    <md-content flex class=\"md-padding\" flex>\n" +
-    "                    <div  ui-view=\".body\"></div>\n" +
+    "                    <div  ui-view=\".body\" ></div>\n" +
     "                    </md-content>\n" +
     "                </div>\n" +
     "\n" +
     "                <md-sidenav class=\"md-sidenav-right md-whiteframe-z1\" component-id=\"rightDrawer\" is-locked-open=\"$media('md')\" style=\"height: 100%\" >\n" +
     "                    <md-content class=\"md-padding\">\n" +
-    "                        <div ui-view=\".rightDrawer\"></div>\n" +
+    "                        <div ui-view=\".rightDrawer\" flex></div>\n" +
     "                    </md-content>\n" +
     "                </md-sidenav>\n" +
     "\n" +
@@ -653,69 +644,11 @@ angular.module("apps/dashboard/modules/photos/left-drawer.tpl.html", []).run(["$
     "\n" +
     "\n" +
     "    <div id=\"content\" style=\"background-color: #fff; position: absolute;\">\n" +
-    "        <div id=\"users\" style=\"margin: 20px;\">\n" +
-    "            <core-icon class=\"avatar\" icon=\"avatars:avatar-1\" aria-label=\"avatar-2\" role=\"img\">\n" +
-    "                <svg viewBox=\"0 0 128 128\" height=\"100%\" width=\"100%\"\n" +
-    "                     preserveAspectRatio=\"xMidYMid meet\" fit=\"\"\n" +
-    "                     style=\"pointer-events: none; display: block;\">\n" +
-    "                    <g>\n" +
-    "                        <path fill=\"#B9F6CA\" d=\"M0 0h128v128h-128z\"></path>\n" +
-    "                        <path fill=\"#FFCC80\"\n" +
-    "                              d=\"M70.1 122.5l.6-.1c6.1-.8 12-2.4 17.7-4.8 1.2-.5 2.4-1.1 3.2-2.1 1.3-1.7-.1-5.6-.5-7.7-.7-3.8-1.3-7.7-1.9-11.5-.7-4.5-1.5-9.1-1.6-13.7-.2-7.6.7-12.3 1.9-15.3h9l-2.6-10.4c-.2-2.4-.4-4.8-.7-6.8-.2-1.9-.6-3.6-1.2-5.3-14.9 2.2-24.5.9-30.7-1.8l-23.1 4.5-.7.1h-.7c-.4-.1-.9-.2-1.2-.4-.4 0-.9 0-1.4.1-4.1.6-6.9 4.7-6.3 9.1.3 2 1.2 3.8 2.6 5 .3.1 1.6.7 3.4 1.7.8.4 1.6 1 2.5 1.6 1.5 1.1 3.2 2.5 4.9 4.1 5.8 5.9 8.4 13.8 7.4 22-.6 4.7-2.2 9.4-4.4 13.6-.5 1-1 1.6-1.1 2.8-.1 1.1-.1 2.3.1 3.4.4 2.3 1.5 4.4 3 6.2 2.6 3.1 6.4 5 10.4 5.8 3.8.4 7.6.3 11.4-.1zm9.5-67.6c.9 0 1.6.7 1.6 1.6 0 .9-.7 1.6-1.6 1.6s-1.6-.7-1.6-1.6c-.1-.8.7-1.6 1.6-1.6zM128 97.7c-3.3 1.9-6.6 3.7-9.9 5.3-3.2 1.5-6.3 2.9-9.6 4.2-.9.4-2.1.5-2.9 1.1-1.1.8-1.9 2.5-2.3 3.7-.6 1.6-.6 3.4.3 4.8.8 1.2 2.1 2 3.5 2.6 5.9 2.9 12.2 5.1 18.6 6.5 1.4.3 2.3 1.8 2.4.1v-28.1c-.1.1-.1-.1-.1-.2z\"></path>\n" +
-    "                        <path d=\"M38.9 47.4zM39.6 47.4z\" fill=\"none\"></path>\n" +
-    "                        <path fill=\"#444\"\n" +
-    "                              d=\"M94.2 44.9c-.8-2.6-1.8-5-3.2-7.2l-7.2 1.4-20.4 4c6.3 2.7 15.9 4 30.8 1.8z\"></path>\n" +
-    "                        <path fill=\"#E65100\"\n" +
-    "                              d=\"M38.9 48.4h.7c.2 0 .5 0 .7-.1l23.1-4.5 20.4-4 23.3-4.5c1.9-.4 3.2-2 2.9-3.6-.3-1.6-2.1-2.6-4.1-2.3l-19.6 3.8-1.3-6.8c-2-10.9-15-17.7-29.1-14.9-14 2.7-23.7 13.9-21.6 24.9h.1l1.7 9v.7c.2.8.7 1.4 1.4 1.9.5.1 1 .3 1.4.4z\"></path>\n" +
-    "                        <circle fill=\"#444\" cx=\"79.6\" cy=\"56.5\" r=\"2\"></circle>\n" +
-    "                        <path fill=\"#689F38\"\n" +
-    "                              d=\"M128 128v-1.8l-21.7-18.2-.4.2-2.9 1.3c-3 1.3-6 2.6-9.2 3.8l-1.4.5c-9 3.3-16.5 4.1-22.8 3.6-16.4-1.3-23.8-11.9-23.8-11.9-2.2 4.2-5.2 8.7-9.2 13.5l-.3.4-1.7 2c-.9 1.1-2 2.6-3.4 4.5-.4.6-.9 1.3-1.4 2l98.2.1z\"></path>\n" +
-    "                        <path fill=\"#FFCC80\" d=\"M36.3 119.3s.1-.2.2-.3c-.1.1-.2.2-.2.3z\"></path>\n" +
-    "                    </g>\n" +
-    "                </svg>\n" +
-    "            </core-icon>\n" +
-    "            <core-icon class=\"avatar\" icon=\"avatars:avatar-2\" aria-label=\"avatar-2\" role=\"img\">\n" +
-    "                <svg viewBox=\"0 0 128 128\" height=\"100%\" width=\"100%\"\n" +
-    "                     preserveAspectRatio=\"xMidYMid meet\" fit=\"\"\n" +
-    "                     style=\"pointer-events: none; display: block;\">\n" +
-    "                    <g>\n" +
-    "                        <path fill=\"#B9F6CA\" d=\"M0 0h128v128h-128z\"></path>\n" +
-    "                        <path fill=\"#FFCC80\"\n" +
-    "                              d=\"M70.1 122.5l.6-.1c6.1-.8 12-2.4 17.7-4.8 1.2-.5 2.4-1.1 3.2-2.1 1.3-1.7-.1-5.6-.5-7.7-.7-3.8-1.3-7.7-1.9-11.5-.7-4.5-1.5-9.1-1.6-13.7-.2-7.6.7-12.3 1.9-15.3h9l-2.6-10.4c-.2-2.4-.4-4.8-.7-6.8-.2-1.9-.6-3.6-1.2-5.3-14.9 2.2-24.5.9-30.7-1.8l-23.1 4.5-.7.1h-.7c-.4-.1-.9-.2-1.2-.4-.4 0-.9 0-1.4.1-4.1.6-6.9 4.7-6.3 9.1.3 2 1.2 3.8 2.6 5 .3.1 1.6.7 3.4 1.7.8.4 1.6 1 2.5 1.6 1.5 1.1 3.2 2.5 4.9 4.1 5.8 5.9 8.4 13.8 7.4 22-.6 4.7-2.2 9.4-4.4 13.6-.5 1-1 1.6-1.1 2.8-.1 1.1-.1 2.3.1 3.4.4 2.3 1.5 4.4 3 6.2 2.6 3.1 6.4 5 10.4 5.8 3.8.4 7.6.3 11.4-.1zm9.5-67.6c.9 0 1.6.7 1.6 1.6 0 .9-.7 1.6-1.6 1.6s-1.6-.7-1.6-1.6c-.1-.8.7-1.6 1.6-1.6zM128 97.7c-3.3 1.9-6.6 3.7-9.9 5.3-3.2 1.5-6.3 2.9-9.6 4.2-.9.4-2.1.5-2.9 1.1-1.1.8-1.9 2.5-2.3 3.7-.6 1.6-.6 3.4.3 4.8.8 1.2 2.1 2 3.5 2.6 5.9 2.9 12.2 5.1 18.6 6.5 1.4.3 2.3 1.8 2.4.1v-28.1c-.1.1-.1-.1-.1-.2z\"></path>\n" +
-    "                        <path d=\"M38.9 47.4zM39.6 47.4z\" fill=\"none\"></path>\n" +
-    "                        <path fill=\"#444\"\n" +
-    "                              d=\"M94.2 44.9c-.8-2.6-1.8-5-3.2-7.2l-7.2 1.4-20.4 4c6.3 2.7 15.9 4 30.8 1.8z\"></path>\n" +
-    "                        <path fill=\"#E65100\"\n" +
-    "                              d=\"M38.9 48.4h.7c.2 0 .5 0 .7-.1l23.1-4.5 20.4-4 23.3-4.5c1.9-.4 3.2-2 2.9-3.6-.3-1.6-2.1-2.6-4.1-2.3l-19.6 3.8-1.3-6.8c-2-10.9-15-17.7-29.1-14.9-14 2.7-23.7 13.9-21.6 24.9h.1l1.7 9v.7c.2.8.7 1.4 1.4 1.9.5.1 1 .3 1.4.4z\"></path>\n" +
-    "                        <circle fill=\"#444\" cx=\"79.6\" cy=\"56.5\" r=\"2\"></circle>\n" +
-    "                        <path fill=\"#689F38\"\n" +
-    "                              d=\"M128 128v-1.8l-21.7-18.2-.4.2-2.9 1.3c-3 1.3-6 2.6-9.2 3.8l-1.4.5c-9 3.3-16.5 4.1-22.8 3.6-16.4-1.3-23.8-11.9-23.8-11.9-2.2 4.2-5.2 8.7-9.2 13.5l-.3.4-1.7 2c-.9 1.1-2 2.6-3.4 4.5-.4.6-.9 1.3-1.4 2l98.2.1z\"></path>\n" +
-    "                        <path fill=\"#FFCC80\" d=\"M36.3 119.3s.1-.2.2-.3c-.1.1-.2.2-.2.3z\"></path>\n" +
-    "                    </g>\n" +
-    "                </svg>\n" +
-    "            </core-icon>\n" +
-    "            <core-icon class=\"avatar\" icon=\"avatars:avatar-3\" aria-label=\"avatar-2\" role=\"img\">\n" +
-    "                <svg viewBox=\"0 0 128 128\" height=\"100%\" width=\"100%\"\n" +
-    "                     preserveAspectRatio=\"xMidYMid meet\" fit=\"\"\n" +
-    "                     style=\"pointer-events: none; display: block;\">\n" +
-    "                    <g>\n" +
-    "                        <path fill=\"#B9F6CA\" d=\"M0 0h128v128h-128z\"></path>\n" +
-    "                        <path fill=\"#FFCC80\"\n" +
-    "                              d=\"M70.1 122.5l.6-.1c6.1-.8 12-2.4 17.7-4.8 1.2-.5 2.4-1.1 3.2-2.1 1.3-1.7-.1-5.6-.5-7.7-.7-3.8-1.3-7.7-1.9-11.5-.7-4.5-1.5-9.1-1.6-13.7-.2-7.6.7-12.3 1.9-15.3h9l-2.6-10.4c-.2-2.4-.4-4.8-.7-6.8-.2-1.9-.6-3.6-1.2-5.3-14.9 2.2-24.5.9-30.7-1.8l-23.1 4.5-.7.1h-.7c-.4-.1-.9-.2-1.2-.4-.4 0-.9 0-1.4.1-4.1.6-6.9 4.7-6.3 9.1.3 2 1.2 3.8 2.6 5 .3.1 1.6.7 3.4 1.7.8.4 1.6 1 2.5 1.6 1.5 1.1 3.2 2.5 4.9 4.1 5.8 5.9 8.4 13.8 7.4 22-.6 4.7-2.2 9.4-4.4 13.6-.5 1-1 1.6-1.1 2.8-.1 1.1-.1 2.3.1 3.4.4 2.3 1.5 4.4 3 6.2 2.6 3.1 6.4 5 10.4 5.8 3.8.4 7.6.3 11.4-.1zm9.5-67.6c.9 0 1.6.7 1.6 1.6 0 .9-.7 1.6-1.6 1.6s-1.6-.7-1.6-1.6c-.1-.8.7-1.6 1.6-1.6zM128 97.7c-3.3 1.9-6.6 3.7-9.9 5.3-3.2 1.5-6.3 2.9-9.6 4.2-.9.4-2.1.5-2.9 1.1-1.1.8-1.9 2.5-2.3 3.7-.6 1.6-.6 3.4.3 4.8.8 1.2 2.1 2 3.5 2.6 5.9 2.9 12.2 5.1 18.6 6.5 1.4.3 2.3 1.8 2.4.1v-28.1c-.1.1-.1-.1-.1-.2z\"></path>\n" +
-    "                        <path d=\"M38.9 47.4zM39.6 47.4z\" fill=\"none\"></path>\n" +
-    "                        <path fill=\"#444\"\n" +
-    "                              d=\"M94.2 44.9c-.8-2.6-1.8-5-3.2-7.2l-7.2 1.4-20.4 4c6.3 2.7 15.9 4 30.8 1.8z\"></path>\n" +
-    "                        <path fill=\"#E65100\"\n" +
-    "                              d=\"M38.9 48.4h.7c.2 0 .5 0 .7-.1l23.1-4.5 20.4-4 23.3-4.5c1.9-.4 3.2-2 2.9-3.6-.3-1.6-2.1-2.6-4.1-2.3l-19.6 3.8-1.3-6.8c-2-10.9-15-17.7-29.1-14.9-14 2.7-23.7 13.9-21.6 24.9h.1l1.7 9v.7c.2.8.7 1.4 1.4 1.9.5.1 1 .3 1.4.4z\"></path>\n" +
-    "                        <circle fill=\"#444\" cx=\"79.6\" cy=\"56.5\" r=\"2\"></circle>\n" +
-    "                        <path fill=\"#689F38\"\n" +
-    "                              d=\"M128 128v-1.8l-21.7-18.2-.4.2-2.9 1.3c-3 1.3-6 2.6-9.2 3.8l-1.4.5c-9 3.3-16.5 4.1-22.8 3.6-16.4-1.3-23.8-11.9-23.8-11.9-2.2 4.2-5.2 8.7-9.2 13.5l-.3.4-1.7 2c-.9 1.1-2 2.6-3.4 4.5-.4.6-.9 1.3-1.4 2l98.2.1z\"></path>\n" +
-    "                        <path fill=\"#FFCC80\" d=\"M36.3 119.3s.1-.2.2-.3c-.1.1-.2.2-.2.3z\"></path>\n" +
-    "                    </g>\n" +
-    "                </svg>\n" +
-    "            </core-icon>\n" +
-    "            <core-icon class=\"avatar\" icon=\"avatars:avatar-4\" aria-label=\"avatar-2\" role=\"img\">\n" +
-    "                <svg viewBox=\"0 0 128 128\" height=\"100%\" width=\"100%\"\n" +
+    "        <!--\n" +
+    "        <div id=\"users\" style=\"margin: 20px;\" layout=\"horizontal\">\n" +
+    "            <core-icon class=\"avatar\" icon=\"avatars:avatar-1\" aria-label=\"avatar-2\" role=\"img\"\n" +
+    "                       ng-repeat=\"user in users\" tooltip=\"{{user.username}}\">\n" +
+    "                <svg viewBox=\"0 0 128 128\" height=\"42px\" width=\"42px\"\n" +
     "                     preserveAspectRatio=\"xMidYMid meet\" fit=\"\"\n" +
     "                     style=\"pointer-events: none; display: block;\">\n" +
     "                    <g>\n" +
@@ -735,9 +668,13 @@ angular.module("apps/dashboard/modules/photos/left-drawer.tpl.html", []).run(["$
     "                </svg>\n" +
     "            </core-icon>\n" +
     "        </div>\n" +
+    "        -->\n" +
     "\n" +
+    "        <br/><br/>\n" +
     "\n" +
-    "        <div dir-tree></div>\n" +
+    "        <div dir-tree\n" +
+    "            selectedNode=\"photos\">\n" +
+    "        </div>\n" +
     "\n" +
     "\n" +
     "\n" +
@@ -780,129 +717,42 @@ angular.module("apps/dashboard/modules/photos/left-drawer.tpl.html", []).run(["$
 
 angular.module("apps/dashboard/modules/photos/photos.tpl.html", []).run(["$templateCache", function($templateCache) {
   $templateCache.put("apps/dashboard/modules/photos/photos.tpl.html",
-    "\n" +
-    "<div class=\"photoTemplate\" style=\"background-color: GREEN;\">\n" +
-    "[BODY]\n" +
     "<!-- MAIN -->\n" +
-    "<div flex style=\"float:left; width: 100%\">\n" +
+    "<div class=\"photoBody\" flex layout=\"vertical\">\n" +
     "\n" +
-    "    <div class=\"folder\">\n" +
+    "    <md-content>\n" +
+    "        <md-list>\n" +
+    "            <md-subheader class=\"md-primary\">Folders</md-subheader>\n" +
+    "            <md-list>\n" +
+    "                <md-item  ng-repeat=\"folder in folderList\">\n" +
+    "                    <md-item-content>\n" +
+    "                        <md-card class=\"folder\" layout=\"horizontal\">\n" +
+    "                            <div class=\"icon\"></div>\n" +
+    "                            <div>\n" +
+    "                                <h3>{{folder.name}}</h3>\n" +
+    "                            </div>\n" +
+    "                        </md-card>\n" +
+    "                    </md-item-content>\n" +
+    "                </md-item>\n" +
+    "            </md-list>\n" +
     "\n" +
-    "        <dam-photo-group id=\"photoList\"\n" +
-    "                         label=\"January 2014\"></dam-photo-group>\n" +
     "\n" +
-    "        <hr/>\n" +
-    "\n" +
-    "        <dam-photo-group id=\"photoList2\"\n" +
-    "                         label=\"Feb 2014\"></dam-photo-group>\n" +
-    "\n" +
-    "    </div>\n" +
+    "            <md-subheader class=\"md-primary\">Files</md-subheader>\n" +
+    "            <md-list>\n" +
+    "                <md-item  ng-repeat=\"file in fileList\">\n" +
+    "                    <md-item-content>\n" +
+    "                        <md-card class=\"file\" layout=\"horizontal\">\n" +
+    "                            <div class=\"icon\"></div>\n" +
+    "                            <div>\n" +
+    "                                <h3>{{file.name}}</h3>\n" +
+    "                            </div>\n" +
+    "                        </md-card>\n" +
+    "                    </md-item-content>\n" +
+    "                </md-item>\n" +
+    "            </md-list>\n" +
+    "        </md-list>\n" +
+    "    </md-content>\n" +
     "</div>\n" +
-    "    \n" +
-    "</div>\n" +
-    "</div>\n" +
-    "\n" +
-    "\n" +
-    "\n" +
-    "\n" +
-    "<script>\n" +
-    "var photos = [];\n" +
-    "var inDetailView = false;\n" +
-    "\n" +
-    "var shuffle = function (array) {\n" +
-    "    var currentIndex = array.length, temporaryValue, randomIndex;\n" +
-    "\n" +
-    "    // While there remain elements to shuffle...\n" +
-    "    while (0 !== currentIndex)\n" +
-    "    {\n" +
-    "\n" +
-    "        // Pick a remaining element...\n" +
-    "        randomIndex = Math.floor(Math.random() * currentIndex);\n" +
-    "        currentIndex -= 1;\n" +
-    "\n" +
-    "        // And swap it with the current element.\n" +
-    "        temporaryValue = array[currentIndex];\n" +
-    "        array[currentIndex] = array[randomIndex];\n" +
-    "        array[randomIndex] = temporaryValue;\n" +
-    "    }\n" +
-    "\n" +
-    "    return array;\n" +
-    "};\n" +
-    "\n" +
-    "var toolbarIconHelper = function(){\n" +
-    "    if( !inDetailView ){\n" +
-    "        window.location.href='index.html';\n" +
-    "    }else{\n" +
-    "        openLeftDrawer(\"leftDrawer\");\n" +
-    "        closeRightDrawer(\"rightDrawer\");\n" +
-    "        document.querySelector(\"#photoList\").$.pages.selected = 0;\n" +
-    "\n" +
-    "        inDetailView = false;\n" +
-    "        document.querySelector(\"#primaryToolbarIcon\").icon=\"home\";\n" +
-    "    }\n" +
-    "}\n" +
-    "\n" +
-    "\n" +
-    "\n" +
-    "\n" +
-    "var toggleUploader = function () {\n" +
-    "    document.querySelector(\"#uploaderOverlay\").toggle();\n" +
-    "};\n" +
-    "\n" +
-    "\n" +
-    "var photoSelectHandler = function (event) {\n" +
-    "    console.dir(event.detail);\n" +
-    "\n" +
-    "    openRightDrawer(\"rightDrawer\");\n" +
-    "\n" +
-    "    document.querySelector(\"#photoPreview\").style.display = \"block\";\n" +
-    "    document.querySelector(\"#photoLightbox\").style.display = \"none\";\n" +
-    "};\n" +
-    "\n" +
-    "\n" +
-    "var photoMultiSelectHandler = function (event) {\n" +
-    "    console.dir(event.detail);\n" +
-    "\n" +
-    "    openRightDrawer(\"rightDrawer\");\n" +
-    "\n" +
-    "    document.querySelector(\"#photoLightbox\").addPhoto(event.detail);\n" +
-    "    if (document.querySelector(\"#photoLightbox\").selectedItems.length == 1)\n" +
-    "    {\n" +
-    "        document.querySelector(\"#photoPreview\").style.display = \"block\";\n" +
-    "        document.querySelector(\"#photoLightbox\").style.display = \"none\";\n" +
-    "    } else\n" +
-    "    {\n" +
-    "        document.querySelector(\"#photoLightbox\").style.display = \"block\";\n" +
-    "        document.querySelector(\"#photoPreview\").style.display = \"none\";\n" +
-    "    }\n" +
-    "\n" +
-    "};\n" +
-    "\n" +
-    "var photoDeselectHandler = function (event) {\n" +
-    "    console.dir(event.detail);\n" +
-    "\n" +
-    "    closeRightDrawer(\"rightDrawer\");\n" +
-    "    inDetailView = false;\n" +
-    "    document.querySelector(\"#primaryToolbarIcon\").icon=\"home\";\n" +
-    "};\n" +
-    "\n" +
-    "var photoHardSelectHandler = function (event) {\n" +
-    "    console.dir(event.detail);\n" +
-    "\n" +
-    "\n" +
-    "    openRightDrawer(\"rightDrawer\");\n" +
-    "    closeLeftDrawer(\"leftDrawer\");\n" +
-    "\n" +
-    "    inDetailView = true;\n" +
-    "    document.querySelector(\"#primaryToolbarIcon\").icon=\"arrow-back\";\n" +
-    "    //document.querySelector(\"#photoList\").unselectOthers(event.detail);\n" +
-    "    //document.querySelector(\"#photoLightbox\").removeOthers(event.detail);\n" +
-    "\n" +
-    "    //document.querySelector(\"#photoDetails\").model = event.detail;\n" +
-    "    //document.querySelector(\"#photoDetailOverlay\").toggle();\n" +
-    "}\n" +
-    "\n" +
-    "</script>\n" +
     "");
 }]);
 

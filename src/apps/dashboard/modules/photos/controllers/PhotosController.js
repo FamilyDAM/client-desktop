@@ -15,24 +15,85 @@
  *     along with the FamilyDAM Project.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-var PhotosController = function($window, $document, $scope, $rootScope, $location, directoryService)
+var PhotosController = function($window, $document, $scope, $rootScope, $location, $timeout, directoryService)
 {
+    var dirListPending = false;
+
     $rootScope.pageTitle = "HOME > Photos";
+    $scope.users = $rootScope.users;
     $scope.directories = [];
+    $scope.folderList = [];
+    $scope.fileList = [];
 
 
-    var init = function(){
-        var method = directoryService.listDirectories();
-        method.then(function(result){
-            $scope.directories = result;
-        });
-    };
-
-    $scope.$on('$stateChangeSuccess', function(){
-        init();
+    $scope.$on('selection', function(event, node){
+        console.log(node);
+        if( node !== undefined )
+        {
+            var _path = node.path;
+            getDirectoryList(_path);
+        }
     });
 
+
+    $scope.$on('$stateChangeSuccess', function(){
+        if( !dirListPending )
+        {
+            dirListPending = true;
+            getDirectoryList("/~/photos");
+        }
+    });
+
+
+    var getDirectoryList = function(path_)
+    {
+        //todo: add spinner
+        var result = directoryService.list(path_).then(
+            function(data)
+            {
+                dirListPending = false;
+                var _folderList = [];
+                var _fileList = [];
+
+                if( data !== undefined )
+                {
+                    for (var i = 0; i < data.length; i++)
+                    {
+                        var obj = data[i];
+                        if (obj.type == "folder")
+                        {
+                            _folderList.push(obj);
+                        } else {
+                            _fileList.push(obj);
+                        }
+                    }
+
+                    $scope.safeApply(function(){
+                        $scope.folderList = _folderList;
+                        $scope.fileList = _fileList;
+                    });
+                }
+            },
+            function(err){
+                dirListPending = false;
+                //todo, something
+            }
+        );
+
+    };
+
+
+    $scope.safeApply = function(fn) {
+        var phase = this.$root.$$phase;
+        if(phase == '$apply' || phase == '$digest') {
+            if(fn && (typeof(fn) === 'function')) {
+                fn();
+            }
+        } else {
+            this.$apply(fn);
+        }
+    };
 };
 
-PhotosController.$inject = ['$window', '$document', '$scope', '$rootScope', '$location', 'directoryService'];
+PhotosController.$inject = ['$window', '$document', '$scope', '$rootScope', '$location', '$timeout', 'directoryService'];
 module.exports = PhotosController;

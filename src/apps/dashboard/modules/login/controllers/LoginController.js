@@ -23,7 +23,7 @@ var LoginController = function($window, $scope, $rootScope, $location, loginServ
 
     // reset the logged in user
     $rootScope.user = null;
-    $scope.users = [];
+    $rootScope.users = [];
 
 
     var timestampPromise = $interval(function(){
@@ -72,7 +72,7 @@ var LoginController = function($window, $scope, $rootScope, $location, loginServ
         userListSrv.then(
             function(response, status, headers, config)
             {
-                $scope.users = response.data;
+                $rootScope.users = response.data;
             },
             function(response){
                 // todo: error handler

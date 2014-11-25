@@ -250,7 +250,8 @@ module.exports = function (grunt) {
                         'angular-momentjs': './bower_components/angular-moment/angular-moment.js',
                         'angular-moment': './bower_components/angular-moment/angular-moment.js',
                         'angular-aria': './bower_components/angular-aria/angular-aria.js',
-                        'hammerJS': './bower_components/hammerjs/hammer.js'
+                        'hammerJS': './bower_components/hammerjs/hammer.js',
+                        'treeControl': './bower_components/angular-tree-control/angular-tree-control.js'
                     }
 				}
 			},

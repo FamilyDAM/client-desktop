@@ -43,12 +43,10 @@ module.exports = angular.module('dashboard.photos', ['ui.bootstrap'])
                     controller: "PhotosController"
                 },
                 ".leftDrawer": {
-                    templateUrl: "modules/photos/left-drawer.tpl.html",
-                    controller: "PhotosController"
+                    templateUrl: "modules/photos/left-drawer.tpl.html"
                 },
                 ".rightDrawer": {
-                    templateUrl: "modules/photos/right-drawer.tpl.html",
-                    controller: "PhotosController"
+                    templateUrl: "modules/photos/right-drawer.tpl.html"
                 }
             }
         });

@@ -15,21 +15,65 @@
  *     along with the FamilyDAM Project.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-var DirectoryService = function($http, AuthService)
+var DirectoryService = function($http, $location, $q, AuthService, transformRequestAsFormPost)
 {
 
-    this.listDirectories = function(dir, path)
+    this.listDirectories = function()
     {
         $http.defaults.headers.common['Authorization'] = AuthService.getToken();
 
         //todo: make url/port dynamic
-        var method = $http.get('http://localhost:8080/api/directory/');
-        return method.then(function(result){
-            return result.data;
+        var method = $http.get('http://localhost:8080/api/directory/tree');
+        return method.then(
+            function(result){
+                return result.data;
+            },
+            function(err){
+            // todo show in toast
+            console.log("(" +err.status +") " +err.statusTextnot);
+            $location.path('/login');
         });
     };
 
+
+
+    this.list = function(path_, successCallback, errorCallback)
+    {
+        $http.defaults.headers.common['Authorization'] = AuthService.getToken();
+
+        //todo: make url/port dynamic
+        var data = {};
+        data.path = path_;
+
+
+        var request = $http({
+            method: "post",
+            url: "http://localhost:8080/api/directory/",
+            transformRequest: transformRequestAsFormPost,
+            data: data
+        });
+
+        if( successCallback !== undefined )
+        {
+            request.success(successCallback);
+        }
+
+        if( errorCallback !== undefined )
+        {
+            request.error(errorCallback);
+        }
+
+        return request.then(function(result){
+            return result.data;
+        }, function(err){
+            // todo show in toast
+            console.log("(" +err.status +") " +err.statusTextnot);
+            $location.path('/login');
+        });
+    };
+
+
 };
 
-DirectoryService.$inject = ['$http', 'authService'];
+DirectoryService.$inject = ['$http', '$location', '$q', 'authService', 'transformRequestAsFormPost'];
 module.exports = DirectoryService;

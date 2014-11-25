@@ -1,17 +1,8 @@
 <div class="dirTree">
-    [tree]
 
-    <md-list>
-        <md-item ng-repeat="dir in directories">
-            <md-item-content>
-                <div class="md-tile-left">
-                    <img ng-src="" class="face" alt="{{dir.name}}">
-                </div>
-                <div class="md-tile-content">
-                    <h3>{{dir.name}}</h3>
-                </div>
-            </md-item-content>
-        </md-item>
+    <treecontrol id="treeControl" class="tree-classic"
+                 tree-model="directories"
+                 options="treeOptions"
+                 on-selection="selectNode(node)">{{node.name}}</treecontrol>
 
-    </md-list>
 </div>

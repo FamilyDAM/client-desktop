@@ -1,7 +1,33 @@
 
 
 .dirTree{
-  background-color: #eee;
   width: 100%;
-  min-height: 200px;
+  min-height: 150px;
+}
+
+.treeList li
+{
+  padding: 2px 0 2px 20px;
+}
+
+
+.treeCollapsed{
+  background: url("./components/material-design-icons/file/svg/design/ic_folder_24px.svg") no-repeat !important;
+  padding: 5px 15px!important;
+}
+
+.treeExpanded{
+  background: url("./components/material-design-icons/file/svg/design/ic_folder_open_24px.svg") no-repeat !important;
+  padding: 5px 15px !important;
+}
+
+.treeLeaf{
+  background: url("./components/material-design-icons/file/svg/design/ic_folder_24px.svg") no-repeat !important;
+  padding: 5px 15px!important;
+}
+
+.treeLabel
+{
+  text-transform: capitalize;
+  font-size: 18px; font-size: 1.8rem;
 }

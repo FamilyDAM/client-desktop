@@ -33,18 +33,18 @@
             <section layout="horizontal" flex  >
 
                 <md-sidenav class="md-sidenav-left md-whiteframe-z1" component-id="leftDrawer" is-locked-open="$media('md')" layout="vertical">
-                    <div ui-view=".leftDrawer"></div>
+                    <div ui-view=".leftDrawer" flex></div>
                 </md-sidenav>
 
-                <div layout="vertical" layout-fill layout-align="center center">
+                <div layout="column" flex layout-fill layout-align="start">
                     <md-content flex class="md-padding" flex>
-                    <div  ui-view=".body"></div>
+                    <div  ui-view=".body" ></div>
                     </md-content>
                 </div>
 
                 <md-sidenav class="md-sidenav-right md-whiteframe-z1" component-id="rightDrawer" is-locked-open="$media('md')" style="height: 100%" >
                     <md-content class="md-padding">
-                        <div ui-view=".rightDrawer"></div>
+                        <div ui-view=".rightDrawer" flex></div>
                     </md-content>
                 </md-sidenav>
 
