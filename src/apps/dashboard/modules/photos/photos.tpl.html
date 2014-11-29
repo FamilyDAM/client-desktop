@@ -2,12 +2,12 @@
 <div class="photoBody" flex layout="vertical">
 
     <md-content>
-        <md-list>
+        <md-list  layout="vertical">
             <md-subheader class="md-primary">Folders</md-subheader>
-            <md-list>
+            <md-list  layout="horizontal">
                 <md-item  ng-repeat="folder in folderList">
                     <md-item-content>
-                        <md-card class="folder" layout="horizontal">
+                        <md-card class="folder" layout="vertical">
                             <div class="icon"></div>
                             <div>
                                 <h3>{{folder.name}}</h3>
@@ -19,11 +19,13 @@
 
 
             <md-subheader class="md-primary">Files</md-subheader>
-            <md-list>
+            <md-list  layout="horizontal">
                 <md-item  ng-repeat="file in fileList">
                     <md-item-content>
-                        <md-card class="file" layout="horizontal">
-                            <div class="icon"></div>
+                        <md-card class="file" layout="vertical">
+                            <div class="thumbnail">
+                                <img src="http://localhost:8080{{file.path}}?token={{token}}"/>
+                            </div>
                             <div>
                                 <h3>{{file.name}}</h3>
                             </div>

@@ -23,7 +23,7 @@ require('dashboard-templates');
 
 // Define the required modules
 var App = angular.module('dashboard', [
-    'ui.router','ngMaterial','ngAnimate','ngAria','treeControl',
+    'ui.router','ngMaterial','ngAnimate','ngAria','ngCookies', 'treeControl',
     require('./services/index').name,
     require('./modules/login/index').name,
     require('./modules/home/index').name,

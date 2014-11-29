@@ -16,7 +16,7 @@
  */
 
 
-module.exports = angular.module('dashboard.uploader', ['ui.bootstrap'])
+module.exports = angular.module('dashboard.uploader', [])
     .controller('UploaderController', require('./controllers/UploaderController'))
 
 
@@ -27,6 +27,9 @@ module.exports = angular.module('dashboard.uploader', ['ui.bootstrap'])
                 ".body": {
                     templateUrl: "modules/uploader/uploader.tpl.html",
                     controller: "UploaderController"
+                },
+                ".leftDrawer": {
+                    templateUrl: "modules/uploader/left-drawer.tpl.html"
                 }
             }
         });

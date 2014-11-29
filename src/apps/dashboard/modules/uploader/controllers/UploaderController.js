@@ -19,6 +19,59 @@ var UploaderController = function($window, $document, $scope, $rootScope, $locat
 {
     $scope.selectedDir = "/photos/admin";
     $scope.fileList = [];
+    $scope.path = "/documents";
+    $scope.visiblePath = $scope.path;
+
+
+    $scope.$on('$stateChangeSuccess', function(){
+        $rootScope.pageTitle = " ";
+        $rootScope.leftSidebarVisible = false;
+        $rootScope.rightSidebarVisible = false;
+        //$mdSidenav("rightDrawer").close();
+    });
+
+
+
+    $scope.$on('selection', function(event, node){
+        console.log(node);
+        if( node !== undefined )
+        {
+            $scope.path = node.path;
+            $scope.visiblePath = node.path.substring(1);
+        }
+    });
+
+
+    $scope.openFileDialog = function(){
+        try{
+            var remote = require('remote');
+            var ipc = require('ipc');
+
+            ipc.on('openFileDialogReply', selectFilesHandler);
+            ipc.send('openFileDialog');
+            /*****
+             this.openFilePicker = function(callback)
+             {
+                 var dialog = remote.require('dialog');
+                 dialog.showOpenDialog({properties: ['openFile', 'openDirectory', 'multiSelections']}, callback);
+             }
+
+            this.openFilePicker = function(callback)
+            {
+                ipc.on('openFileDialogReply', callback);
+                ipc.send('openFileDialog');
+            }
+
+            this.uploadFile = function(dir, path)
+            {
+                ipc.send('uploadFile', dir, path);
+            }
+             ****/
+        }catch(err){
+            console.log(err);
+        }
+    };
+
 
     $scope.copyFile = function(path_){
         console.log("upload file = " +path_);
@@ -62,7 +115,7 @@ var UploaderController = function($window, $document, $scope, $rootScope, $locat
     };
 
     // our directive can't see the local $scope, but if we store this in the root scope we are ok (bad hack, but it works)
-    $rootScope.selectFilesHandler = function(data) {
+    var selectFilesHandler = function(data) {
         console.log("{UploaderController} root selectFiles");
         console.dir(data);
         for (var i = 0; i < data.length; i++)

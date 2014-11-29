@@ -25,11 +25,27 @@
  * @param $dialog
  * @constructor
  */
-var HomeController = function ($scope, $rootScope, $window, $location, $state, $stateParams) {
+var HomeController = function ($scope, $rootScope, $window, $location, $state, $stateParams, $mdSidenav) {
 
-    $rootScope.pageTitle = "HOME";
+    var dirListPending = false;
+    $rootScope.pageTitle = " ";
+    $rootScope.leftSidebarVisible = true;
+    $rootScope.rightSidebarVisible = false;
+
+
+    $scope.toggleRightSide = function(){
+        $mdSidenav("rightDrawer").toggle();
+    };
+
+    $scope.$on('$stateChangeSuccess', function(){
+        $rootScope.pageTitle = " ";
+        $rootScope.leftSidebarVisible = false;
+        $rootScope.rightSidebarVisible = false;
+        //$mdSidenav("rightDrawer").close();
+
+    });
 
 };
 
-HomeController.$inject = ['$scope', '$rootScope', '$window', '$location', '$state', '$stateParams'];
+HomeController.$inject = ['$scope', '$rootScope', '$window', '$location', '$state', '$stateParams', '$mdSidenav'];
 module.exports = HomeController;

@@ -16,7 +16,7 @@
   -->
 
 <!doctype html>
-<html >
+<html>
 <head>
     <title>FamilyD.A.M.</title>
 
@@ -40,42 +40,16 @@
 
 </head>
 
-<body ng-app="dashboard" unresolved >
-    <div layout="vertical" layout-fill ui-view></div>
+<body ng-app="dashboard" unresolved>
+<div layout="vertical" layout-fill ui-view></div>
 </body>
-
-
 
 
 <!-- special methods that require the atom-shell libraries. We define them here and then they are available
 in the angular $window scope -->
-<script type="application/javascript">
-    try{
-        var remote = require('remote');
-        var ipc = require('ipc');
-        /*****
-        this.openFilePicker = function(callback)
-        {
-            var dialog = remote.require('dialog');
-            dialog.showOpenDialog({properties: ['openFile', 'openDirectory', 'multiSelections']}, callback);
-        }****/
-
-        this.openFilePicker = function(callback)
-        {
-            ipc.on('openFileDialogReply', callback);
-            ipc.send('openFileDialog');
-        }
-
-        this.uploadFile = function(dir, path)
-        {
-            ipc.send('uploadFile', dir, path);
-        }
-    }catch(err){
-        console.log(err);
-    }
-</script>
-
-<script type="application/javascript" src="components/hammerjs/hammer.js"></script>
+<script type="application/javascript" src="components/jquery/dist/jquery.min.js"></script>
+<script type="application/javascript" src="components/hammerjs/hammer.min.js"></script>
 <script type="application/javascript" src="shared-libs.js"></script>
+<script type="application/javascript" src="angular-libs.js"></script>
 <script type="application/javascript" src="app.js"></script>
 </html>

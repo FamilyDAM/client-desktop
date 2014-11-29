@@ -114,7 +114,8 @@ module.exports = angular.module('dashboard.main', ['ui.router'])
 
     .config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, $urlRouterProvider) {
         $stateProvider.state('home', {
-            url: '/home',
-            templateUrl: "modules/home/home.tpl.html"
+            url: '^/home',
+            templateUrl: "modules/home/home.tpl.html",
+            controller: "HomeController"
         });
     }]);

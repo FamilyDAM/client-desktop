@@ -19,7 +19,6 @@ var PhotosController = function($window, $document, $scope, $rootScope, $locatio
 {
     var dirListPending = false;
 
-    $rootScope.pageTitle = "HOME > Photos";
     $scope.users = $rootScope.users;
     $scope.directories = [];
     $scope.folderList = [];
@@ -41,6 +40,10 @@ var PhotosController = function($window, $document, $scope, $rootScope, $locatio
         {
             dirListPending = true;
             getDirectoryList("/~/photos");
+
+            $rootScope.pageTitle = " > Photos";
+            $rootScope.leftSidebarVisible = true;
+            $rootScope.rightSidebarVisible = false;
         }
     });
 
@@ -69,8 +72,11 @@ var PhotosController = function($window, $document, $scope, $rootScope, $locatio
                     }
 
                     $scope.safeApply(function(){
-                        $scope.folderList = _folderList;
-                        $scope.fileList = _fileList;
+                        $scope.folderList = _folderList.sort();
+                        $scope.fileList = _fileList.sort();
+
+                        console.dir($scope.folderList);
+                        console.dir($scope.fileList);
                     });
                 }
             },

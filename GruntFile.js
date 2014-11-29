@@ -40,14 +40,14 @@ module.exports = function (grunt) {
 
 
 	// default task
-	grunt.registerTask('default', ['clean','copy','build-shared-libs','build']);
+	grunt.registerTask('default', ['copy','build-shared-libs','build']);//'clean'
 	grunt.registerTask('default-quick', ['build-shared-libs','build-quick', 'copy:html', 'copy:js']);
 
 	// build tasks
 	grunt.registerTask('build', ['build-css', 'build-js', 'build-atom-shell-app']);
 	grunt.registerTask('build-css', ['compass:develop']);
 	grunt.registerTask('build-js', ['jshint','html2js','browserify2:dashboard']);
-	grunt.registerTask('build-shared-libs', ['browserify2:shared-libs']);
+	grunt.registerTask('build-shared-libs', ['browserify2:shared-libs','browserify2:angular-libs']);
 	grunt.registerTask('build-quick', ['build-css', 'build-js']); //, 'copy:binary'
 	//grunt.registerTask('deploy', ['slingPost']);
 
@@ -90,7 +90,6 @@ module.exports = function (grunt) {
 
         // copy
         copy: {
-            /**
             'binary': {
                 files: [
                     {
@@ -101,7 +100,6 @@ module.exports = function (grunt) {
                     }
                 ]
             },
-             **/
             'dashboard-assets': {
                 files: [
                     {
@@ -239,18 +237,28 @@ module.exports = function (grunt) {
 				options: {
 					expose: {
                         jquery: './bower_components/jquery/dist/jquery.js',
-                        angular: './bower_components/angular/angular.js',
+                        'moment': './bower_components/moment/moment.js',
+                        'hammerJS': './bower_components/hammerjs/hammer.js',
+                        'hammer': './bower_components/hammerjs/hammer.js'
+                    }
+				}
+			},
+			'angular-libs': {
+				entry: './src/apps/dashboard/angular-libs.js',
+				compile: './dist/apps/dashboard/angular-libs.js',
+				debug: true,
+				options: {
+					expose: {
+                         angular: './bower_components/angular/angular.js',
                         'angular-ui-router': './bower_components/angular-ui-router/release/angular-ui-router.js',
                         'angular-resource': './bower_components/angular-resource/angular-resource.js',
                         'angular-animate': './bower_components/angular-animate/angular-animate.js',
                         'angular-material': './bower_components/angular-material/angular-material.js',
-                        'ui.bootstrap': './bower_components/angular-bootstrap/ui-bootstrap.js',
-                        'ui.bootstrap.tpls': './bower_components/angular-bootstrap/ui-bootstrap-tpls.js',
-                        'moment': './bower_components/moment/moment.js',
                         'angular-momentjs': './bower_components/angular-moment/angular-moment.js',
                         'angular-moment': './bower_components/angular-moment/angular-moment.js',
                         'angular-aria': './bower_components/angular-aria/angular-aria.js',
-                        'hammerJS': './bower_components/hammerjs/hammer.js',
+                        'angular-cookies': './bower_components/angular-cookies/angular-cookies.js',
+                        'angular-hammer': './bower_components/angular-hammer/angular-hammer.js',
                         'treeControl': './bower_components/angular-tree-control/angular-tree-control.js'
                     }
 				}
@@ -383,7 +391,7 @@ module.exports = function (grunt) {
         },
 
         'download-atom-shell': {
-            version: '0.15.6',
+            version: '0.19.5',
             outputDir: 'binaries'
         },
 

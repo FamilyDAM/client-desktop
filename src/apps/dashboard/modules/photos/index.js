@@ -15,23 +15,7 @@
  *     along with the FamilyDAM Project.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-/**
-document.querySelector("#leftDrawerMenu").addEventListener("core-select", function(e, detail) {
-
-    console.log("core-item selected");
-    console.dir(detail);
-
-});
-
-document.querySelector("#leftDrawerMenu").addEventListener("on-core-select", function(e, detail) {
-
-    console.log("on-core-item selected");
-    console.dir(detail);
-
-});
-**/
-
-module.exports = angular.module('dashboard.photos', ['ui.bootstrap'])
+module.exports = angular.module('dashboard.photos', [])
     .controller('PhotosController', require('./controllers/PhotosController'))
 
     .config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, $urlRouterProvider) {

@@ -15,10 +15,92 @@
  *     along with the FamilyDAM Project.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-var FilesController = function($window, $document, $scope, $rootScope)
+var FilesController = function($window, $document, $scope, $rootScope, $location, $timeout, directoryService, $mdSidenav)
 {
+    var dirListPending = false;
 
+    $scope.users = $rootScope.users;
+    $scope.directories = [];
+    $scope.folderList = [];
+    $scope.fileList = [];
+
+
+    $scope.$on('selection', function(event, node){
+        console.log(node);
+        if( node !== undefined )
+        {
+            var _path = node.path;
+            getDirectoryList(_path);
+        }
+    });
+
+
+    $scope.$on('$stateChangeSuccess', function(){
+        if( !dirListPending )
+        {
+            dirListPending = true;
+            getDirectoryList("/~/");
+
+            $rootScope.pageTitle = " > Files";
+            $scope.leftSidebarVisible = true;
+            $scope.rightSidebarVisible = false;
+            //$mdSidenav('rightDrawer').close();
+        }
+    });
+
+
+    var getDirectoryList = function(path_)
+    {
+        //todo: add spinner
+        var result = directoryService.list(path_).then(
+            function(data)
+            {
+                dirListPending = false;
+                var _folderList = [];
+                var _fileList = [];
+
+                if( data !== undefined )
+                {
+                    for (var i = 0; i < data.length; i++)
+                    {
+                        var obj = data[i];
+                        if (obj.type == "folder")
+                        {
+                            _folderList.push(obj);
+                        } else {
+                            _fileList.push(obj);
+                        }
+                    }
+
+                    $scope.safeApply(function(){
+                        $scope.folderList = _folderList.sort();
+                        $scope.fileList = _fileList.sort();
+
+                        console.dir($scope.folderList);
+                        console.dir($scope.fileList);
+                    });
+                }
+            },
+            function(err){
+                dirListPending = false;
+                //todo, something
+            }
+        );
+
+    };
+
+
+    $scope.safeApply = function(fn) {
+        var phase = this.$root.$$phase;
+        if(phase == '$apply' || phase == '$digest') {
+            if(fn && (typeof(fn) === 'function')) {
+                fn();
+            }
+        } else {
+            this.$apply(fn);
+        }
+    };
 };
 
-FilesController.$inject = ['$window', '$document', '$scope', '$rootScope'];
+FilesController.$inject = ['$window', '$document', '$scope', '$rootScope', '$location', '$timeout', 'directoryService', '$mdSidenav'];
 module.exports = FilesController;

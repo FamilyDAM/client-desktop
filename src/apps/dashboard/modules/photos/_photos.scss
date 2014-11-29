@@ -1,50 +1,57 @@
-/*
- * This file is part of FamilyDAM Project.
- *
- *     The FamilyDAM Project is free software: you can redistribute it and/or modify
- *     it under the terms of the GNU General Public License as published by
- *     the Free Software Foundation, either version 3 of the License, or
- *     (at your option) any later version.
- *
- *     The FamilyDAM Project is distributed in the hope that it will be useful,
- *     but WITHOUT ANY WARRANTY; without even the implied warranty of
- *     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *     GNU General Public License for more details.
- *
- *     You should have received a copy of the GNU General Public License
- *     along with the FamilyDAM Project.  If not, see <http://www.gnu.org/licenses/>.
- */
 
-md-card.folder{
-  width: 100%;
-  min-height: 50px;
+/****************
+* md-card FOLDERS
+*****************/
+.photoBody md-card.folder{
+  width: 200px;
+  min-height: 225px;
   text-align: left;
 }
 
-md-card.folder .icon{
+.photoBody md-card.folder .icon{
   background: url("./components/material-design-icons/file/svg/design/ic_folder_48px.svg") no-repeat !important;
   margin: 0px 10px !important;
-  width: 50px;
-  height: 48px;
+  width: 100px;
+  height: 100px;
 }
 
 
-md-card.folder h3{
+.photoBody md-card.folder h3{
   padding: 0px;
 }
 
 
-md-card.file .icon{
+/****************
+*  md-card Files
+*****************/
+.photoBody md-card.file{
+  width: 200px;
+  min-height: 225px;
+  text-align: left;
+}
+
+.photoBody md-card.file .icon{
   background: url("./components/material-design-icons/file/svg/design/ic_image_48px.svg") no-repeat !important;
   margin: 0px 10px !important;
   width: 50px;
   height: 48px;
 }
 
-md-card.file h3{
-  padding: 0px;
+.photoBody md-card.file .thumbnail{
+  margin: 0px 10px !important;
 }
 
+.photoBody md-card.file .thumbnail img{
+  width: 100%;
+  height: auto;
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+
+.photoBody md-card.file h3{
+  padding: 0px;
+  text-align: center;
+}
 
 .photoBody{
   width: 100%;

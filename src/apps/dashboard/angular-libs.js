@@ -18,8 +18,14 @@
 /**
  * Define the required js libraries needed for this application. The compiler will merge them all into a single download
  */
-//require('jquery');
-//require('hammer');
-require('moment');
+require('angular');
+require('angular-hammer');
+require('angular-cookies');
+require('angular-resource');
+require('angular-ui-router');
+require('angular-animate');
+require('angular-material');
+require('angular-moment');
+require('angular-aria');
 
-
+require('treeControl');

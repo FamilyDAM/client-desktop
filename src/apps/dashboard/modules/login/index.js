@@ -16,7 +16,7 @@
  */
 
 
-module.exports = angular.module('dashboard.login', ['ui.bootstrap', 'ngMaterial'])
+module.exports = angular.module('dashboard.login', ['ngMaterial'])
     .controller('LoginController', require('./controllers/LoginController'))
 
     .directive('loginEventBridge', function() {

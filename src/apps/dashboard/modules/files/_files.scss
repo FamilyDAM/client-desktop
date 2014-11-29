@@ -1,1 +1,63 @@
-.foo{}
+
+/****************
+* md-card FOLDERS
+*****************/
+md-card.folder{
+  width: 100%;
+  min-height: 50px;
+  text-align: left;
+}
+
+md-card.folder .icon{
+  background: url("./components/material-design-icons/file/svg/design/ic_folder_48px.svg") no-repeat !important;
+  margin: 0px 10px !important;
+  width: 50px;
+  height: 48px;
+}
+
+
+md-card.folder h3{
+  padding: 0px;
+}
+
+
+/****************
+*  md-card Files
+*****************/
+.filesBody md-card.file{
+  width: 100%;
+  min-height: 50px;
+  text-align: left;
+}
+
+.filesBody md-card.file .icon{
+  background: url("./components/material-design-icons/file/svg/design/ic_image_48px.svg") no-repeat !important;
+  margin: 0px 10px !important;
+  width: 50px;
+  height: 48px;
+}
+
+.filesBody md-card.file .thumbnail{
+  margin: 0px 10px !important;
+}
+
+.filesBody md-card.file .thumbnail img{
+  width: 75px;
+  height: auto;
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+
+.filesBody md-card.file h3{
+  padding: 0px;
+  text-align: center;
+}
+
+
+.filesBody {
+  width: 100%;
+}
+
+.filesBody md-subheader{
+  background-color: #eee;
+}
