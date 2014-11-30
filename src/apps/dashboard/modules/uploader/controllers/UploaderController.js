@@ -18,6 +18,7 @@
 var UploaderController = function($window, $document, $scope, $rootScope, $location, importService)
 {
     $scope.selectedDir = "/photos/admin";
+    $scope.folderList = [];
     $scope.fileList = [];
     $scope.path = "/documents";
     $scope.visiblePath = $scope.path;
@@ -42,6 +43,67 @@ var UploaderController = function($window, $document, $scope, $rootScope, $locat
     });
 
 
+    $scope.fileSelectionHandler = function(event_){
+        //console.log("upload file = " +event_);
+
+        var files = event_.currentTarget.files;
+
+        for (var i = 0; i < files.length; i++)
+        {
+            var _file = files[i];
+
+            if( _file.path === undefined )
+            {
+                // simple browser behavior
+                $scope.fileList.push(_file);
+            }else{
+
+                if( _file.webkitRelativePath.length > 0 && _file.path.endsWith(_file.webkitRelativePath) )
+                {
+                    //is a dir.
+                    $scope.folderList.push(_file);
+                } else {
+                    //is a file
+                    $scope.fileList.push(_file);
+                }
+
+            }
+
+        }
+    };
+
+
+    $scope.removeFile = function(file_){
+        //console.dir(file_);
+
+        for (var i = 0; i < $scope.fileList.length; i++)
+        {
+            var obj = $scope.fileList[i];
+
+            if( obj.path == file_.path ){
+                $scope.fileList.splice(i, 1);
+                break;
+            }
+        }
+    };
+
+
+    $scope.removeFolder = function(folder_){
+        console.dir(folder_);
+
+        for (var i = 0; i < $scope.folderList.length; i++)
+        {
+            var obj = $scope.folderList[i];
+
+            if( obj.path == folder_.path ){
+                $scope.folderList.splice(i, 1);
+                break;
+            }
+        }
+    };
+
+
+
     $scope.openFileDialog = function(){
         try{
             var remote = require('remote');
@@ -49,31 +111,43 @@ var UploaderController = function($window, $document, $scope, $rootScope, $locat
 
             ipc.on('openFileDialogReply', selectFilesHandler);
             ipc.send('openFileDialog');
-            /*****
-             this.openFilePicker = function(callback)
-             {
-                 var dialog = remote.require('dialog');
-                 dialog.showOpenDialog({properties: ['openFile', 'openDirectory', 'multiSelections']}, callback);
-             }
-
-            this.openFilePicker = function(callback)
-            {
-                ipc.on('openFileDialogReply', callback);
-                ipc.send('openFileDialog');
-            }
-
-            this.uploadFile = function(dir, path)
-            {
-                ipc.send('uploadFile', dir, path);
-            }
-             ****/
         }catch(err){
             console.log(err);
         }
     };
 
 
-    $scope.copyFile = function(path_){
+    $scope.uploadFiles = function(){
+
+        for (var i = 0; i < $scope.fileList.length; i++)
+        {
+            var _file = $scope.fileList[i];
+            if( _file.path !== undefined )
+            {
+                if( importService.fileIsAccessible(_file.path) )
+                {
+                    copyFile(_file.path);
+                }else{
+                    //todo, old-school file upload
+                    //$window.uploadFile($scope.selectedDir, e.path);
+                }
+            }
+            else
+            {
+                //todo, old-school file upload
+                //$window.uploadFile($scope.selectedDir, e.path);
+            }
+        }
+
+    };
+
+
+    $scope.linkFiles = function(){
+        //todo
+    };
+
+
+    var copyFile = function(path_){
         console.log("upload file = " +path_);
 
         var request = importService.copyFile($scope.selectedDir, path_);
@@ -94,38 +168,6 @@ var UploaderController = function($window, $document, $scope, $rootScope, $locat
     };
 
 
-    $scope.removeFileByPath = function(path){
-        for (var i = 0; i < $scope.fileList.length; i++)
-        {
-            var file = $scope.fileList[i];
-            if( file.path == path ){
-                $scope.removeFile(file);
-                break;
-            }
-        }
-    };
-
-    $scope.removeFile = function(e){
-        console.dir("remove file = " + e.path);
-
-        var pos = $scope.fileList.indexOf(e);
-        if( pos > -1){
-            $scope.fileList.splice(pos, 1);
-        }
-    };
-
-    // our directive can't see the local $scope, but if we store this in the root scope we are ok (bad hack, but it works)
-    var selectFilesHandler = function(data) {
-        console.log("{UploaderController} root selectFiles");
-        console.dir(data);
-        for (var i = 0; i < data.length; i++)
-        {
-            var obj = data[i];
-            if ($scope.fileList.indexOf(obj) == -1){
-                $scope.fileList.push(obj);
-            }
-        }
-    };
 
 };
 

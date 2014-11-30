@@ -41,7 +41,7 @@ module.exports = function (grunt) {
 
 	// default task
 	grunt.registerTask('default', ['copy','build-shared-libs','build']);//'clean'
-	grunt.registerTask('default-quick', ['build-shared-libs','build-quick', 'copy:html', 'copy:js']);
+	grunt.registerTask('default-quick', ['build-quick', 'build-shared-libs', 'copy:html', 'copy:js', 'build-atom-shell-app']);
 
 	// build tasks
 	grunt.registerTask('build', ['build-css', 'build-js', 'build-atom-shell-app']);
@@ -402,7 +402,7 @@ module.exports = function (grunt) {
                 app_dir:"dist",
                 cache_dir:"binaries",
                 build_dir:"binary-dist",
-                atom_shell_version: 'v0.15.6'
+                atom_shell_version: 'v0.19.5'
             }
         }
 

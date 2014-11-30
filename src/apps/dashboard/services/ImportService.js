@@ -17,6 +17,10 @@
 
 var ImportService = function($http)
 {
+    this.fileIsAccessible = function(file_)
+    {
+        return true; //todo, call server and make sure it can access the file
+    };
 
     this.copyFile = function(dir, path)
     {

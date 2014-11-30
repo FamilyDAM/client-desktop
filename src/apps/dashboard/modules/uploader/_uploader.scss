@@ -1,8 +1,84 @@
 .uploaderBody
 {
   width: 100%;
-  height: 100%;
-  min-height: 500px;
-  border:5px dashed #eee;
-  border-radius: 20px;
 }
+
+.uploaderBody md-content
+{
+  width: 100%;
+}
+
+.uploaderBody md-subheader
+{
+  background-color: #eeeeee;
+}
+
+.uploaderBody .uploadButtons
+{
+  width:         100%;
+  height:        200px;
+  border:        5px dashed #eeeeee;
+  border-radius: 20px;
+  padding: 50px;
+}
+
+/****************
+* md-card FOLDERS
+*****************/
+.uploaderBody md-card.folder
+{
+  width:      100%;
+  min-height: 50px;
+  text-align: left;
+}
+
+.uploaderBody md-card.folder .icon
+{
+  background: url("./components/material-design-icons/file/svg/design/ic_folder_48px.svg") no-repeat !important;
+  margin:     0px 10px !important;
+  width:      50px;
+  height:     48px;
+}
+
+.uploaderBody md-card.folder h3
+{
+  padding: 0px;
+}
+
+/****************
+*  md-card Files
+*****************/
+.uploaderBody md-card.file
+{
+  width:      100%;
+  min-height: 50px;
+  text-align: left;
+}
+
+.uploaderBody md-card.file .icon
+{
+  background: url("./components/material-design-icons/file/svg/design/ic_image_48px.svg") no-repeat !important;
+  margin:     0px 10px !important;
+  width:      50px;
+  height:     48px;
+}
+
+.uploaderBody md-card.file .thumbnail
+{
+  margin: 0px 10px !important;
+}
+
+.uploaderBody md-card.file .thumbnail img
+{
+  width:         75px;
+  height:        auto;
+  margin-top:    5px;
+  margin-bottom: 5px;
+}
+
+.uploaderBody md-card.file h3
+{
+  padding:    0px;
+  text-align: center;
+}
+

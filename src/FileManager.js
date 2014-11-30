@@ -73,6 +73,9 @@
     var multipart = require("multipart");
 
 
+    /**
+     * Deprecated, now we send the path to the server and let it grab the file.
+     */
     ipc.on('uploadFile', function(event, dir, path) {
         console.log("{node} upload file:" +path);
         //console.dir(event);

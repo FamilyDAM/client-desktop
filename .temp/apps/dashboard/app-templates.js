@@ -18,38 +18,37 @@ angular.module("apps/dashboard/modules/files/files.tpl.html", []).run(["$templat
     "<div class=\"filesBody\" flex layout=\"vertical\">\n" +
     "\n" +
     "    <md-content>\n" +
+    "        <md-subheader class=\"md-primary\">Folders</md-subheader>\n" +
     "        <md-list>\n" +
-    "            <md-subheader class=\"md-primary\">Folders</md-subheader>\n" +
-    "            <md-list>\n" +
-    "                <md-item  ng-repeat=\"folder in folderList\">\n" +
-    "                    <md-item-content>\n" +
-    "                        <md-card class=\"folder\" layout=\"horizontal\">\n" +
-    "                            <div class=\"icon\"></div>\n" +
-    "                            <div>\n" +
-    "                                <h3>{{folder.name}}</h3>\n" +
-    "                            </div>\n" +
-    "                        </md-card>\n" +
-    "                    </md-item-content>\n" +
-    "                </md-item>\n" +
-    "            </md-list>\n" +
-    "\n" +
-    "\n" +
-    "            <md-subheader class=\"md-primary\">Files</md-subheader>\n" +
-    "            <md-list>\n" +
-    "                <md-item  ng-repeat=\"file in fileList \">\n" +
-    "                    <md-item-content>\n" +
-    "                        <md-card class=\"file\" layout=\"horizontal\">\n" +
-    "                            <div class=\"thumbnail\">\n" +
-    "                                <img src=\"http://localhost:8080{{file.path}}?token={{token}}\"/>\n" +
-    "                            </div>\n" +
-    "                            <div>\n" +
-    "                                <h3>{{file.name}}</h3>\n" +
-    "                            </div>\n" +
-    "                        </md-card>\n" +
-    "                    </md-item-content>\n" +
-    "                </md-item>\n" +
-    "            </md-list>\n" +
+    "            <md-item  ng-repeat=\"folder in folderList\">\n" +
+    "                <md-item-content>\n" +
+    "                    <md-card class=\"folder\" layout=\"horizontal\">\n" +
+    "                        <div class=\"icon\"></div>\n" +
+    "                        <div>\n" +
+    "                            <h3>{{folder.name}}</h3>\n" +
+    "                        </div>\n" +
+    "                    </md-card>\n" +
+    "                </md-item-content>\n" +
+    "            </md-item>\n" +
     "        </md-list>\n" +
+    "\n" +
+    "\n" +
+    "        <md-subheader class=\"md-primary\">Files</md-subheader>\n" +
+    "        <md-list>\n" +
+    "            <md-item  ng-repeat=\"file in fileList \">\n" +
+    "                <md-item-content>\n" +
+    "                    <md-card class=\"file\" layout=\"horizontal\">\n" +
+    "                        <div class=\"thumbnail\">\n" +
+    "                            <img src=\"http://localhost:8080{{file.path}}?token={{token}}\"/>\n" +
+    "                        </div>\n" +
+    "                        <div>\n" +
+    "                            <h3>{{file.name}}</h3>\n" +
+    "                        </div>\n" +
+    "                    </md-card>\n" +
+    "                </md-item-content>\n" +
+    "            </md-item>\n" +
+    "        </md-list>\n" +
+    "\n" +
     "    </md-content>\n" +
     "</div>\n" +
     "");
@@ -165,7 +164,7 @@ angular.module("apps/dashboard/modules/home/home.tpl.html", []).run(["$templateC
     "\n" +
     "        <h2 class=\"md-toolbar-tools\" layout-arrange=\"center center\">\n" +
     "            <md-icon\n" +
-    "                    icon=\"/components/material-design-icons/action/svg/design/ic_home_24px.svg\"\n" +
+    "                    icon=\"components/material-design-icons/action/svg/design/ic_home_24px.svg\"\n" +
     "                    style=\"width: 24px; height: 24px;\">\n" +
     "            </md-icon>\n" +
     "            <span><a ui-sref=\"home\">Home</a>{{pageTitle}}</span>\n" +
@@ -431,23 +430,89 @@ angular.module("apps/dashboard/modules/uploader/left-drawer.tpl.html", []).run([
 angular.module("apps/dashboard/modules/uploader/uploader.tpl.html", []).run(["$templateCache", function($templateCache) {
   $templateCache.put("apps/dashboard/modules/uploader/uploader.tpl.html",
     "<!-- MAIN -->\n" +
-    "<div layout=\"vertical\" layout-align=\"center center\" flex\n" +
-    "     class=\"uploaderBody\">\n" +
-    "    <div>\n" +
-    "        <strong>Upload Location:</strong> {{visiblePath}}\n" +
+    "<div layout=\"vertical\"  class=\"uploaderBody\" layout-align=\"center center\" flex>\n" +
+    "    <div class=\"uploadButtons\">\n" +
+    "        <div>\n" +
+    "            <strong>Upload Location:</strong> {{visiblePath}}\n" +
+    "        </div>\n" +
+    "        <br/><br/>\n" +
+    "\n" +
+    "        <div>\n" +
+    "            Drag files, folders or\n" +
+    "        </div>\n" +
+    "        <!--\n" +
+    "        <div>\n" +
+    "            <button class=\"md-raised md-button md-primary\"\n" +
+    "                    ng-click=\"openFileDialog()\">Select Files</button>\n" +
+    "        </div>\n" +
+    "        -->\n" +
+    "        <div layout=\"horizontal\">\n" +
+    "            <input type=\"file\" multiple\n" +
+    "                   class=\"md-raised md-button md-primary\"\n" +
+    "                   onChange=\"angular.element(this).scope().fileSelectionHandler(event)\"\n" +
+    "                   value=\"Select Files\"\n" +
+    "                   style=\"width:85px\"/>\n" +
+    "\n" +
+    "            <input type=\"file\" webkitdirectory=\"\" directory=\"\"\n" +
+    "                   class=\"md-raised md-button md-primary\"\n" +
+    "                   onChange=\"angular.element(this).scope().fileSelectionHandler(event)\"\n" +
+    "                   value=\"Select Folder\"\n" +
+    "                   style=\"width:85px\"/>\n" +
+    "        </div>\n" +
+    "\n" +
+    "        <div layout=\"horizontal\">\n" +
+    "            <md-button class=\"md-raised md-button md-primary\" ng-click=\"uploadFiles();\">Copy Files</md-button>\n" +
+    "            <md-button class=\"md-raised md-button md-primary\" ng-click=\"linkFiles()\">Link Files</md-button>\n" +
+    "        </div>\n" +
     "    </div>\n" +
-    "    <br/><br/>\n" +
-    "    <div>\n" +
-    "        Drag files, folders or\n" +
-    "    </div>\n" +
-    "    <div>\n" +
-    "        <button class=\"md-raised md-button md-primary\"\n" +
-    "                ng-click=\"openFileDialog()\">Select Files</button>\n" +
-    "    </div>\n" +
-    "    <div>\n" +
-    "        <input type=\"file\" class=\"md-raised md-button md-primary\"\n" +
-    "                ng-click=\"openFileDialog()\">Select Files2</button>\n" +
-    "    </div>\n" +
+    "\n" +
+    "\n" +
+    "    <md-content>\n" +
+    "        <md-list>\n" +
+    "            <md-subheader class=\"md-primary\">Folders</md-subheader>\n" +
+    "            <md-list>\n" +
+    "                <md-item ng-repeat=\"folder in folderList\">\n" +
+    "                    <md-item-content>\n" +
+    "                        <md-card class=\"folder\" layout=\"horizontal\">\n" +
+    "                            <div class=\"icon\"></div>\n" +
+    "                            <div>\n" +
+    "                                <h3>{{folder.name}}</h3>\n" +
+    "                            </div>\n" +
+    "                            <div flex></div>\n" +
+    "                            <div layout-align=\"center center\">\n" +
+    "                                <img src=\"components/material-design-icons/navigation/svg/design/ic_close_24px.svg\"\n" +
+    "                                     style=\"width: 24px; height: 24px;\"\n" +
+    "                                        ng-click=\"removeFolder(folder)\">\n" +
+    "                            </div>\n" +
+    "                        </md-card>\n" +
+    "                    </md-item-content>\n" +
+    "                </md-item>\n" +
+    "            </md-list>\n" +
+    "\n" +
+    "\n" +
+    "            <md-subheader class=\"md-primary\">Files</md-subheader>\n" +
+    "            <md-list>\n" +
+    "                <md-item ng-repeat=\"file in fileList \">\n" +
+    "                    <md-item-content>\n" +
+    "                        <md-card class=\"file\" layout=\"horizontal\">\n" +
+    "                            <div class=\"thumbnail\">\n" +
+    "                                <img src=\"{{file.path}}\"/>\n" +
+    "                            </div>\n" +
+    "                            <div>\n" +
+    "                                <h3>{{file.name}}</h3>\n" +
+    "                            </div>\n" +
+    "                            <div flex></div>\n" +
+    "                            <div layout-align=\"center center\">\n" +
+    "                                <img src=\"components/material-design-icons/navigation/svg/design/ic_close_24px.svg\"\n" +
+    "                                     style=\"width: 24px; height: 24px;\"\n" +
+    "                                     ng-click=\"removeFile(file)\">\n" +
+    "                            </div>\n" +
+    "                        </md-card>\n" +
+    "                    </md-item-content>\n" +
+    "                </md-item>\n" +
+    "            </md-list>\n" +
+    "        </md-list>\n" +
+    "    </md-content>\n" +
     "</div>\n" +
     "\n" +
     "\n" +

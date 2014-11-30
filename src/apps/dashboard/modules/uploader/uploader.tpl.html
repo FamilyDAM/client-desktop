@@ -1,21 +1,87 @@
 <!-- MAIN -->
-<div layout="vertical" layout-align="center center" flex
-     class="uploaderBody">
-    <div>
-        <strong>Upload Location:</strong> {{visiblePath}}
+<div layout="vertical"  class="uploaderBody" layout-align="center center" flex>
+    <div class="uploadButtons">
+        <div>
+            <strong>Upload Location:</strong> {{visiblePath}}
+        </div>
+        <br/><br/>
+
+        <div>
+            Drag files, folders or
+        </div>
+        <!--
+        <div>
+            <button class="md-raised md-button md-primary"
+                    ng-click="openFileDialog()">Select Files</button>
+        </div>
+        -->
+        <div layout="horizontal">
+            <input type="file" multiple
+                   class="md-raised md-button md-primary"
+                   onChange="angular.element(this).scope().fileSelectionHandler(event)"
+                   value="Select Files"
+                   style="width:85px"/>
+
+            <input type="file" webkitdirectory="" directory=""
+                   class="md-raised md-button md-primary"
+                   onChange="angular.element(this).scope().fileSelectionHandler(event)"
+                   value="Select Folder"
+                   style="width:85px"/>
+        </div>
+
+        <div layout="horizontal">
+            <md-button class="md-raised md-button md-primary" ng-click="uploadFiles();">Copy Files</md-button>
+            <md-button class="md-raised md-button md-primary" ng-click="linkFiles()">Link Files</md-button>
+        </div>
     </div>
-    <br/><br/>
-    <div>
-        Drag files, folders or
-    </div>
-    <div>
-        <button class="md-raised md-button md-primary"
-                ng-click="openFileDialog()">Select Files</button>
-    </div>
-    <div>
-        <input type="file" class="md-raised md-button md-primary"
-                ng-click="openFileDialog()">Select Files2</button>
-    </div>
+
+
+    <md-content>
+        <md-list>
+            <md-subheader class="md-primary">Folders</md-subheader>
+            <md-list>
+                <md-item ng-repeat="folder in folderList">
+                    <md-item-content>
+                        <md-card class="folder" layout="horizontal">
+                            <div class="icon"></div>
+                            <div>
+                                <h3>{{folder.name}}</h3>
+                            </div>
+                            <div flex></div>
+                            <div layout-align="center center">
+                                <img src="components/material-design-icons/navigation/svg/design/ic_close_24px.svg"
+                                     style="width: 24px; height: 24px;"
+                                        ng-click="removeFolder(folder)">
+                            </div>
+                        </md-card>
+                    </md-item-content>
+                </md-item>
+            </md-list>
+
+
+            <md-subheader class="md-primary">Files</md-subheader>
+            <md-list>
+                <md-item ng-repeat="file in fileList ">
+                    <md-item-content>
+                        <md-card class="file" layout="horizontal">
+                            <div class="thumbnail">
+                                <img src="{{file.path}}"/>
+                            </div>
+                            <div>
+                                <h3>{{file.name}}</h3>
+                            </div>
+                            <div flex></div>
+                            <div layout-align="center center">
+                                <img src="components/material-design-icons/navigation/svg/design/ic_close_24px.svg"
+                                     style="width: 24px; height: 24px;"
+                                     ng-click="removeFile(file)">
+                            </div>
+                        </md-card>
+                    </md-item-content>
+                </md-item>
+            </md-list>
+        </md-list>
+    </md-content>
 </div>
 
 
