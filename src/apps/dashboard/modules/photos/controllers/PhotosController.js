@@ -48,6 +48,11 @@ var PhotosController = function($window, $document, $scope, $rootScope, $locatio
     });
 
 
+    $scope.showHeaders = function(){
+        return $scope.folderList.length>0 && $scope.fileList.length>0;
+    };
+
+
     var getDirectoryList = function(path_)
     {
         //todo: add spinner

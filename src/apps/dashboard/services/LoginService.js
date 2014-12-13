@@ -29,7 +29,7 @@ var LoginService = function($http, $cookies, AuthService, $location, $rootScope)
         //var _args = $.param({ username:username, password:password });
 
         //todo: make port dynamic
-        var method =  $http.post('http://localhost:8080/api/users/login',
+        var method =  $http.post('http://localhost:9000/api/users/login',
             "username=" +username_ +"&password=" +password_,
             _config);
 
@@ -57,7 +57,7 @@ var LoginService = function($http, $cookies, AuthService, $location, $rootScope)
         _config.headers['Accept'] = "application/json";
 
         //todo: make port dynamic
-        var method =  $http.get('http://localhost:8080/api/users'); //, _config);
+        var method =  $http.get('http://localhost:9000/api/users'); //, _config);
 
         return method;
     };
@@ -65,7 +65,7 @@ var LoginService = function($http, $cookies, AuthService, $location, $rootScope)
 
     this.getUser = function(username)
     {
-        var method =  $http.get('http://localhost:8080/api/users/' +username);
+        var method =  $http.get('http://localhost:9000/api/users/' +username);
         return method.then(
             function(result){
                 return result;

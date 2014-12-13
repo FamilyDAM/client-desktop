@@ -358,7 +358,7 @@ angular.module("apps/dashboard/modules/photos/photos.tpl.html", []).run(["$templ
     "\n" +
     "    <md-content>\n" +
     "        <md-list  layout=\"vertical\">\n" +
-    "            <md-subheader class=\"md-primary\">Folders</md-subheader>\n" +
+    "            <md-subheader class=\"md-primary\" ng-show=\"showHeaders()\">Folders</md-subheader>\n" +
     "            <md-list  layout=\"horizontal\">\n" +
     "                <md-item  ng-repeat=\"folder in folderList\">\n" +
     "                    <md-item-content>\n" +
@@ -373,21 +373,18 @@ angular.module("apps/dashboard/modules/photos/photos.tpl.html", []).run(["$templ
     "            </md-list>\n" +
     "\n" +
     "\n" +
-    "            <md-subheader class=\"md-primary\">Files</md-subheader>\n" +
-    "            <md-list  layout=\"horizontal\">\n" +
-    "                <md-item  ng-repeat=\"file in fileList\">\n" +
-    "                    <md-item-content>\n" +
-    "                        <md-card class=\"file\" layout=\"vertical\">\n" +
-    "                            <div class=\"thumbnail\">\n" +
-    "                                <img src=\"http://localhost:8080{{file.path}}?token={{token}}\"/>\n" +
-    "                            </div>\n" +
-    "                            <div>\n" +
-    "                                <h3>{{file.name}}</h3>\n" +
-    "                            </div>\n" +
-    "                        </md-card>\n" +
-    "                    </md-item-content>\n" +
-    "                </md-item>\n" +
-    "            </md-list>\n" +
+    "            <md-subheader class=\"md-primary\" ng-show=\"showHeaders()\">Files</md-subheader>\n" +
+    "                <div >\n" +
+    "                    <md-card class=\"file\" layout=\"vertical\" ng-repeat=\"file in fileList\" style=\"width:220px; float:left\">\n" +
+    "                        <div class=\"thumbnail\">\n" +
+    "                            <img src=\"http://localhost:9000{{file.path}}?token={{token}}\" style=\"width:200px;height:200px;\"/>\n" +
+    "                        </div>\n" +
+    "                        <div>\n" +
+    "                            <h3>{{file.name}}</h3>\n" +
+    "                        </div>\n" +
+    "                    </md-card>\n" +
+    "\n" +
+    "                </div>\n" +
     "        </md-list>\n" +
     "    </md-content>\n" +
     "</div>\n" +
@@ -458,6 +455,10 @@ angular.module("apps/dashboard/modules/uploader/uploader.tpl.html", []).run(["$t
     "                   onChange=\"angular.element(this).scope().fileSelectionHandler(event)\"\n" +
     "                   value=\"Select Folder\"\n" +
     "                   style=\"width:85px\"/>\n" +
+    "\n" +
+    "            <md-button\n" +
+    "                   class=\"md-raised md-button md-primary\"\n" +
+    "                   ng-click=\"copyFiles()\">Upload</md-button>\n" +
     "        </div>\n" +
     "\n" +
     "        <div layout=\"horizontal\">\n" +

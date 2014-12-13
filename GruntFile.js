@@ -215,6 +215,7 @@ module.exports = function (grunt) {
 				boss:true,
 				eqnull:true,
                 evil:true,
+                loopfunc:true,
 				globals: {}
 			}
 		},

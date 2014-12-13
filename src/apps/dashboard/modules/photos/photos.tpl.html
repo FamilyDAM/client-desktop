@@ -3,7 +3,7 @@
 
     <md-content>
         <md-list  layout="vertical">
-            <md-subheader class="md-primary">Folders</md-subheader>
+            <md-subheader class="md-primary" ng-show="showHeaders()">Folders</md-subheader>
             <md-list  layout="horizontal">
                 <md-item  ng-repeat="folder in folderList">
                     <md-item-content>
@@ -18,21 +18,18 @@
             </md-list>
 
 
-            <md-subheader class="md-primary">Files</md-subheader>
-            <md-list  layout="horizontal">
-                <md-item  ng-repeat="file in fileList">
-                    <md-item-content>
-                        <md-card class="file" layout="vertical">
-                            <div class="thumbnail">
-                                <img src="http://localhost:8080{{file.path}}?token={{token}}"/>
-                            </div>
-                            <div>
-                                <h3>{{file.name}}</h3>
-                            </div>
-                        </md-card>
-                    </md-item-content>
-                </md-item>
-            </md-list>
+            <md-subheader class="md-primary" ng-show="showHeaders()">Files</md-subheader>
+                <div >
+                    <md-card class="file" layout="vertical" ng-repeat="file in fileList" style="width:220px; float:left">
+                        <div class="thumbnail">
+                            <img src="http://localhost:9000{{file.path}}?token={{token}}" style="width:200px;height:200px;"/>
+                        </div>
+                        <div>
+                            <h3>{{file.name}}</h3>
+                        </div>
+                    </md-card>
+
+                </div>
         </md-list>
     </md-content>
 </div>

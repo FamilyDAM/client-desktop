@@ -20,7 +20,6 @@ var UploaderController = function($window, $document, $scope, $rootScope, $locat
     $scope.selectedDir = "/photos/admin";
     $scope.folderList = [];
     $scope.fileList = [];
-    $scope.path = "/documents";
     $scope.visiblePath = $scope.path;
 
 
@@ -37,7 +36,7 @@ var UploaderController = function($window, $document, $scope, $rootScope, $locat
         console.log(node);
         if( node !== undefined )
         {
-            $scope.path = node.path;
+            $scope.selectedDir = node.path;
             $scope.visiblePath = node.path.substring(1);
         }
     });
@@ -80,7 +79,7 @@ var UploaderController = function($window, $document, $scope, $rootScope, $locat
         {
             var obj = $scope.fileList[i];
 
-            if( obj.path == file_.path ){
+            if( obj.path == file_ || obj.path == file_.path ){
                 $scope.fileList.splice(i, 1);
                 break;
             }
@@ -95,7 +94,7 @@ var UploaderController = function($window, $document, $scope, $rootScope, $locat
         {
             var obj = $scope.folderList[i];
 
-            if( obj.path == folder_.path ){
+            if( obj.path == folder_ || obj.path == folder_.path ){
                 $scope.folderList.splice(i, 1);
                 break;
             }
@@ -103,7 +102,10 @@ var UploaderController = function($window, $document, $scope, $rootScope, $locat
     };
 
 
-
+    /**
+     * @deprecated now that file input fields work
+     * Call back to OS shell and open the native dialog
+     */
     $scope.openFileDialog = function(){
         try{
             var remote = require('remote');
@@ -117,25 +119,50 @@ var UploaderController = function($window, $document, $scope, $rootScope, $locat
     };
 
 
-    $scope.uploadFiles = function(){
+    $scope.copyFiles = function(){
 
         for (var i = 0; i < $scope.fileList.length; i++)
         {
             var _file = $scope.fileList[i];
             if( _file.path !== undefined )
             {
-                if( importService.fileIsAccessible(_file.path) )
+                importService.isVisible(_file.path).then(function(result)
                 {
-                    copyFile(_file.path);
-                }else{
-                    //todo, old-school file upload
-                    //$window.uploadFile($scope.selectedDir, e.path);
-                }
+                    var _path = result.data.path;
+                    var visible = result.data.visible;
+
+                    if( visible ) {
+                        var request = importService.copyFile($scope.selectedDir, _path);
+                        request.then(
+                            function (response) {
+                                if (response.status == 200 || response.status == 201) {
+                                    $scope.removeFile(_path);
+                                    $scope.removeFolder(_path);
+                                } else {
+                                    // Our server side copy failed, so let's try to do an old fashion form post (through the nodejs shell)
+                                    //todo
+                                    console.dir(response);
+                                }
+
+                            }, function (err, a2, a3, a4) {
+                                //todo
+                                console.dir(err);
+                                console.dir(a2);
+                            }, function (progress) {
+                                // report progress
+                                console.log(progress);
+                            });
+                    }else{
+                        importService.formUpload(_file.path);
+                    }
+                });
+
             }
             else
             {
-                //todo, old-school file upload
-                //$window.uploadFile($scope.selectedDir, e.path);
+                // the path is not defined, so most likely we are running in a browser (not desktop).
+                // so we need to do a regular form upload.
+                importService.formUpload(_file.path);
             }
         }
 

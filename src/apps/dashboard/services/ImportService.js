@@ -17,21 +17,36 @@
 
 var ImportService = function($http)
 {
-    this.fileIsAccessible = function(file_)
-    {
-        return true; //todo, call server and make sure it can access the file
-    };
-
-    this.copyFile = function(dir, path)
+    this.isVisible = function(path)
     {
         //todo: make url/port dynamic
-        var method = $http.post('http://localhost:8080/api/import/copy/', {
-            'dir': dir,
+        var method = $http.post('http://localhost:9000/api/import/info/', {
             'path':path
         });
 
         return method;
     };
+
+
+    this.copyFile = function(dir, path)
+    {
+        //todo: make url/port dynamic
+        var method = $http.post('http://localhost:9000/api/import/copy/', {
+            'dir': dir,
+            'path':path,
+            'recursive': true
+        });
+
+        return method;
+    };
+
+
+    this.formUpload = function(dir, path)
+    {
+        //todo, old-school file upload
+        //$window.uploadFile($scope.selectedDir, e.path);
+    };
+
 
 };
 

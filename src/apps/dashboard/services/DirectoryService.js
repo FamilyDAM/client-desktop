@@ -23,7 +23,7 @@ var DirectoryService = function($http, $location, $q, AuthService, transformRequ
         $http.defaults.headers.common['Authorization'] = AuthService.getToken();
 
         //todo: make url/port dynamic
-        var method = $http.get('http://localhost:8080/api/directory/tree');
+        var method = $http.get('http://localhost:9000/api/directory/tree');
         return method.then(
             function(result){
                 return result.data;
@@ -48,7 +48,7 @@ var DirectoryService = function($http, $location, $q, AuthService, transformRequ
 
         var request = $http({
             method: "post",
-            url: "http://localhost:8080/api/directory/",
+            url: "http://localhost:9000/api/directory/",
             transformRequest: transformRequestAsFormPost,
             data: data
         });
