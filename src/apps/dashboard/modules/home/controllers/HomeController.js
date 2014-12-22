@@ -34,11 +34,11 @@ var HomeController = function ($scope, $rootScope, $window, $location, $state, $
 
 
     $scope.toggleLeftSide = function(){
-        $mdSidenav("leftDrawer").toggle();
+        $mdSidenav("#leftSideNav").toggle();
     };
 
     $scope.toggleRightSide = function(){
-        $mdSidenav("rightDrawer").toggle();
+        $mdSidenav("#rightSideNav").toggle();
     };
 
     $scope.$on('$stateChangeSuccess', function(){
