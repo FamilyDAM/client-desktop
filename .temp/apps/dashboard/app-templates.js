@@ -3,10 +3,6 @@ angular.module('dashboard.templates', ['apps/dashboard/directives/dirTree/dirtre
 angular.module("apps/dashboard/directives/dirTree/dirtree.tpl.html", []).run(["$templateCache", function($templateCache) {
   $templateCache.put("apps/dashboard/directives/dirTree/dirtree.tpl.html",
     "<div class=\"dirTree\">\n" +
-    "    <style>\n" +
-    "        .treeItem {display:flex}\n" +
-    "    </style>\n" +
-    "\n" +
     "    <treecontrol id=\"treeControl\" class=\"tree-classic\"\n" +
     "                 tree-model=\"directories\"\n" +
     "                 options=\"treeOptions\"\n" +

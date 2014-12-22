@@ -1,32 +1,35 @@
-
-
 .dirTree{
   width: 100%;
   min-height: 150px;
 }
 
-.treeList li
-{
-  padding: 2px 0 2px 20px;
+.dirTree .treeItem {
+  display:flex;
+  padding: 0px;
+
 }
 
+.dirTree .treeList {
+  margin-right: 20px;
+  margin-left: 20px;
+}
 
-.treeCollapsed{
+.dirTree .treeCollapsed {
   background: url("./assets/icons/ic_folder_24px.svg") no-repeat !important;
   padding: 5px 15px!important;
 }
 
-.treeExpanded{
+.dirTree .treeExpanded {
   background: url("./assets/iconsn/ic_folder_open_24px.svg") no-repeat !important;
   padding: 5px 15px !important;
 }
 
-.treeLeaf{
+.dirTree .treeLeaf {
   background: url("./assets/icons/ic_folder_24px.svg") no-repeat !important;
   padding: 5px 15px!important;
 }
 
-.treeLabel
+.dirTree .treeLabel
 {
   text-transform: capitalize;
   font-size: 18px; font-size: 1.8rem;
