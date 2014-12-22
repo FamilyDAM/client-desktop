@@ -53,9 +53,9 @@
                             </div>
                             <div flex></div>
                             <div layout-align="center center">
-                                <img src="components/material-design-icons/navigation/svg/design/ic_close_24px.svg"
+                                <img src="assets/icons/ic_close_24px.svg"
                                      style="width: 24px; height: 24px;"
-                                        ng-click="removeFolder(folder)">
+                                     ng-click="removeFolder(folder)">
                             </div>
                         </md-card>
                     </md-item-content>
@@ -69,14 +69,15 @@
                     <md-item-content>
                         <md-card class="file" layout="horizontal">
                             <div class="thumbnail">
-                                <img src="{{file.path}}"/>
+                                <img src="{{file.path}}"
+                                     data-path="{{file.path}}"/>
                             </div>
                             <div>
                                 <h3>{{file.name}}</h3>
                             </div>
                             <div flex></div>
                             <div layout-align="center center">
-                                <img src="components/material-design-icons/navigation/svg/design/ic_close_24px.svg"
+                                <img src="assets/icons/ic_close_24px.svg"
                                      style="width: 24px; height: 24px;"
                                      ng-click="removeFile(file)">
                             </div>

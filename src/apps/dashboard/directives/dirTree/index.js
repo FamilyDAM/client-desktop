@@ -16,7 +16,7 @@
  */
 
 
-module.exports = angular.module('familydam.directives', ['familydam.services'])
+module.exports = angular.module('familydam.directives.dirTree', ['familydam.services'])
     .directive("dirTree", ['directoryService',  function(directoryService) {
         var _scope;
 
@@ -47,12 +47,18 @@ module.exports = angular.module('familydam.directives', ['familydam.services'])
                     }
                 };
 
+
                 $scope.selectNode = function(node){
                     //console.log(node);
                     selectedNode = node;
                     //$scope.$root.$emit('selection', node);
                     $scope.$root.$broadcast('selection', node);
                 };
+
+                $scope.addFolder = function(nodePath){};
+                $scope.editFolder = function(element){};
+                $scope.saveFolder = function(nodePath){};
+                $scope.deleteFolder = function(nodePath){};
 
                 directoryService.listDirectories().then(function(data){
 
@@ -76,8 +82,12 @@ module.exports = angular.module('familydam.directives', ['familydam.services'])
 
             link:function(scope, element, attrs, controller) {
                 var _filter;
+                var _selectedNode;
                 scope.$watch('filter', function(value) {
                     _filter = value;
+                });
+                scope.$watch('selectedNode', function(value) {
+                    _selectedNode = value;
                 });
             },
 

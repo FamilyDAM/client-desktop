@@ -3,6 +3,17 @@
     <treecontrol id="treeControl" class="tree-classic"
                  tree-model="directories"
                  options="treeOptions"
-                 on-selection="selectNode(node)">{{node.name}}</treecontrol>
+                 on-selection="selectNode(node)">
+        <div style="width:100%;display: inline">
+            <div style="display: inline; right:20px;">
+            {{node.name}}
+            </div>
+            <div style="display: inline;right:0px;">
+                <button md-no-ink class="md-primary" ng-click="addFolder(node.path)">+</button>
+                <button md-no-ink class="md-primary" ng-click="editFolder(this)">e</button>
+                <button md-no-ink class="md-primary" ng-click="deleteFolder(node.path)">x</button>
+            </div>
+        </div>
+    </treecontrol>
 
 </div>

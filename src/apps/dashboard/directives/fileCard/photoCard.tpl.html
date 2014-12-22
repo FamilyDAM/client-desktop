@@ -1,0 +1,11 @@
+<md-card class="file dirTree" layout="vertical" style="width:220px; height:240px;float:left" ng-click="toggleSelection()">
+    <div class="thumbnail">
+        <img
+             src="{{fullPath}}"
+             data-path="{{file.path}}"
+             style="width:auto;max-width:200px;max-height:200px;display: block;margin: auto;margin-top: 5px;"/>
+    </div>
+    <div>
+        <h3>{{file.name}}</h3>
+    </div>
+</md-card>

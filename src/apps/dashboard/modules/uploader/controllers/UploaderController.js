@@ -126,6 +126,7 @@ var UploaderController = function($window, $document, $scope, $rootScope, $locat
             var _file = $scope.fileList[i];
             if( _file.path !== undefined )
             {
+                enableSpinner(_file.path);
                 importService.isVisible(_file.path).then(function(result)
                 {
                     var _path = result.data.path;
@@ -141,10 +142,12 @@ var UploaderController = function($window, $document, $scope, $rootScope, $locat
                                 } else {
                                     // Our server side copy failed, so let's try to do an old fashion form post (through the nodejs shell)
                                     //todo
+                                    disableSpinner(_file.path);
                                     console.dir(response);
                                 }
 
                             }, function (err, a2, a3, a4) {
+                                disableSpinner(_file.path);
                                 //todo
                                 console.dir(err);
                                 console.dir(a2);
@@ -174,6 +177,36 @@ var UploaderController = function($window, $document, $scope, $rootScope, $locat
     };
 
 
+    /**
+     * Replace the image with a spinner while we are uploading it.
+     * @param _path
+     */
+    var enableSpinner = function(_path)
+    {
+        var element = angular.element(document.querySelectorAll("[data-path='" +_path +"']"));
+        if( element !== undefined ){
+            element.src="assets/images/loading-spin.svg";
+        }
+    };
+
+
+    /**
+     * Something happen so we will replace the spinner with the original image.
+     * @param _path
+     */
+    var disableSpinner = function(_path)
+    {
+        var element = angular.element(document.querySelectorAll("[data-path='" +_path +"']"));
+        if( element !== undefined ){
+            element.src=element[data-path];
+        }
+    };
+
+
+    /**
+     * @Deprecated
+     * @param path_
+
     var copyFile = function(path_){
         console.log("upload file = " +path_);
 
@@ -192,7 +225,7 @@ var UploaderController = function($window, $document, $scope, $rootScope, $locat
             // Our server side copy failed, so let's try to do an old fashion form post (through the nodejs shell)
             $window.uploadFile($scope.selectedDir, e.path);
         });
-    };
+    }; */
 
 
 

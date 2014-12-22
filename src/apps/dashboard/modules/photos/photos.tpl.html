@@ -19,16 +19,8 @@
 
 
             <md-subheader class="md-primary" ng-show="showHeaders()">Files</md-subheader>
-                <div >
-                    <md-card class="file" layout="vertical" ng-repeat="file in fileList" style="width:220px; float:left">
-                        <div class="thumbnail">
-                            <img src="http://localhost:9000{{file.path}}?token={{token}}" style="width:200px;height:200px;"/>
-                        </div>
-                        <div>
-                            <h3>{{file.name}}</h3>
-                        </div>
-                    </md-card>
-
+                <div>
+                    <div ng-repeat="file in fileList" file-card  file="file"></div>
                 </div>
         </md-list>
     </md-content>

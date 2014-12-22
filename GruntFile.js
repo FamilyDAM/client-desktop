@@ -41,14 +41,13 @@ module.exports = function (grunt) {
 
 	// default task
 	grunt.registerTask('default', ['copy','build-shared-libs','build']);//'clean'
-	grunt.registerTask('default-quick', ['build-quick', 'build-shared-libs', 'copy:html', 'copy:js', 'build-atom-shell-app']);
+	grunt.registerTask('default-quick', ['copy:html', 'copy:js', 'copy:statichtml', 'build-css', 'build-js', 'browserify2', 'copy:dist']);
 
 	// build tasks
 	grunt.registerTask('build', ['build-css', 'build-js', 'build-atom-shell-app']);
 	grunt.registerTask('build-css', ['compass:develop']);
 	grunt.registerTask('build-js', ['jshint','html2js','browserify2:dashboard']);
 	grunt.registerTask('build-shared-libs', ['browserify2:shared-libs','browserify2:angular-libs']);
-	grunt.registerTask('build-quick', ['build-css', 'build-js']); //, 'copy:binary'
 	//grunt.registerTask('deploy', ['slingPost']);
 
 	// server task
@@ -90,7 +89,7 @@ module.exports = function (grunt) {
 
         // copy
         copy: {
-            'binary': {
+            'dist': {
                 files: [
                     {
                         cwd: './dist/',
@@ -114,7 +113,7 @@ module.exports = function (grunt) {
                 files: [
                       {
                          cwd: './bower_components/',
-                         src: '**',
+                         src: ['**/*', '!**/material-design-icons/**'],
                          dest: './dist/apps/dashboard/components/',
                          expand: true
                      }
@@ -146,6 +145,12 @@ module.exports = function (grunt) {
                     },
                     {
                         cwd: 'src/',
+                        src: '*.js',
+                        dest: './binary-dist/darwin/atom-shell/Atom.app/Contents/Resources/app/',
+                        expand: true
+                    },
+                    {
+                        cwd: 'dist/',
                         src: '*.js',
                         dest: './binary-dist/darwin/atom-shell/Atom.app/Contents/Resources/app/',
                         expand: true

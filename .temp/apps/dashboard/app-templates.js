@@ -1,4 +1,4 @@
-angular.module('dashboard.templates', ['apps/dashboard/directives/dirTree/dirtree.tpl.html', 'apps/dashboard/modules/files/files.tpl.html', 'apps/dashboard/modules/files/left-drawer.tpl.html', 'apps/dashboard/modules/files/right-drawer.tpl.html', 'apps/dashboard/modules/home/home.tpl.html', 'apps/dashboard/modules/login/login.tpl.html', 'apps/dashboard/modules/photos/left-drawer.tpl.html', 'apps/dashboard/modules/photos/photos.tpl.html', 'apps/dashboard/modules/photos/right-drawer.tpl.html', 'apps/dashboard/modules/uploader/left-drawer.tpl.html', 'apps/dashboard/modules/uploader/uploader.tpl.html']);
+angular.module('dashboard.templates', ['apps/dashboard/directives/dirTree/dirtree.tpl.html', 'apps/dashboard/directives/fileCard/photoCard-details.tpl.html', 'apps/dashboard/directives/fileCard/photoCard.tpl.html', 'apps/dashboard/modules/files/files.tpl.html', 'apps/dashboard/modules/files/left-drawer.tpl.html', 'apps/dashboard/modules/files/right-drawer.tpl.html', 'apps/dashboard/modules/home/home.tpl.html', 'apps/dashboard/modules/login/login.tpl.html', 'apps/dashboard/modules/photos/left-drawer.tpl.html', 'apps/dashboard/modules/photos/photos.tpl.html', 'apps/dashboard/modules/photos/right-drawer.tpl.html', 'apps/dashboard/modules/uploader/left-drawer.tpl.html', 'apps/dashboard/modules/uploader/uploader.tpl.html']);
 
 angular.module("apps/dashboard/directives/dirTree/dirtree.tpl.html", []).run(["$templateCache", function($templateCache) {
   $templateCache.put("apps/dashboard/directives/dirTree/dirtree.tpl.html",
@@ -7,9 +7,74 @@ angular.module("apps/dashboard/directives/dirTree/dirtree.tpl.html", []).run(["$
     "    <treecontrol id=\"treeControl\" class=\"tree-classic\"\n" +
     "                 tree-model=\"directories\"\n" +
     "                 options=\"treeOptions\"\n" +
-    "                 on-selection=\"selectNode(node)\">{{node.name}}</treecontrol>\n" +
+    "                 on-selection=\"selectNode(node)\">\n" +
+    "        <div style=\"width:100%;display: inline\">\n" +
+    "            <div style=\"display: inline; right:20px;\">\n" +
+    "            {{node.name}}\n" +
+    "            </div>\n" +
+    "            <div style=\"display: inline;right:0px;\">\n" +
+    "                <button md-no-ink class=\"md-primary\" ng-click=\"addFolder(node.path)\">+</button>\n" +
+    "                <button md-no-ink class=\"md-primary\" ng-click=\"editFolder(this)\">e</button>\n" +
+    "                <button md-no-ink class=\"md-primary\" ng-click=\"deleteFolder(node.path)\">x</button>\n" +
+    "            </div>\n" +
+    "        </div>\n" +
+    "    </treecontrol>\n" +
     "\n" +
     "</div>");
+}]);
+
+angular.module("apps/dashboard/directives/fileCard/photoCard-details.tpl.html", []).run(["$templateCache", function($templateCache) {
+  $templateCache.put("apps/dashboard/directives/fileCard/photoCard-details.tpl.html",
+    "<!--\n" +
+    "  ~ This file is part of FamilyDAM Project.\n" +
+    "  ~\n" +
+    "  ~     The FamilyDAM Project is free software: you can redistribute it and/or modify\n" +
+    "  ~     it under the terms of the GNU General Public License as published by\n" +
+    "  ~     the Free Software Foundation, either version 3 of the License, or\n" +
+    "  ~     (at your option) any later version.\n" +
+    "  ~\n" +
+    "  ~     The FamilyDAM Project is distributed in the hope that it will be useful,\n" +
+    "  ~     but WITHOUT ANY WARRANTY; without even the implied warranty of\n" +
+    "  ~     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the\n" +
+    "  ~     GNU General Public License for more details.\n" +
+    "  ~\n" +
+    "  ~     You should have received a copy of the GNU General Public License\n" +
+    "  ~     along with the FamilyDAM Project.  If not, see <http://www.gnu.org/licenses/>.\n" +
+    "  -->\n" +
+    "\n" +
+    "<md-card class=\"fileDetails\" layout=\"vertical\" style=\"width:100%\" layout=\"center\">\n" +
+    "    <div class=\"image\" style=\"background-color: #212124; width:100%;\">\n" +
+    "        <img\n" +
+    "             src=\"{{fullPath}}\"\n" +
+    "             data-path=\"{{file.path}}\"\n" +
+    "             style=\"width:auto;height:500px; display: block; margin: 0px auto; padding: 25px;\"/>\n" +
+    "    </div>\n" +
+    "    <div>\n" +
+    "        <div layout=\"horizontal\">\n" +
+    "            <img src=\"assets/icons/ic_close_24px.svg\"\n" +
+    "                 style=\"width: 24px; height: 24px;\"\n" +
+    "                 ng-click=\"deselect(file)\">\n" +
+    "            <h3>{{file.name}}</h3>\n" +
+    "        </div>\n" +
+    "    </div>\n" +
+    "</md-card>\n" +
+    "");
+}]);
+
+angular.module("apps/dashboard/directives/fileCard/photoCard.tpl.html", []).run(["$templateCache", function($templateCache) {
+  $templateCache.put("apps/dashboard/directives/fileCard/photoCard.tpl.html",
+    "<md-card class=\"file dirTree\" layout=\"vertical\" style=\"width:220px; height:240px;float:left\" ng-click=\"toggleSelection()\">\n" +
+    "    <div class=\"thumbnail\">\n" +
+    "        <img\n" +
+    "             src=\"{{fullPath}}\"\n" +
+    "             data-path=\"{{file.path}}\"\n" +
+    "             style=\"width:auto;max-width:200px;max-height:200px;display: block;margin: auto;margin-top: 5px;\"/>\n" +
+    "    </div>\n" +
+    "    <div>\n" +
+    "        <h3>{{file.name}}</h3>\n" +
+    "    </div>\n" +
+    "</md-card>\n" +
+    "");
 }]);
 
 angular.module("apps/dashboard/modules/files/files.tpl.html", []).run(["$templateCache", function($templateCache) {
@@ -39,7 +104,7 @@ angular.module("apps/dashboard/modules/files/files.tpl.html", []).run(["$templat
     "                <md-item-content>\n" +
     "                    <md-card class=\"file\" layout=\"horizontal\">\n" +
     "                        <div class=\"thumbnail\">\n" +
-    "                            <img src=\"http://localhost:8080{{file.path}}?token={{token}}\"/>\n" +
+    "                            <img src=\"http://localhost:9000{{file.path}}?token={{token}}&rendition=thumbnail.200\"/>\n" +
     "                        </div>\n" +
     "                        <div>\n" +
     "                            <h3>{{file.name}}</h3>\n" +
@@ -164,7 +229,7 @@ angular.module("apps/dashboard/modules/home/home.tpl.html", []).run(["$templateC
     "\n" +
     "        <h2 class=\"md-toolbar-tools\" layout-arrange=\"center center\">\n" +
     "            <md-icon\n" +
-    "                    icon=\"components/material-design-icons/action/svg/design/ic_home_24px.svg\"\n" +
+    "                    icon=\"assets/icons/ic_home_24px.svg\"\n" +
     "                    style=\"width: 24px; height: 24px;\">\n" +
     "            </md-icon>\n" +
     "            <span><a ui-sref=\"home\">Home</a>{{pageTitle}}</span>\n" +
@@ -174,7 +239,7 @@ angular.module("apps/dashboard/modules/home/home.tpl.html", []).run(["$templateC
     "            <span flex></span>\n" +
     "\n" +
     "            <md-button class=\"md-fab md-primary\" md-theme=\"green\" aria-label=\"Upload\" ui-sref=\"home.uploader\">\n" +
-    "                <md-icon icon=\"components/material-design-icons/content/svg/design/ic_add_24px.svg\"\n" +
+    "                <md-icon icon=\"assets/icons/ic_add_24px.svg\"\n" +
     "                         style=\"width: 24px; height: 24px;\"\n" +
     "                         ui-sref=\"home.uploader\"></md-icon>\n" +
     "            </md-button>\n" +
@@ -279,7 +344,7 @@ angular.module("apps/dashboard/modules/photos/left-drawer.tpl.html", []).run(["$
     "<div>\n" +
     "\n" +
     "\n" +
-    "    <div id=\"content\" style=\"background-color: #fff; position: absolute;\">\n" +
+    "    <div id=\"content\" style=\"width:100%; background-color: #fff; position: absolute;\">\n" +
     "        <!--\n" +
     "        <div id=\"users\" style=\"margin: 20px;\" layout=\"horizontal\">\n" +
     "            <core-icon class=\"avatar\" icon=\"avatars:avatar-1\" aria-label=\"avatar-2\" role=\"img\"\n" +
@@ -374,16 +439,8 @@ angular.module("apps/dashboard/modules/photos/photos.tpl.html", []).run(["$templ
     "\n" +
     "\n" +
     "            <md-subheader class=\"md-primary\" ng-show=\"showHeaders()\">Files</md-subheader>\n" +
-    "                <div >\n" +
-    "                    <md-card class=\"file\" layout=\"vertical\" ng-repeat=\"file in fileList\" style=\"width:220px; float:left\">\n" +
-    "                        <div class=\"thumbnail\">\n" +
-    "                            <img src=\"http://localhost:9000{{file.path}}?token={{token}}\" style=\"width:200px;height:200px;\"/>\n" +
-    "                        </div>\n" +
-    "                        <div>\n" +
-    "                            <h3>{{file.name}}</h3>\n" +
-    "                        </div>\n" +
-    "                    </md-card>\n" +
-    "\n" +
+    "                <div>\n" +
+    "                    <div ng-repeat=\"file in fileList\" file-card  file=\"file\"></div>\n" +
     "                </div>\n" +
     "        </md-list>\n" +
     "    </md-content>\n" +
@@ -481,9 +538,9 @@ angular.module("apps/dashboard/modules/uploader/uploader.tpl.html", []).run(["$t
     "                            </div>\n" +
     "                            <div flex></div>\n" +
     "                            <div layout-align=\"center center\">\n" +
-    "                                <img src=\"components/material-design-icons/navigation/svg/design/ic_close_24px.svg\"\n" +
+    "                                <img src=\"assets/icons/ic_close_24px.svg\"\n" +
     "                                     style=\"width: 24px; height: 24px;\"\n" +
-    "                                        ng-click=\"removeFolder(folder)\">\n" +
+    "                                     ng-click=\"removeFolder(folder)\">\n" +
     "                            </div>\n" +
     "                        </md-card>\n" +
     "                    </md-item-content>\n" +
@@ -497,14 +554,15 @@ angular.module("apps/dashboard/modules/uploader/uploader.tpl.html", []).run(["$t
     "                    <md-item-content>\n" +
     "                        <md-card class=\"file\" layout=\"horizontal\">\n" +
     "                            <div class=\"thumbnail\">\n" +
-    "                                <img src=\"{{file.path}}\"/>\n" +
+    "                                <img src=\"{{file.path}}\"\n" +
+    "                                     data-path=\"{{file.path}}\"/>\n" +
     "                            </div>\n" +
     "                            <div>\n" +
     "                                <h3>{{file.name}}</h3>\n" +
     "                            </div>\n" +
     "                            <div flex></div>\n" +
     "                            <div layout-align=\"center center\">\n" +
-    "                                <img src=\"components/material-design-icons/navigation/svg/design/ic_close_24px.svg\"\n" +
+    "                                <img src=\"assets/icons/ic_close_24px.svg\"\n" +
     "                                     style=\"width: 24px; height: 24px;\"\n" +
     "                                     ng-click=\"removeFile(file)\">\n" +
     "                            </div>\n" +

@@ -30,7 +30,8 @@ var App = angular.module('dashboard', [
     require('./modules/files/index').name,
     require('./modules/photos/index').name,
     require('./modules/uploader/index').name,
-    require('./directives/dirTree').name
+    require('./directives/dirTree').name,
+    require('./directives/fileCard').name
 ])
 
 
