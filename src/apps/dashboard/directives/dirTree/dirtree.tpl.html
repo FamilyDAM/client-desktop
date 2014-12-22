@@ -1,19 +1,25 @@
 <div class="dirTree">
+    <style>
+        .treeItem {display:flex}
+    </style>
 
     <treecontrol id="treeControl" class="tree-classic"
                  tree-model="directories"
                  options="treeOptions"
                  on-selection="selectNode(node)">
-        <div style="width:100%;display: inline">
-            <div style="display: inline; right:20px;">
-            {{node.name}}
-            </div>
-            <div style="display: inline;right:0px;">
-                <button md-no-ink class="md-primary" ng-click="addFolder(node.path)">+</button>
-                <button md-no-ink class="md-primary" ng-click="editFolder(this)">e</button>
-                <button md-no-ink class="md-primary" ng-click="deleteFolder(node.path)">x</button>
-            </div>
-        </div>
-    </treecontrol>
+            <span style="display: table-cell; width: 100%">{{node.name}}</span>
 
+            <span ng-click="editFolder($event, node)" style="display: table-cell;">
+                <img src="assets/icons/ic_edit_24px.svg" style="width:18px; height: 18px;">
+            </span>
+
+            <span ng-click="addFolder($event, node)" style="display: table-cell;">
+                <img src="assets/icons/ic_add_circle_24px.svg" style="width:18px; height: 18px;">
+            </span>
+
+            <span ng-click="deleteFolder($event, node)" style="display: table-cell;">
+                <img src="assets/icons/ic_remove_circle_24px.svg" style="width:18px; height: 18px;">
+            </span>
+
+    </treecontrol>
 </div>

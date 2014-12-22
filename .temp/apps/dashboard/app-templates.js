@@ -3,23 +3,29 @@ angular.module('dashboard.templates', ['apps/dashboard/directives/dirTree/dirtre
 angular.module("apps/dashboard/directives/dirTree/dirtree.tpl.html", []).run(["$templateCache", function($templateCache) {
   $templateCache.put("apps/dashboard/directives/dirTree/dirtree.tpl.html",
     "<div class=\"dirTree\">\n" +
+    "    <style>\n" +
+    "        .treeItem {display:flex}\n" +
+    "    </style>\n" +
     "\n" +
     "    <treecontrol id=\"treeControl\" class=\"tree-classic\"\n" +
     "                 tree-model=\"directories\"\n" +
     "                 options=\"treeOptions\"\n" +
     "                 on-selection=\"selectNode(node)\">\n" +
-    "        <div style=\"width:100%;display: inline\">\n" +
-    "            <div style=\"display: inline; right:20px;\">\n" +
-    "            {{node.name}}\n" +
-    "            </div>\n" +
-    "            <div style=\"display: inline;right:0px;\">\n" +
-    "                <button md-no-ink class=\"md-primary\" ng-click=\"addFolder(node.path)\">+</button>\n" +
-    "                <button md-no-ink class=\"md-primary\" ng-click=\"editFolder(this)\">e</button>\n" +
-    "                <button md-no-ink class=\"md-primary\" ng-click=\"deleteFolder(node.path)\">x</button>\n" +
-    "            </div>\n" +
-    "        </div>\n" +
-    "    </treecontrol>\n" +
+    "            <span style=\"display: table-cell; width: 100%\">{{node.name}}</span>\n" +
     "\n" +
+    "            <span ng-click=\"editFolder($event, node)\" style=\"display: table-cell;\">\n" +
+    "                <img src=\"assets/icons/ic_edit_24px.svg\" style=\"width:18px; height: 18px;\">\n" +
+    "            </span>\n" +
+    "\n" +
+    "            <span ng-click=\"addFolder($event, node)\" style=\"display: table-cell;\">\n" +
+    "                <img src=\"assets/icons/ic_add_circle_24px.svg\" style=\"width:18px; height: 18px;\">\n" +
+    "            </span>\n" +
+    "\n" +
+    "            <span ng-click=\"deleteFolder($event, node)\" style=\"display: table-cell;\">\n" +
+    "                <img src=\"assets/icons/ic_remove_circle_24px.svg\" style=\"width:18px; height: 18px;\">\n" +
+    "            </span>\n" +
+    "\n" +
+    "    </treecontrol>\n" +
     "</div>");
 }]);
 
@@ -42,7 +48,7 @@ angular.module("apps/dashboard/directives/fileCard/photoCard-details.tpl.html", 
     "  ~     along with the FamilyDAM Project.  If not, see <http://www.gnu.org/licenses/>.\n" +
     "  -->\n" +
     "\n" +
-    "<md-card class=\"fileDetails\" layout=\"vertical\" style=\"width:100%\" layout=\"center\">\n" +
+    "<md-card class=\"fileDetails\" layout=\"vertical\" style=\"width:99%\" >\n" +
     "    <div class=\"image\" style=\"background-color: #212124; width:100%;\">\n" +
     "        <img\n" +
     "             src=\"{{fullPath}}\"\n" +

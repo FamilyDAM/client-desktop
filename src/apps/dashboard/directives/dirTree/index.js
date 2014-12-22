@@ -55,10 +55,17 @@ module.exports = angular.module('familydam.directives.dirTree', ['familydam.serv
                     $scope.$root.$broadcast('selection', node);
                 };
 
-                $scope.addFolder = function(nodePath){};
-                $scope.editFolder = function(element){};
-                $scope.saveFolder = function(nodePath){};
-                $scope.deleteFolder = function(nodePath){};
+                $scope.addFolder = function(event, nodePath){
+                    event.preventDefault();
+                };
+
+                $scope.editFolder = function(event, element){
+                    event.preventDefault();
+                };
+
+                $scope.deleteFolder = function(event, nodePath){
+                    event.preventDefault();
+                };
 
                 directoryService.listDirectories().then(function(data){
 

@@ -335,23 +335,23 @@ module.exports = function (grunt) {
 			},
 			'dashboardAssets': {
 				files: 'src/apps/dashboard/assets/*.*',
-				tasks: ['copy:dashboard-assets'] /*, 'deploy'*/
+				tasks: ['copy:dashboard-assets', 'copy:dist'] /*, 'deploy'*/
 			},
 			'configAssets': {
 				files: 'src/config/*.*',
-				tasks: ['copy:configAssets']
+				tasks: ['copy:configAssets', 'copy:dist']
 			},
 			css: {
 				files: ['src/**/*.scss'],
-				tasks: ['compass:develop'] /*, 'deploy'*/
+				tasks: ['compass:develop', 'copy:dist'] /*, 'deploy'*/
 			},
 			js: {
 				files: 'src/apps/**/*.js',
-				tasks: ['build-js'] /*, 'deploy'*/
+				tasks: ['build-js', 'copy:dist'] /*, 'deploy'*/
 			},
 			html: {
 				files: ['src/apps/**/*.tpl.html', 'src/**/*.html'],
-				tasks: ['copy:statichtml', 'html2js', 'browserify2:dashboard']  /*, 'deploy'*/
+				tasks: ['copy:statichtml', 'html2js', 'browserify2:dashboard', 'copy:dist']  /*, 'deploy'*/
 			}
 		},
 
