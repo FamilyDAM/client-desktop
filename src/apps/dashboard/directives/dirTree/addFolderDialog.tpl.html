@@ -1,0 +1,19 @@
+<md-dialog aria-label="Add Folder">
+    <md-content>
+        <md-subheader class="md-sticky-no-effect" data-l10n="dialog.add_folder">Add Folder</md-subheader>
+        <form style="padding: 20px;">
+            <div class="row">
+                <md-text-float label="Folder Name" ng-model="model.name"  data-l10n="dialog.folder_name" data-l10n-attr="label"></md-text-float>
+            </div>
+        </form>
+    </md-content>
+    <div class="md-actions" layout="row">
+        <span flex></span>
+        <md-button ng-click="cancel()" data-l10n="dialog.cancel">
+            Cancel
+        </md-button>
+        <md-button ng-click="answer( {path:'/~/documents', name:'new folder'} )" class="md-primary" data-l10n="dialog.create_folder">
+            Create Folder
+        </md-button>
+    </div>
+</md-dialog>

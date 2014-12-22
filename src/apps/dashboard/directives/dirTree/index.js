@@ -17,19 +17,33 @@
 
 
 module.exports = angular.module('familydam.directives.dirTree', ['familydam.services'])
-    .directive("dirTree", ['directoryService',  function(directoryService) {
+    .controller('AddFolderDialogController', ['$scope', '$mdDialog', function($scope, $mdDialog) {
+        $scope.model = {};
+
+        $scope.hide = function() {
+            $mdDialog.hide();
+        };
+        $scope.cancel = function() {
+            $mdDialog.cancel();
+        };
+        $scope.answer = function(answer) {
+            $mdDialog.hide(answer);
+        };
+    }])
+
+    .directive("dirTree", ['directoryService', '$mdDialog', function (directoryService, $mdDialog) {
         var _scope;
 
         return {
             scope: {
-                filter:"@",
-                users:"@",
-                selectedNode:"@"
+                filter: "@",
+                users: "@",
+                selectedNode: "@"
             },
             replace: true,
             transclude: false,
 
-            controller: function($scope) {
+            controller: function ($scope) {
                 $scope.selectedNode = undefined;
                 $scope.expandedNodes = undefined;
                 $scope.treeOptions = {
@@ -48,52 +62,76 @@ module.exports = angular.module('familydam.directives.dirTree', ['familydam.serv
                 };
 
 
-                $scope.selectNode = function(node){
+                $scope.selectNode = function (node) {
                     //console.log(node);
                     selectedNode = node;
                     //$scope.$root.$emit('selection', node);
                     $scope.$root.$broadcast('selection', node);
                 };
 
-                $scope.addFolder = function(event, nodePath){
+
+                $scope.addFolder = function (event, nodePath) {
+                    event.preventDefault();
+
+                    $mdDialog.show({
+                        targetEvent: event,
+                        controller: 'AddFolderDialogController',
+                        templateUrl: 'directives/dirTree/addFolderDialog.tpl.html'
+                    }).then(function (answer) {
+
+                        directoryService.addDirectory(answer.path, answer.name).then(function(data){
+                            $scope.refreshDirectories();
+                        }, function () {
+                            //$scope.alert = 'error adding dir;
+                        });
+
+
+                    }, function () {
+                        //$scope.alert = 'You cancelled the dialog.';
+                    });
+
+                };
+
+                $scope.editFolder = function (event, element) {
                     event.preventDefault();
                 };
 
-                $scope.editFolder = function(event, element){
+                $scope.deleteFolder = function (event, nodePath) {
                     event.preventDefault();
                 };
 
-                $scope.deleteFolder = function(event, nodePath){
-                    event.preventDefault();
-                };
 
-                directoryService.listDirectories().then(function(data){
+                $scope.refreshDirectories = function(){
+                    directoryService.listDirectories().then(function (data) {
 
-                    if( data !== undefined )
-                    {
-                        $scope.directories = data;
-                        for (var i = 0; i < data.length; i++)
+                        if (data !== undefined)
                         {
-                            var obj = data[i];
-                            /**
-                            if (obj.name.toLowerCase() == selectedNode)
+                            $scope.directories = data;
+                            for (var i = 0; i < data.length; i++)
                             {
-                                $scope.selectedNode = obj;
-                                break;
-                            }**/
+                                var obj = data[i];
+                                /**
+                                 if (obj.name.toLowerCase() == selectedNode)
+                                 {
+                                     $scope.selectedNode = obj;
+                                     break;
+                                 }**/
+                            }
                         }
-                    }
-                });
+                    });
+                };
 
+                // on load, fire the event to get a list of all visible directories
+                $scope.refreshDirectories();
             },
 
-            link:function(scope, element, attrs, controller) {
+            link: function (scope, element, attrs, controller) {
                 var _filter;
                 var _selectedNode;
-                scope.$watch('filter', function(value) {
+                scope.$watch('filter', function (value) {
                     _filter = value;
                 });
-                scope.$watch('selectedNode', function(value) {
+                scope.$watch('selectedNode', function (value) {
                     _selectedNode = value;
                 });
             },

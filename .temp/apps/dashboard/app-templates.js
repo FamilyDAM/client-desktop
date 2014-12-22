@@ -1,4 +1,27 @@
-angular.module('dashboard.templates', ['apps/dashboard/directives/dirTree/dirtree.tpl.html', 'apps/dashboard/directives/fileCard/photoCard-details.tpl.html', 'apps/dashboard/directives/fileCard/photoCard.tpl.html', 'apps/dashboard/modules/files/files.tpl.html', 'apps/dashboard/modules/files/left-drawer.tpl.html', 'apps/dashboard/modules/files/right-drawer.tpl.html', 'apps/dashboard/modules/home/home.tpl.html', 'apps/dashboard/modules/login/login.tpl.html', 'apps/dashboard/modules/photos/left-drawer.tpl.html', 'apps/dashboard/modules/photos/photos.tpl.html', 'apps/dashboard/modules/photos/right-drawer.tpl.html', 'apps/dashboard/modules/uploader/left-drawer.tpl.html', 'apps/dashboard/modules/uploader/uploader.tpl.html']);
+angular.module('dashboard.templates', ['apps/dashboard/directives/dirTree/addFolderDialog.tpl.html', 'apps/dashboard/directives/dirTree/dirtree.tpl.html', 'apps/dashboard/directives/fileCard/photoCard-details.tpl.html', 'apps/dashboard/directives/fileCard/photoCard.tpl.html', 'apps/dashboard/modules/files/files.tpl.html', 'apps/dashboard/modules/files/left-drawer.tpl.html', 'apps/dashboard/modules/files/right-drawer.tpl.html', 'apps/dashboard/modules/home/home.tpl.html', 'apps/dashboard/modules/login/login.tpl.html', 'apps/dashboard/modules/photos/left-drawer.tpl.html', 'apps/dashboard/modules/photos/photos.tpl.html', 'apps/dashboard/modules/photos/right-drawer.tpl.html', 'apps/dashboard/modules/uploader/left-drawer.tpl.html', 'apps/dashboard/modules/uploader/uploader.tpl.html']);
+
+angular.module("apps/dashboard/directives/dirTree/addFolderDialog.tpl.html", []).run(["$templateCache", function($templateCache) {
+  $templateCache.put("apps/dashboard/directives/dirTree/addFolderDialog.tpl.html",
+    "<md-dialog aria-label=\"Add Folder\">\n" +
+    "    <md-content>\n" +
+    "        <md-subheader class=\"md-sticky-no-effect\" data-l10n=\"dialog.add_folder\">Add Folder</md-subheader>\n" +
+    "        <form style=\"padding: 20px;\">\n" +
+    "            <div class=\"row\">\n" +
+    "                <md-text-float label=\"Folder Name\" ng-model=\"model.name\"  data-l10n=\"dialog.folder_name\" data-l10n-attr=\"label\"></md-text-float>\n" +
+    "            </div>\n" +
+    "        </form>\n" +
+    "    </md-content>\n" +
+    "    <div class=\"md-actions\" layout=\"row\">\n" +
+    "        <span flex></span>\n" +
+    "        <md-button ng-click=\"cancel()\" data-l10n=\"dialog.cancel\">\n" +
+    "            Cancel\n" +
+    "        </md-button>\n" +
+    "        <md-button ng-click=\"answer( {path:'/~/documents', name:'new folder'} )\" class=\"md-primary\" data-l10n=\"dialog.create_folder\">\n" +
+    "            Create Folder\n" +
+    "        </md-button>\n" +
+    "    </div>\n" +
+    "</md-dialog>");
+}]);
 
 angular.module("apps/dashboard/directives/dirTree/dirtree.tpl.html", []).run(["$templateCache", function($templateCache) {
   $templateCache.put("apps/dashboard/directives/dirTree/dirtree.tpl.html",
@@ -144,7 +167,7 @@ angular.module("apps/dashboard/modules/files/left-drawer.tpl.html", []).run(["$t
     "<div>\n" +
     "\n" +
     "\n" +
-    "    <div id=\"content\" style=\"background-color: #fff; position: absolute;\">\n" +
+    "    <div id=\"content\" >\n" +
     "        <!--\n" +
     "        <div id=\"users\" style=\"margin: 20px;\" layout=\"horizontal\">\n" +
     "            <core-icon class=\"avatar\" icon=\"avatars:avatar-1\" aria-label=\"avatar-2\" role=\"img\"\n" +
@@ -220,46 +243,48 @@ angular.module("apps/dashboard/modules/home/home.tpl.html", []).run(["$templateC
     "\n" +
     "    <md-toolbar class=\"md-tall\" style=\"z-index:99;\">\n" +
     "        <div class=\"md-toolbar-tools md-toolbar-tools-top\">\n" +
-    "            <span>FamilyDAM (logo)</span>\n" +
+    "            <span alt=\"FamilyD.A.M (Digital Asset Manager)\"  data-l10n=\"home.logo.alt\"  data-l10n-attr=\"alt\">FamilyDAM (logo)</span>\n" +
     "            <span flex></span>\n" +
-    "            <md-button ui-sref=\"home.files\" md-no-ink class=\"md-primary\" style=\"color:#fff;\">Files</md-button>\n" +
-    "            <md-button ui-sref=\"home.photos\" md-no-ink class=\"md-primary\" style=\"color:#fff;\">Photos</md-button>\n" +
-    "            <md-button aria-label=\"Search\" icon=\"search\"></md-button>\n" +
-    "            <md-button aria-label=\"More Options\" icon=\"more-vert\"></md-button>\n" +
+    "            <md-button ui-sref=\"home.files\" md-no-ink class=\"md-primary\" style=\"color:#fff;\" data-l10n=\"home.files\">Files</md-button>\n" +
+    "            <md-button ui-sref=\"home.photos\" md-no-ink class=\"md-primary\" style=\"color:#fff;\" data-l10n=\"home.photos\">Photos</md-button>\n" +
+    "            <md-button aria-label=\"Search\" icon=\"search\"  data-l10n=\"home.search\"  data-l10n-attr=\"aria-label\"></md-button>\n" +
+    "            <md-button aria-label=\"More Options\" icon=\"more-vert\"  data-l10n=\"home.more_options\" data-l10n-attr=\"aria-label\"></md-button>\n" +
     "        </div>\n" +
     "        <span flex></span>\n" +
     "\n" +
     "        <h2 class=\"md-toolbar-tools\" layout-arrange=\"center center\">\n" +
     "            <md-icon\n" +
     "                    icon=\"assets/icons/ic_home_24px.svg\"\n" +
+    "                    aria-label=\"Home\" alt=\"Home\" data-l10n=\"home.icon.alt\"  data-l10n-attr=\"alt,aria-label\"\n" +
     "                    style=\"width: 24px; height: 24px;\">\n" +
     "            </md-icon>\n" +
-    "            <span><a ui-sref=\"home\">Home</a>{{pageTitle}}</span>\n" +
+    "            <span><a ui-sref=\"home\" data-l10n=\"home.home\">Home</a>{{pageTitle}}</span>\n" +
     "        </h2>\n" +
+    "\n" +
     "        <h2 class=\"md-toolbar-tools\" style=\"height:36px;background-color: #eeeeee; color:#000;\">\n" +
-    "            <md-button aria-label=\"Toggle Left Side Nav\" md-no-ink>LEFT</md-button>\n" +
+    "            <md-button aria-label=\"Toggle Left Side Nav\" md-no-ink  ng-click=\"toggleLeftSide()\" data-l10n=\"home.left\" data-l10n-attr=\"aria-label\">&gt;&gt;&gt;</md-button>\n" +
     "            <span flex></span>\n" +
     "\n" +
-    "            <md-button class=\"md-fab md-primary\" md-theme=\"green\" aria-label=\"Upload\" ui-sref=\"home.uploader\">\n" +
+    "            <md-button class=\"md-fab md-primary\" md-theme=\"green\" aria-label=\"Upload\" ui-sref=\"home.uploader\" data-l10n=\"home.upload\" data-l10n-attr=\"aria-label\">\n" +
     "                <md-icon icon=\"assets/icons/ic_add_24px.svg\"\n" +
     "                         style=\"width: 24px; height: 24px;\"\n" +
     "                         ui-sref=\"home.uploader\"></md-icon>\n" +
     "            </md-button>\n" +
     "\n" +
-    "            <md-button aria-label=\"Toggle Right Side Nav\" md-no-ink ng-click=\"toggleRightSide()\">RIGHT</md-button>\n" +
+    "            <md-button aria-label=\"Toggle Right Side Nav\" md-no-ink ng-click=\"toggleRightSide()\" data-l10n=\"home.right\" data-l10n-attr=\"aria-label\">&lt;&lt;&lt;</md-button>\n" +
     "        </h2>\n" +
     "    </md-toolbar>\n" +
-    "\n" +
     "\n" +
     "    <section layout=\"horizontal\" flex>\n" +
     "\n" +
     "        <md-sidenav class=\"md-sidenav-left md-whiteframe-z1\"\n" +
     "                    component-id=\"leftDrawer\"\n" +
-    "                    is-locked-open=\"$media('md')\"\n" +
-    "                    layout=\"vertical\"\n" +
+    "                    style=\"height: 100%\" layout=\"vertical\"\n" +
+    "                    is-locked-open=\"true\"\n" +
     "                    is-open=\"leftSidebarVisible\">\n" +
     "            <div ui-view=\".leftDrawer\" flex></div>\n" +
     "        </md-sidenav>\n" +
+    "\n" +
     "\n" +
     "        <div layout=\"column\" flex layout-fill layout-align=\"start\">\n" +
     "            <md-content flex class=\"md-padding\" flex>\n" +
@@ -273,8 +298,6 @@ angular.module("apps/dashboard/modules/home/home.tpl.html", []).run(["$templateC
     "                style=\"height: 100%\"\n" +
     "                is-open=\"rightSidebarVisible\">\n" +
     "            <md-content class=\"md-padding\">\n" +
-    "                {{rightSidebarVisible}}<br/>\n" +
-    "\n" +
     "                <div ui-view=\".rightDrawer\" flex></div>\n" +
     "            </md-content>\n" +
     "        </md-sidenav>\n" +
@@ -346,7 +369,7 @@ angular.module("apps/dashboard/modules/photos/left-drawer.tpl.html", []).run(["$
     "<div>\n" +
     "\n" +
     "\n" +
-    "    <div id=\"content\" style=\"width:100%; background-color: #fff; position: absolute;\">\n" +
+    "    <div id=\"content\" >\n" +
     "        <!--\n" +
     "        <div id=\"users\" style=\"margin: 20px;\" layout=\"horizontal\">\n" +
     "            <core-icon class=\"avatar\" icon=\"avatars:avatar-1\" aria-label=\"avatar-2\" role=\"img\"\n" +
@@ -374,6 +397,7 @@ angular.module("apps/dashboard/modules/photos/left-drawer.tpl.html", []).run(["$
     "        -->\n" +
     "\n" +
     "        <br/><br/>\n" +
+    "\n" +
     "\n" +
     "        <div dir-tree\n" +
     "            selectedNode=\"photos\">\n" +
@@ -424,10 +448,14 @@ angular.module("apps/dashboard/modules/photos/photos.tpl.html", []).run(["$templ
     "<div class=\"photoBody\" flex layout=\"vertical\">\n" +
     "\n" +
     "    <md-content>\n" +
-    "        <md-list  layout=\"vertical\">\n" +
-    "            <md-subheader class=\"md-primary\" ng-show=\"showHeaders()\">Folders</md-subheader>\n" +
-    "            <md-list  layout=\"horizontal\">\n" +
-    "                <md-item  ng-repeat=\"folder in folderList\">\n" +
+    "        <md-list layout=\"vertical\">\n" +
+    "            <md-toolbar class=\"md-theme-light\" ng-show=\"showHeaders()\">\n" +
+    "                <h1 class=\"md-toolbar-tools\">\n" +
+    "                    <span>Folders</span>\n" +
+    "                </h1>\n" +
+    "            </md-toolbar>\n" +
+    "            <md-list layout=\"horizontal\">\n" +
+    "                <md-item ng-repeat=\"folder in folderList\">\n" +
     "                    <md-item-content>\n" +
     "                        <md-card class=\"folder\" layout=\"vertical\">\n" +
     "                            <div class=\"icon\"></div>\n" +
@@ -440,10 +468,14 @@ angular.module("apps/dashboard/modules/photos/photos.tpl.html", []).run(["$templ
     "            </md-list>\n" +
     "\n" +
     "\n" +
-    "            <md-subheader class=\"md-primary\" ng-show=\"showHeaders()\">Files</md-subheader>\n" +
-    "                <div>\n" +
-    "                    <div ng-repeat=\"file in fileList\" file-card  file=\"file\"></div>\n" +
-    "                </div>\n" +
+    "            <md-toolbar class=\"md-theme-light\" ng-show=\"showHeaders()\">\n" +
+    "                <h1 class=\"md-toolbar-tools\">\n" +
+    "                    <span>Files</span>\n" +
+    "                </h1>\n" +
+    "            </md-toolbar>\n" +
+    "            <div>\n" +
+    "                <div ng-repeat=\"file in fileList\" file-card file=\"file\"></div>\n" +
+    "            </div>\n" +
     "        </md-list>\n" +
     "    </md-content>\n" +
     "</div>\n" +

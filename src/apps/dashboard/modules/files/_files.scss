@@ -1,4 +1,12 @@
 
+.filesBody {
+  width: 100%;
+}
+
+
+.filesBody md-subheader{
+  background-color: #eee;
+}
 /****************
 * md-card FOLDERS
 *****************/
@@ -53,11 +61,3 @@ md-card.folder h3{
   text-align: center;
 }
 
-
-.filesBody {
-  width: 100%;
-}
-
-.filesBody md-subheader{
-  background-color: #eee;
-}

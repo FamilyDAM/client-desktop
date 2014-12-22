@@ -2,47 +2,48 @@
 
     <md-toolbar class="md-tall" style="z-index:99;">
         <div class="md-toolbar-tools md-toolbar-tools-top">
-            <span>FamilyDAM (logo)</span>
+            <span alt="FamilyD.A.M (Digital Asset Manager)"  data-l10n="home.logo.alt"  data-l10n-attr="alt">FamilyDAM (logo)</span>
             <span flex></span>
-            <md-button ui-sref="home.files" md-no-ink class="md-primary" style="color:#fff;">Files</md-button>
-            <md-button ui-sref="home.photos" md-no-ink class="md-primary" style="color:#fff;">Photos</md-button>
-            <md-button aria-label="Search" icon="search"></md-button>
-            <md-button aria-label="More Options" icon="more-vert"></md-button>
+            <md-button ui-sref="home.files" md-no-ink class="md-primary" style="color:#fff;" data-l10n="home.files">Files</md-button>
+            <md-button ui-sref="home.photos" md-no-ink class="md-primary" style="color:#fff;" data-l10n="home.photos">Photos</md-button>
+            <md-button aria-label="Search" icon="search"  data-l10n="home.search"  data-l10n-attr="aria-label"></md-button>
+            <md-button aria-label="More Options" icon="more-vert"  data-l10n="home.more_options" data-l10n-attr="aria-label"></md-button>
         </div>
         <span flex></span>
 
         <h2 class="md-toolbar-tools" layout-arrange="center center">
             <md-icon
                     icon="assets/icons/ic_home_24px.svg"
+                    aria-label="Home" alt="Home" data-l10n="home.icon.alt"  data-l10n-attr="alt,aria-label"
                     style="width: 24px; height: 24px;">
             </md-icon>
-            <span><a ui-sref="home">Home</a>{{pageTitle}}</span>
+            <span><a ui-sref="home" data-l10n="home.home">Home</a>{{pageTitle}}</span>
         </h2>
 
         <h2 class="md-toolbar-tools" style="height:36px;background-color: #eeeeee; color:#000;">
-            <md-button aria-label="Toggle Left Side Nav" md-no-ink>LEFT</md-button>
+            <md-button aria-label="Toggle Left Side Nav" md-no-ink  ng-click="toggleLeftSide()" data-l10n="home.left" data-l10n-attr="aria-label">&gt;&gt;&gt;</md-button>
             <span flex></span>
 
-            <md-button class="md-fab md-primary" md-theme="green" aria-label="Upload" ui-sref="home.uploader">
+            <md-button class="md-fab md-primary" md-theme="green" aria-label="Upload" ui-sref="home.uploader" data-l10n="home.upload" data-l10n-attr="aria-label">
                 <md-icon icon="assets/icons/ic_add_24px.svg"
                          style="width: 24px; height: 24px;"
                          ui-sref="home.uploader"></md-icon>
             </md-button>
 
-            <md-button aria-label="Toggle Right Side Nav" md-no-ink ng-click="toggleRightSide()">RIGHT</md-button>
+            <md-button aria-label="Toggle Right Side Nav" md-no-ink ng-click="toggleRightSide()" data-l10n="home.right" data-l10n-attr="aria-label">&lt;&lt;&lt;</md-button>
         </h2>
     </md-toolbar>
-
 
     <section layout="horizontal" flex>
 
         <md-sidenav class="md-sidenav-left md-whiteframe-z1"
                     component-id="leftDrawer"
-                    is-locked-open="$media('md')"
-                    layout="vertical"
+                    style="height: 100%" layout="vertical"
+                    is-locked-open="true"
                     is-open="leftSidebarVisible">
             <div ui-view=".leftDrawer" flex></div>
         </md-sidenav>
+
 
         <div layout="column" flex layout-fill layout-align="start">
             <md-content flex class="md-padding" flex>
@@ -56,8 +57,6 @@
                 style="height: 100%"
                 is-open="rightSidebarVisible">
             <md-content class="md-padding">
-                {{rightSidebarVisible}}<br/>
-
                 <div ui-view=".rightDrawer" flex></div>
             </md-content>
         </md-sidenav>

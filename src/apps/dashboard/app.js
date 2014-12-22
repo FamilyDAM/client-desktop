@@ -79,6 +79,7 @@ var App = angular.module('dashboard', [
         $urlRouterProvider.otherwise("/login");
 
     }])
+
     .factory('constants', function () {
         return {
             title: 'FamilyDAM'
@@ -88,6 +89,9 @@ var App = angular.module('dashboard', [
 
 App.run(["$rootScope", '$state', 'appService',
     function ($rootScope, $state, appService, $window) {
+
+        // Set up defaults
+        $rootScope.baseUrl = "http://localhost:9000";
 
         $state.go('login');
         /***

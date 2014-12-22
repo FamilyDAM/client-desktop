@@ -15,12 +15,17 @@
  *     along with the FamilyDAM Project.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-var ImportService = function($http)
+var ImportService = function($rootScope, $http)
 {
+    /**
+     * Check to see if the file is visible to the embedded server, so we can do a quick copy. Instead of upload.
+     * @param path
+     * @returns {HttpPromise}
+     */
     this.isVisible = function(path)
     {
         //todo: make url/port dynamic
-        var method = $http.post('http://localhost:9000/api/import/info/', {
+        var method = $http.post($rootScope.baseUrl +'/api/import/info/', {
             'path':path
         });
 
@@ -28,10 +33,16 @@ var ImportService = function($http)
     };
 
 
+    /**
+     * Tell the embedded server to copy a local file, by path.
+     * @param dir
+     * @param path
+     * @returns {HttpPromise}
+     */
     this.copyFile = function(dir, path)
     {
         //todo: make url/port dynamic
-        var method = $http.post('http://localhost:9000/api/import/copy/', {
+        var method = $http.post($rootScope.baseUrl +'/api/import/copy/', {
             'dir': dir,
             'path':path,
             'recursive': true
@@ -41,6 +52,12 @@ var ImportService = function($http)
     };
 
 
+    /**
+     * In the case when the embedded server can't access a file we have to do a regular html form upload.
+     * Hopefully this is only for mobile apps.
+     * @param dir
+     * @param path
+     */
     this.formUpload = function(dir, path)
     {
         //todo, old-school file upload
@@ -50,5 +67,5 @@ var ImportService = function($http)
 
 };
 
-ImportService.$inject = ['$http'];
+ImportService.$inject = ['$rootScope', '$http'];
 module.exports = ImportService;

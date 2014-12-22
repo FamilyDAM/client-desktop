@@ -26,7 +26,7 @@ var AppService = function($http, $q)
      * @param successCallback
      * @param errorCallback
      * @returns {*|Array|Object|Mixed|promise|HTMLElement}
-     */
+
     this.loadConfig = function()
     {
         var method =  $http.get('/apps/familydam/preferences.tidy.2.json',{ cache: false });
@@ -34,7 +34,7 @@ var AppService = function($http, $q)
             return result.data;
         });
     };
-
+     */
 };
 
 

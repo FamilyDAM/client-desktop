@@ -33,6 +33,10 @@ var HomeController = function ($scope, $rootScope, $window, $location, $state, $
     $rootScope.rightSidebarVisible = false;
 
 
+    $scope.toggleLeftSide = function(){
+        $mdSidenav("leftDrawer").toggle();
+    };
+
     $scope.toggleRightSide = function(){
         $mdSidenav("rightDrawer").toggle();
     };

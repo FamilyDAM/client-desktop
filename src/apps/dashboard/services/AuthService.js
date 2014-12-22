@@ -30,6 +30,10 @@ var AuthService = function($q)
         'wxyz0123456789+/' +
         '=';
 
+    /**
+     * Generate a simple Basic Auth token hash
+     * @returns {string}
+     */
     this.getToken = function() {
         var input = this.username +":" +this.password;
         var output = "";

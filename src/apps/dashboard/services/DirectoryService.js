@@ -15,24 +15,56 @@
  *     along with the FamilyDAM Project.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-var DirectoryService = function($http, $location, $q, AuthService, transformRequestAsFormPost)
+var DirectoryService = function($rootScope, $http, $location, $q, AuthService, transformRequestAsFormPost)
 {
 
+    /**
+     * List all directories visible to a user
+     * @returns {*}
+     */
     this.listDirectories = function()
     {
         $http.defaults.headers.common['Authorization'] = AuthService.getToken();
 
         //todo: make url/port dynamic
-        var method = $http.get('http://localhost:9000/api/directory/tree');
+        var method = $http.get($rootScope.baseUrl +'/api/directory/tree');
         return method.then(
             function(result){
                 return result.data;
             },
             function(err){
-            // todo show in toast
-            console.log("(" +err.status +") " +err.statusTextnot);
-            $location.path('/login');
-        });
+                // todo show in toast
+                console.log("(" +err.status +") " +err.statusTextnot);
+                $location.path('/login');
+            });
+    };
+
+
+    /**
+     * add a new folder, under a node
+     * @param node_
+     * @param name_
+     * @returns {*}
+     */
+    this.addDirectory = function(node_, name_)
+    {
+        $http.defaults.headers.common['Authorization'] = AuthService.getToken();
+
+        var data = {};
+        data.path = node_;
+        data.name = name_;
+
+        //todo: make url/port dynamic
+        var method = $http.post($rootScope.baseUrl +'/api/directory/', data);
+        return method.then(
+            function(result){
+                return result.data;
+            },
+            function(err){
+                // todo show in toast
+                console.log("(" +err.status +") " +err.statusTextnot);
+                $location.path('/login');
+            });
     };
 
 
@@ -48,7 +80,7 @@ var DirectoryService = function($http, $location, $q, AuthService, transformRequ
 
         var request = $http({
             method: "post",
-            url: "http://localhost:9000/api/directory/",
+            url: $rootScope.baseUrl +"/api/directory/",
             transformRequest: transformRequestAsFormPost,
             data: data
         });
@@ -75,5 +107,5 @@ var DirectoryService = function($http, $location, $q, AuthService, transformRequ
 
 };
 
-DirectoryService.$inject = ['$http', '$location', '$q', 'authService', 'transformRequestAsFormPost'];
+DirectoryService.$inject = ['$rootScope', '$http', '$location', '$q', 'authService', 'transformRequestAsFormPost'];
 module.exports = DirectoryService;

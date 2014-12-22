@@ -15,7 +15,7 @@
  *     along with the FamilyDAM Project.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-var LoginService = function($http, $cookies, AuthService, $location, $rootScope)
+var LoginService = function($rootScope, $http, $cookies, AuthService, $location)
 {
 
     this.login = function(username_, password_)
@@ -29,7 +29,7 @@ var LoginService = function($http, $cookies, AuthService, $location, $rootScope)
         //var _args = $.param({ username:username, password:password });
 
         //todo: make port dynamic
-        var method =  $http.post('http://localhost:9000/api/users/login',
+        var method =  $http.post($rootScope.baseUrl +'/api/users/login',
             "username=" +username_ +"&password=" +password_,
             _config);
 
@@ -57,7 +57,7 @@ var LoginService = function($http, $cookies, AuthService, $location, $rootScope)
         _config.headers['Accept'] = "application/json";
 
         //todo: make port dynamic
-        var method =  $http.get('http://localhost:9000/api/users'); //, _config);
+        var method =  $http.get($rootScope.baseUrl +'/api/users'); //, _config);
 
         return method;
     };
@@ -65,7 +65,7 @@ var LoginService = function($http, $cookies, AuthService, $location, $rootScope)
 
     this.getUser = function(username)
     {
-        var method =  $http.get('http://localhost:9000/api/users/' +username);
+        var method =  $http.get($rootScope.baseUrl +'/api/users/' +username);
         return method.then(
             function(result){
                 return result;
@@ -75,5 +75,5 @@ var LoginService = function($http, $cookies, AuthService, $location, $rootScope)
 
 };
 
-LoginService.$inject = ['$http', '$cookies', 'authService', '$location', '$rootScope'];
+LoginService.$inject = ['$rootScope', '$http', '$cookies', 'authService', '$location'];
 module.exports = LoginService;

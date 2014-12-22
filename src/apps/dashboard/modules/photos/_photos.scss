@@ -1,4 +1,11 @@
 
+.photoBody{
+  width: 100%;
+}
+
+.photoBody md-subheader2{
+  background-color: #eee;
+}
 /****************
 * md-card FOLDERS
 *****************/
@@ -24,39 +31,32 @@
 /****************
 *  md-card Files
 *****************/
-.photoBody md-card.file{
+.photoBody md-card2.file{
   width: 200px;
   min-height: 225px;
   text-align: left;
 }
 
-.photoBody md-card.file .icon{
+.photoBody md-card2.file .icon{
   background: url("./assets/icons/ic_image_48px.svg") no-repeat !important;
   margin: 0px 10px !important;
   width: 50px;
   height: 48px;
 }
 
-.photoBody md-card.file .thumbnail{
+.photoBody md-card2.file .thumbnail{
   margin: 0px 10px !important;
 }
 
-.photoBody md-card.file .thumbnail img{
+.photoBody md-card2.file .thumbnail img{
   width: 100%;
   height: auto;
   margin-top: 5px;
   margin-bottom: 5px;
 }
 
-.photoBody md-card.file h3{
+.photoBody md-card2.file h3{
   padding: 0px;
   text-align: center;
 }
 
-.photoBody{
-  width: 100%;
-}
-
-.photoBody md-subheader{
-  background-color: #eee;
-}
