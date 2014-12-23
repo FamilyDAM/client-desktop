@@ -278,8 +278,7 @@ angular.module("apps/dashboard/modules/home/home.tpl.html", []).run(["$templateC
     "    <section layout=\"horizontal\" flex>\n" +
     "\n" +
     "        <md-sidenav class=\"md-sidenav-left md-whiteframe-z1\"\n" +
-    "                    id=\"leftSideNav\" name=\"leftDrawer\"\n" +
-    "                    component-id=\"leftDrawer\"\n" +
+    "                    md-component-id=\"leftSideNav\"\n" +
     "                    style=\"height: 100%\" layout=\"vertical\"\n" +
     "                    is-locked-open=\"true\"\n" +
     "                    is-open=\"leftSidebarVisible\">\n" +
@@ -295,8 +294,7 @@ angular.module("apps/dashboard/modules/home/home.tpl.html", []).run(["$templateC
     "\n" +
     "        <md-sidenav\n" +
     "                class=\"md-sidenav-right md-whiteframe-z1\"\n" +
-    "                id=\"rightSideNav\"\n" +
-    "                component-id=\"rightDrawer\"\n" +
+    "                md-component-id=\"rightSideNav\"\n" +
     "                style=\"height: 100%\"\n" +
     "                is-open=\"rightSidebarVisible\">\n" +
     "            <md-content class=\"md-padding\">\n" +
