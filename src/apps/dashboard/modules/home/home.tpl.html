@@ -1,61 +1,69 @@
-<md-content md-theme="indigo" flex>
+<md-content flex layout="column">
 
-    <md-toolbar class="md-tall" style="z-index:99;">
-        <div class="md-toolbar-tools md-toolbar-tools-top">
-            <span alt="FamilyD.A.M (Digital Asset Manager)"  data-l10n="home.logo.alt"  data-l10n-attr="alt">FamilyDAM (logo)</span>
-            <span flex></span>
+    <md-toolbar>
+        <div class="md-toolbar-tools md-toolbar-tools-top" layout="row">
+            <div flex-order="1" alt="FamilyD.A.M (Digital Asset Manager)" data-l10n="home.logo.alt"
+                 data-l10n-attr="alt">FamilyDAM (logo)
+            </div>
+            <div flex-order="2" flex></div>
+
+            <md-tabs flex-order="3" md-selected="data.selectedIndex" style="width:225px;">
+                <md-tab id="tab1" aria-controls="tab1-content" ui-sref="home.files" data-l10n="home.files">Files
+                </md-tab>
+                <md-tab id="tab2" aria-controls="tab2-content" ui-sref="home.photos" data-l10n="home.photos">Photos
+                </md-tab>
+            </md-tabs>
+            <!--
             <md-button ui-sref="home.files" md-no-ink class="md-primary" style="color:#fff;" data-l10n="home.files">Files</md-button>
             <md-button ui-sref="home.photos" md-no-ink class="md-primary" style="color:#fff;" data-l10n="home.photos">Photos</md-button>
             <md-button aria-label="Search" icon="search"  data-l10n="home.search"  data-l10n-attr="aria-label"></md-button>
             <md-button aria-label="More Options" icon="more-vert"  data-l10n="home.more_options" data-l10n-attr="aria-label"></md-button>
+            -->
         </div>
         <span flex></span>
 
-        <h2 class="md-toolbar-tools" layout-arrange="center center">
+
+        <div class="md-toolbar-tools" layout-arrange="center center">
             <md-icon
                     icon="assets/icons/ic_home_24px.svg"
-                    aria-label="Home" alt="Home" data-l10n="home.icon.alt"  data-l10n-attr="alt,aria-label"
+                    aria-label="Home" alt="Home" data-l10n="home.icon.alt" data-l10n-attr="alt,aria-label"
                     style="width: 24px; height: 24px;">
             </md-icon>
             <span><a ui-sref="home" data-l10n="home.home">Home</a>{{pageTitle}}</span>
-        </h2>
 
-        <h2 class="md-toolbar-tools" style="height:36px;background-color: #eeeeee; color:#000;">
-            <md-button aria-label="Toggle Left Side Nav" md-no-ink  ng-click="toggleLeftSide()" data-l10n="home.left" data-l10n-attr="aria-label">&gt;&gt;&gt;</md-button>
-            <span flex></span>
-
-            <md-button class="md-fab md-primary" md-theme="green" aria-label="Upload" ui-sref="home.uploader" data-l10n="home.upload" data-l10n-attr="aria-label">
+            <div flex/>
+            <md-button class="md-fab md-primary" md-theme="green" aria-label="Upload" ui-sref="home.uploader"
+                       style="top: 30px; right:50px;"
+                       data-l10n="home.upload" data-l10n-attr="aria-label">
                 <md-icon icon="assets/icons/ic_add_24px.svg"
-                         style="width: 24px; height: 24px;"
-                         ui-sref="home.uploader"></md-icon>
+                     style="width: 24px; height: 24px;"
+                     ui-sref="home.uploader"></md-icon>
             </md-button>
+        </div>
 
-            <md-button aria-label="Toggle Right Side Nav" md-no-ink ng-click="toggleRightSide()" data-l10n="home.right" data-l10n-attr="aria-label">&lt;&lt;&lt;</md-button>
-        </h2>
+
     </md-toolbar>
 
-    <section layout="horizontal" flex>
 
-        <md-sidenav class="md-sidenav-left md-whiteframe-z1"
-                    md-component-id="leftSideNav"
-                    style="height: 100%" layout="vertical"
-                    is-locked-open="true"
-                    is-open="leftSidebarVisible">
+    <section layout="row" flex>
+        <aside class="md-whiteframe-z2"
+               id="leftSideNav"
+               ng-show="leftSidebarVisible"
+                style="width:300px; width: 300px;top: 0px;position: relative;z-index: 2;">
             <div ui-view=".leftDrawer" flex></div>
-        </md-sidenav>
+        </aside>
 
 
         <div layout="column" flex layout-fill layout-align="start">
-            <md-content flex class="md-padding" flex>
+            <md-content class="md-padding" style="width:100%;">
                 <div ui-view=".body"></div>
             </md-content>
         </div>
 
         <md-sidenav
-                class="md-sidenav-right md-whiteframe-z1"
-                md-component-id="rightSideNav"
+                class="md-whiteframe-z1"
                 style="height: 100%"
-                is-open="rightSidebarVisible">
+                ng-show="rightSidebarVisible">
             <md-content class="md-padding">
                 <div ui-view=".rightDrawer" flex></div>
             </md-content>

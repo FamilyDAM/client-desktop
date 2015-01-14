@@ -13,6 +13,8 @@
   background: url('http://lorempixel.com/1900/1000/nature/');
 }
 
+
+
 .timestamp{
   position: absolute;
   bottom: 15px;
@@ -22,7 +24,9 @@
   opacity: .7;
 }
 
-
+.loginTemplate input{
+  width:100%;
+}
 
 md-card{
   background-color: white;

@@ -15,10 +15,29 @@
  *     along with the FamilyDAM Project.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-/**
- * Define the required js libraries needed for this application. The compiler will merge them all into a single download
- */
-//require('jquery');
-require('moment');
+var ContentService = function($rootScope, $http, AuthService)
+{
 
+    /**
+     * Return all of the data for a single node
+     * @param path
+     * @param successCallback
+     * @param errorCallback
+     * @returns Object
+     */
+    this.getNodeById = function( id )
+    {
+        $http.defaults.headers.common['Authorization'] = AuthService.getToken();
 
+        var searchPath = "/api/data/" +id;
+
+        var method =  $http.get($rootScope.baseUrl +searchPath);
+        return method.then(function(result){
+            return result.data;
+        });
+    };
+
+};
+
+ContentService.$inject = ['$rootScope', '$http', 'authService'];
+module.exports = ContentService;

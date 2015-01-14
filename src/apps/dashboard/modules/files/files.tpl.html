@@ -1,15 +1,15 @@
 <!-- MAIN -->
-<div class="filesBody" flex layout="vertical">
+<div class="filesBody" flex layout="column">
 
-    <md-content>
+    <md-content  style="width:100%;">
         <md-subheader class="md-primary">Folders</md-subheader>
         <md-list>
             <md-item  ng-repeat="folder in folderList">
                 <md-item-content>
-                    <md-card class="folder" layout="horizontal">
+                    <md-card class="folder" layout="row">
                         <div class="icon"></div>
-                        <div>
-                            <h3>{{folder.name}}</h3>
+                        <div style="text-align: center">
+                            <h2>{{folder.name}}</h2>
                         </div>
                     </md-card>
                 </md-item-content>
@@ -21,12 +21,12 @@
         <md-list>
             <md-item  ng-repeat="file in fileList ">
                 <md-item-content>
-                    <md-card class="file" layout="horizontal">
+                    <md-card class="file" layout="row">
                         <div class="thumbnail">
                             <img src="http://localhost:9000{{file.path}}?token={{token}}&rendition=thumbnail.200"/>
                         </div>
                         <div>
-                            <h3>{{file.name}}</h3>
+                            <h3 style="text-align: left">{{file.name}}</h3>
                         </div>
                     </md-card>
                 </md-item-content>

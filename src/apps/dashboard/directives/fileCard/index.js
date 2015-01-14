@@ -36,13 +36,14 @@ module.exports = angular.module('familydam.directives.fileCard', ['familydam.ser
 
                 $scope.toggleSelection = function()
                 {
-                    $scope.$root.$broadcast('root:selectedCard', {file:$scope.file});
+                    $scope.$root.$broadcast('nav:selectImage', {file:this.file});
+                    //$state.go('home.photos.details', {photoId:data.file.path, file:data.file});
                 };
 
                 // unselect all
                 $scope.deselect = function(file_)
                 {
-                    $scope.$root.$broadcast('root:selectedCard', {file:null});
+                    $scope.$root.$broadcast('nav:photos', {file:null});
                 };
             },
 
@@ -55,23 +56,11 @@ module.exports = angular.module('familydam.directives.fileCard', ['familydam.ser
                     scope.template = "directives/fileCard/photoCard.tpl.html";
                 });
 
+                // switch the ui
+                scope.$on("nav:photos", function (event, data) {
+                    scope.visible = true;
+                    scope.template = "directives/fileCard/photoCard.tpl.html";
 
-                scope.$on("root:selectedCard", function (event, data) {
-
-                    if( data.file == null ){
-                        scope.visible = true;
-                        scope.template = "directives/fileCard/photoCard.tpl.html";
-                    }else{
-                        if (data.file.path != scope.file.path)
-                        {
-                            scope.visible = false;
-                            scope.template = "directives/fileCard/photoCard.tpl.html";
-                        } else
-                        {
-                            scope.visible = true;
-                            scope.template = "directives/fileCard/photoCard-details.tpl.html";
-                        }
-                    }
                 });
 
             },

@@ -15,10 +15,23 @@
  *     along with the FamilyDAM Project.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-/**
- * Define the required js libraries needed for this application. The compiler will merge them all into a single download
- */
-//require('jquery');
-require('moment');
+
+.photoDetails {
+  width: 100%;
+}
 
 
+/********************
+** Overrides
+********************/
+.photoDetails md-tabs.md-default-theme .md-header {
+  background-color: #fff;
+}
+
+.photoDetails md-tabs.md-default-theme md-tab.active {
+  color: #000;
+}
+
+.photoDetails md-tabs.md-default-theme md-tab {
+  color: rgb(187,222,251);
+}

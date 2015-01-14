@@ -1,10 +1,9 @@
 <!-- MAIN -->
-<div layout="vertical"  class="uploaderBody" layout-align="center center" flex>
+<div layout="column"  class="uploaderBody" layout-align="center center" >
     <div class="uploadButtons">
         <div>
             <strong>Upload Location:</strong> {{visiblePath}}
         </div>
-        <br/><br/>
 
         <div>
             Drag files, folders or
@@ -15,28 +14,24 @@
                     ng-click="openFileDialog()">Select Files</button>
         </div>
         -->
-        <div layout="horizontal">
+        <div layout="row">
             <input type="file" multiple
                    class="md-raised md-button md-primary"
                    onChange="angular.element(this).scope().fileSelectionHandler(event)"
                    value="Select Files"
-                   style="width:85px"/>
+                   style="width:95px"/>
 
             <input type="file" webkitdirectory="" directory=""
                    class="md-raised md-button md-primary"
                    onChange="angular.element(this).scope().fileSelectionHandler(event)"
                    value="Select Folder"
-                   style="width:85px"/>
+                   style="width:95px"/>
 
             <md-button
                    class="md-raised md-button md-primary"
-                   ng-click="copyFiles()">Upload</md-button>
+                   ng-click="copyFiles()">Copy Files</md-button>
         </div>
 
-        <div layout="horizontal">
-            <md-button class="md-raised md-button md-primary" ng-click="uploadFiles();">Copy Files</md-button>
-            <md-button class="md-raised md-button md-primary" ng-click="linkFiles()">Link Files</md-button>
-        </div>
     </div>
 
 
@@ -46,7 +41,7 @@
             <md-list>
                 <md-item ng-repeat="folder in folderList">
                     <md-item-content>
-                        <md-card class="folder" layout="horizontal">
+                        <md-card class="folder" layout="row">
                             <div class="icon"></div>
                             <div>
                                 <h3>{{folder.name}}</h3>
@@ -67,7 +62,7 @@
             <md-list>
                 <md-item ng-repeat="file in fileList ">
                     <md-item-content>
-                        <md-card class="file" layout="horizontal">
+                        <md-card class="file" layout="row">
                             <div class="thumbnail">
                                 <img src="{{file.path}}"
                                      data-path="{{file.path}}"/>

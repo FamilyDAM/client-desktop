@@ -60,6 +60,12 @@ body
   width: 10em;
 }
 
+md-content{
+  width:100%;
+}
+md-list{
+  width:100%;
+}
 
 preview-photo::shadow .metadata
 {
@@ -213,4 +219,5 @@ core-list
 @import "modules/home/home";
 @import "modules/files/files";
 @import "modules/photos/photos";
+@import "modules/photos-details/photodetails";
 @import "modules/uploader/uploader";

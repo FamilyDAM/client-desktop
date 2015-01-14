@@ -1,36 +1,68 @@
-.dirTree{
-  width: 100%;
+.dirTree
+{
+  width:      100%;
   min-height: 150px;
 }
 
-.dirTree .treeItem {
-  display:flex;
+.dirTree ul
+{
+  list-style-type: none;
+}
+
+.dirTree li > ul
+{
+  -webkit-padding-start: 0px;
+}
+
+.dirTree li
+{
+  background: url("./assets/icons/ic_folder_open_24px.svg") no-repeat !important;
+  padding:    0px 30px !important;
+  font-size: 17px; font-size: 1.7rem;
+  line-height: 25px;
+  cursor: pointer;
+}
+
+.dirTree li:hover
+{
+    text-decoration: underline;
+}
+
+.dirTree .treeItem2
+{
+  display: flex;
   padding: 0px;
-
 }
 
-.dirTree .treeList {
+.dirTree .treeList2
+{
   margin-right: 20px;
-  margin-left: 20px;
+  margin-left:  20px;
+  margin-top:   10px;
 }
 
-.dirTree .treeCollapsed {
+.dirTree .treeCollapsed
+{
   background: url("./assets/icons/ic_folder_24px.svg") no-repeat !important;
-  padding: 5px 15px!important;
+  padding:    5px 15px !important;
 }
 
-.dirTree .treeExpanded {
-  background: url("./assets/iconsn/ic_folder_open_24px.svg") no-repeat !important;
-  padding: 5px 15px !important;
+.dirTree .treeExpanded
+{
+  background: url("./assets/icons/ic_folder_open_24px.svg") no-repeat !important;
+  padding:    5px 15px !important;
 }
 
-.dirTree .treeLeaf {
+.dirTree .treeLeaf
+{
   background: url("./assets/icons/ic_folder_24px.svg") no-repeat !important;
-  padding: 5px 15px!important;
+  padding:    5px 15px !important;
 }
 
-.dirTree .treeLabel
+.dirTree .treeLabel2
 {
   text-transform: capitalize;
-  font-size: 18px; font-size: 1.8rem;
+  font-size:      18px;
+  font-size:      1.8rem;
+  line-height:    3rem;
 }

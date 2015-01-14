@@ -43,7 +43,7 @@ var HomeController = function ($scope, $rootScope, $window, $location, $state, $
 
     $scope.$on('$stateChangeSuccess', function(){
         $rootScope.pageTitle = " ";
-        $rootScope.leftSidebarVisible = false;
+        $rootScope.leftSidebarVisible = true;
         $rootScope.rightSidebarVisible = false;
         //$mdSidenav("rightDrawer").close();
 

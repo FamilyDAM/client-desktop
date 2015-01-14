@@ -1,20 +1,20 @@
 <!-- MAIN -->
-<div class="photoBody" flex layout="vertical">
+<div class="photoBody" flex layout="column" style="width:inherit;">
 
     <md-content>
-        <md-list layout="vertical">
+        <md-list layout="column">
             <md-toolbar class="md-theme-light" ng-show="showHeaders()">
                 <h1 class="md-toolbar-tools">
                     <span>Folders</span>
                 </h1>
             </md-toolbar>
-            <md-list layout="horizontal">
+            <md-list layout="row">
                 <md-item ng-repeat="folder in folderList">
                     <md-item-content>
-                        <md-card class="folder" layout="vertical">
+                        <md-card class="folder" layout="column">
                             <div class="icon"></div>
-                            <div>
-                                <h3>{{folder.name}}</h3>
+                            <div style="text-align: center">
+                                <h2>{{folder.name}}</h2>
                             </div>
                         </md-card>
                     </md-item-content>
@@ -27,7 +27,7 @@
                     <span>Files</span>
                 </h1>
             </md-toolbar>
-            <div>
+            <div style="width:100%;">
                 <div ng-repeat="file in fileList" file-card file="file"></div>
             </div>
         </md-list>

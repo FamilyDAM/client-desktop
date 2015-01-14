@@ -350,7 +350,7 @@ module.exports = function (grunt) {
 				tasks: ['build-js', 'copy:dist'] /*, 'deploy'*/
 			},
 			html: {
-				files: ['src/apps/**/*.tpl.html', 'src/**/*.html'],
+				files: ['src/**/*.tpl.html', 'src/**/*.html'],
 				tasks: ['copy:statichtml', 'html2js', 'browserify2:dashboard', 'copy:dist']  /*, 'deploy'*/
 			}
 		},

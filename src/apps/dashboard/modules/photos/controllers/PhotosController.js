@@ -15,7 +15,7 @@
  *     along with the FamilyDAM Project.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-var PhotosController = function($window, $document, $scope, $rootScope, $location, $timeout, directoryService)
+var PhotosController = function($window, $document, $scope, $rootScope, $location, $timeout, searchService)
 {
     var dirListPending = false;
 
@@ -35,16 +35,18 @@ var PhotosController = function($window, $document, $scope, $rootScope, $locatio
     });
 
 
-    $scope.$on('$stateChangeSuccess', function(){
-        if( !dirListPending )
+    $scope.$on('$stateChangeSuccess', function(arg1, arg2, arg3){
+
+        if (!dirListPending)
         {
             dirListPending = true;
-            getDirectoryList("/~/photos");
+            searchPhotos("/~/photos");
 
             $rootScope.pageTitle = " > Photos";
             $rootScope.leftSidebarVisible = true;
             $rootScope.rightSidebarVisible = false;
         }
+
     });
 
 
@@ -53,10 +55,10 @@ var PhotosController = function($window, $document, $scope, $rootScope, $locatio
     };
 
 
-    var getDirectoryList = function(path_)
+    var searchPhotos = function(path_)
     {
         //todo: add spinner
-        var result = directoryService.list(path_).then(
+        var result = searchService.searchImages(100, 0, path_).then(
             function(data)
             {
                 dirListPending = false;
@@ -106,5 +108,5 @@ var PhotosController = function($window, $document, $scope, $rootScope, $locatio
     };
 };
 
-PhotosController.$inject = ['$window', '$document', '$scope', '$rootScope', '$location', '$timeout', 'directoryService'];
+PhotosController.$inject = ['$window', '$document', '$scope', '$rootScope', '$location', '$timeout', 'searchService'];
 module.exports = PhotosController;

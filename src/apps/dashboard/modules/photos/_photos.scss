@@ -13,13 +13,15 @@
   width: 200px;
   min-height: 225px;
   text-align: left;
+
 }
 
 .photoBody md-card.folder .icon{
   background: url("./assets/icons/ic_folder_48px.svg") no-repeat !important;
   margin: 0px 10px !important;
-  width: 100px;
-  height: 100px;
+  width: 200px;
+  height: 200px;
+  background-size: 175px !important;
 }
 
 

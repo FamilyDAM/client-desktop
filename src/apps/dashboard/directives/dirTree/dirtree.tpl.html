@@ -1,21 +1,47 @@
 <div class="dirTree">
-    <treecontrol id="treeControl" class="tree-classic"
+
+    <md-toolbar style="background-color: #F5F5F5;">
+        <h2 class="md-toolbar-tools">
+            <div flex style="color:#212121;">Folders</div>
+            <span ng-click="addFolder($event, node)" style="display: table-cell;">
+            <img src="assets/icons/ic_add_48px.svg" style="width:36px; height: 36px;">
+            </span>
+        </h2>
+    </md-toolbar>
+
+
+    <ul class="tree">
+        <li ng-repeat="dir in directories" ng-click="selectNode(dir)">{{dir.name}}
+            <ul class="tree">
+                <li ng-repeat="dir2 in dir.children" ng-click="selectNode(dir2)">{{dir2.name}}
+                    <ul class="tree">
+                        <li ng-repeat="dir3 in dir2.children" ng-click="selectNode(dir3)">{{dir3.name}}</li>
+                    </ul>
+                </li>
+            </ul>
+        </li>
+    </ul>
+
+
+    <!--
+    <treecontrol id="treeControl"
                  tree-model="directories"
                  options="treeOptions"
                  on-selection="selectNode(node)">
+        <div >
             <span style="display: table-cell; width: 100%">{{node.name}}</span>
-
+-->
+        <!--
             <span ng-click="editFolder($event, node)" style="display: table-cell;">
                 <img src="assets/icons/ic_edit_24px.svg" style="width:18px; height: 18px;">
-            </span>
-
-            <span ng-click="addFolder($event, node)" style="display: table-cell;">
-                <img src="assets/icons/ic_add_circle_24px.svg" style="width:18px; height: 18px;">
             </span>
 
             <span ng-click="deleteFolder($event, node)" style="display: table-cell;">
                 <img src="assets/icons/ic_remove_circle_24px.svg" style="width:18px; height: 18px;">
             </span>
-
+        -->
+    <!--
+        </div>
     </treecontrol>
+    -->
 </div>

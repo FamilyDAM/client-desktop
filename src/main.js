@@ -98,8 +98,8 @@ app.on('ready', function() {
 
 
     // and load the index.html of the app.
-    console.log('open:' +'file://' + __dirname + '/splash.html');
-    splashWindow.loadUrl('file://' + __dirname + '/splash.html');
+    console.log('open:' +'file://' + __dirname + '/splash/index.html');
+    splashWindow.loadUrl('file://' + __dirname + '/splash/index.html');
     splashWindow.focus();
     //splashWindow.loadUrl('http://localhost:8080');
 
@@ -137,7 +137,7 @@ app.on('ready', function() {
     var timer = setInterval(function(){
         clearTimeout(timer);
         configurationManager.initializeServer(app, configWindow);
-    }, 1000);
+    }, 20000);
 
 
     // Start the embedded Sling Server

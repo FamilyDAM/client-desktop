@@ -24,6 +24,8 @@ module.exports = angular.module('familydam.services', [])
     .service('loginService', require('./LoginService'))
     .service('importService', require('./ImportService'))
     .service('directoryService', require('./DirectoryService'))
+    .service('searchService', require('./SearchService'))
+    .service('contentService', require('./ContentService'))
 
     .factory("transformRequestAsFormPost", function() {
     // I provide a request-transformation method that is used to prepare the outgoing

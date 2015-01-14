@@ -15,19 +15,23 @@
  *     along with the FamilyDAM Project.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-module.exports = angular.module('dashboard.photos', [])
-    .controller('PhotosController', require('./controllers/PhotosController'))
+module.exports = angular.module('dashboard.photos-details', [])
+    .controller('PhotosDetailsController', require('./controllers/PhotosDetailsController'))
 
     .config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, $urlRouterProvider) {
-        $stateProvider.state('home.photos', {
-            url: '^/photos',
+
+        $stateProvider.state('home.photos-details', {
+            url: '^/photos/:photoId',
             views: {
                 ".body": {
-                    templateUrl: "modules/photos/photos.tpl.html",
-                    controller: "PhotosController"
+                    templateUrl: "modules/photos-details/details.tpl.html",
+                    controller: "PhotosDetailsController"
                 },
                 ".leftDrawer": {
-                    templateUrl: "modules/photos/left-drawer.tpl.html"
+                    templateUrl: "modules/photos-details/left-drawer.tpl.html"
+                },
+                ".rightDrawer": {
+                    templateUrl: "modules/photos-details/right-drawer.tpl.html"
                 }
             }
         });

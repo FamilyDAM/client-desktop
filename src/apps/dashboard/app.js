@@ -29,6 +29,7 @@ var App = angular.module('dashboard', [
     require('./modules/home/index').name,
     require('./modules/files/index').name,
     require('./modules/photos/index').name,
+    require('./modules/photos-details/index').name,
     require('./modules/uploader/index').name,
     require('./directives/dirTree').name,
     require('./directives/fileCard').name
@@ -56,8 +57,15 @@ var App = angular.module('dashboard', [
     }])
 
 
-    .config(['$stateProvider', '$urlRouterProvider', '$httpProvider', function ($stateProvider, $urlRouterProvider, $httpProvider)
+    .config(['$stateProvider', '$urlRouterProvider', '$httpProvider', '$mdThemingProvider', function ($stateProvider, $urlRouterProvider, $httpProvider, $mdThemingProvider)
     {
+        $mdThemingProvider.theme('default')
+            .primaryColor('blue')
+            .accentColor('deep-purple', {
+                'default': '900'
+            });
+
+
         $httpProvider.interceptors.push('basicAuthInjector');
 
         $urlRouterProvider.rule(function ($injector, $location) {
@@ -105,6 +113,17 @@ App.run(["$rootScope", '$state', 'appService',
             }
         });
          ***/
+
+
+        $rootScope.$on("nav:selectImage", function(arg1, data){
+            $state.go('home.photos-details', {photoId:data.file.id, file:data.file});
+        });
+
+        $rootScope.$on("nav:photos", function(arg1, arg2){
+            $state.go('home.photos');
+        });
+
+
     }]);
 
 
